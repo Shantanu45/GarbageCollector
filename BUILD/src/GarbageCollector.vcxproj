@@ -61,7 +61,7 @@
       <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -107,7 +107,7 @@
       <ExceptionHandling>Sync</ExceptionHandling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
       <Optimization></Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -183,10 +183,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\DXProjects\GarbageCollector\src\MemoryManager\ObjectHeader.h" />
     <ClCompile Include="D:\DXProjects\GarbageCollector\src\MemoryManager\MemoryManager.cpp" />
     <ClInclude Include="D:\DXProjects\GarbageCollector\src\MemoryManager\MemoryManager.h" />
-    <ClCompile Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList.cpp" />
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList.h" />
+    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\IAllocator.h" />
+    <ClCompile Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList\FreeList.cpp" />
+    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList\FreeList.h" />
     <ClCompile Include="D:\DXProjects\GarbageCollector\src\Value\Value.cpp" />
     <ClInclude Include="D:\DXProjects\GarbageCollector\src\Value\Value.h" />
+    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Utils\number-util.h" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

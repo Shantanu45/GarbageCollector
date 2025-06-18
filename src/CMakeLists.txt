@@ -13,9 +13,14 @@ set(MemoryManager
 )
 source_group("MemoryManager" FILES ${MemoryManager})
 
+set(FreeList
+	"Allocators/FreeList/FreeList.cpp"
+	"Allocators/FreeList/FreeList.h"
+)
+source_group("Allocators/FreeList" FILES ${FreeList})
+
 set(Allocators
-	"Allocators/FreeList.cpp"
-	"Allocators/FreeList.h"
+	"Allocators/IAllocator.h"
 )
 source_group("Allocators" FILES ${Allocators})
 
@@ -25,11 +30,18 @@ set(Value
 )
 source_group("Value" FILES ${Value})
 
+set(Utils
+	"Utils/number-util.h"
+)
+source_group("Utils" FILES ${Utils})
+
 set(ALL_FILES
 	${UNGROUPED_FILES}
 	${MemoryManager}
 	${Allocators}
+	${FreeList}
 	${Value}
+	${Utils}
 )
 
 
@@ -53,7 +65,7 @@ if(MSVC)
 	if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
 		target_compile_options(${PROJECT_NAME} PRIVATE
 			$<$<CONFIG:Debug>:
-				/std:c++17;
+				/std:c++20;
 				/Od
 			>
 			$<$<CONFIG:Release>:

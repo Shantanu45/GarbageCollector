@@ -5,8 +5,8 @@
     <ClCompile Include="D:\DXProjects\GarbageCollector\src\MemoryManager\MemoryManager.cpp">
       <Filter>MemoryManager</Filter>
     </ClCompile>
-    <ClCompile Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList.cpp">
-      <Filter>Allocators</Filter>
+    <ClCompile Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList\FreeList.cpp">
+      <Filter>Allocators\FreeList</Filter>
     </ClCompile>
     <ClCompile Include="D:\DXProjects\GarbageCollector\src\Value\Value.cpp">
       <Filter>Value</Filter>
@@ -22,11 +22,17 @@
     <ClInclude Include="D:\DXProjects\GarbageCollector\src\MemoryManager\MemoryManager.h">
       <Filter>MemoryManager</Filter>
     </ClInclude>
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList.h">
+    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\IAllocator.h">
       <Filter>Allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList\FreeList.h">
+      <Filter>Allocators\FreeList</Filter>
     </ClInclude>
     <ClInclude Include="D:\DXProjects\GarbageCollector\src\Value\Value.h">
       <Filter>Value</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Utils\number-util.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -36,8 +42,14 @@
     <Filter Include="Allocators">
       <UniqueIdentifier>{9C0E2F30-3039-3006-9C36-429A8D3E6A47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Allocators\FreeList">
+      <UniqueIdentifier>{770F52FA-ABE7-3C5D-AB71-D161D8D880AD}</UniqueIdentifier>
+    </Filter>
     <Filter Include="MemoryManager">
       <UniqueIdentifier>{4A38EE07-0345-3CAA-87F8-1800F5B5A67F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{27EE3D8B-9BF2-3D4D-B168-CBA86289B1C0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Value">
       <UniqueIdentifier>{0A22DAEB-07E0-3833-A24F-480576429603}</UniqueIdentifier>
