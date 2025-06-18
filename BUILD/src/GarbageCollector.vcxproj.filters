@@ -1,58 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\DXProjects\GarbageCollector\src\main.cpp" />
-    <ClCompile Include="D:\DXProjects\GarbageCollector\src\MemoryManager\MemoryManager.cpp">
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\src\main.cpp" />
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\src\MemoryManager\MemoryManager.cpp">
       <Filter>MemoryManager</Filter>
     </ClCompile>
-    <ClCompile Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList\FreeList.cpp">
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\src\Allocators\FreeList\FreeList.cpp">
       <Filter>Allocators\FreeList</Filter>
     </ClCompile>
-    <ClCompile Include="D:\DXProjects\GarbageCollector\src\Value\Value.cpp">
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\src\Value\Value.cpp">
       <Filter>Value</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\MemoryManager\Heap.h">
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\MemoryManager\Heap.h">
       <Filter>MemoryManager</Filter>
     </ClInclude>
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\MemoryManager\ObjectHeader.h">
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\MemoryManager\ObjectHeader.h">
       <Filter>MemoryManager</Filter>
     </ClInclude>
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\MemoryManager\MemoryManager.h">
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\MemoryManager\MemoryManager.h">
       <Filter>MemoryManager</Filter>
     </ClInclude>
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\IAllocator.h">
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\Allocators\IAllocator.h">
       <Filter>Allocators</Filter>
     </ClInclude>
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList\FreeList.h">
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\Allocators\FreeList\FreeList.h">
       <Filter>Allocators\FreeList</Filter>
     </ClInclude>
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Value\Value.h">
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\Value\Value.h">
       <Filter>Value</Filter>
     </ClInclude>
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Utils\number-util.h">
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\Utils\number-util.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\DXProjects\GarbageCollector\src\CMakeLists.txt" />
+    <CustomBuild Include="D:\Code\Memory\GarbageCollector\src\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Allocators">
-      <UniqueIdentifier>{9C0E2F30-3039-3006-9C36-429A8D3E6A47}</UniqueIdentifier>
+      <UniqueIdentifier>{4063D218-E0A7-37E5-B9F0-56DC7EE7D435}</UniqueIdentifier>
     </Filter>
     <Filter Include="Allocators\FreeList">
-      <UniqueIdentifier>{770F52FA-ABE7-3C5D-AB71-D161D8D880AD}</UniqueIdentifier>
+      <UniqueIdentifier>{ED5F6480-3C4D-3DD8-8460-BDF4FB8000B1}</UniqueIdentifier>
     </Filter>
     <Filter Include="MemoryManager">
-      <UniqueIdentifier>{4A38EE07-0345-3CAA-87F8-1800F5B5A67F}</UniqueIdentifier>
+      <UniqueIdentifier>{17BAA1FD-D22F-34EA-89F1-A766EA751B07}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utils">
-      <UniqueIdentifier>{27EE3D8B-9BF2-3D4D-B168-CBA86289B1C0}</UniqueIdentifier>
+      <UniqueIdentifier>{BE97EE5E-4150-325F-93F8-0017B633B946}</UniqueIdentifier>
     </Filter>
     <Filter Include="Value">
-      <UniqueIdentifier>{0A22DAEB-07E0-3833-A24F-480576429603}</UniqueIdentifier>
+      <UniqueIdentifier>{AB6E0AE1-C1F3-3312-B644-0096F07367CC}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

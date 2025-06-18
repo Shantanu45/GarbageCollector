@@ -14,7 +14,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{DB7A9B2C-9A2E-3F79-99FD-B2BCB20E1887}</ProjectGuid>
+    <ProjectGuid>{9449FECC-394F-325D-8EF0-8E44C27622FB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -73,7 +73,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\DXProjects\GarbageCollector\BUILD\CMakeFiles\f987f9aae9ca6b84c52e946618c4c8c5\RUN_TESTS_force.rule">
+    <CustomBuild Include="D:\Code\Memory\GarbageCollector\BUILD\CMakeFiles\b8dfffe40d23160bb5c0b36a83e442c0\RUN_TESTS_force.rule">
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
@@ -86,7 +86,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\DXProjects\GarbageCollector\BUILD\test\CMakeFiles\RUN_TESTS_force</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Code\Memory\GarbageCollector\BUILD\test\CMakeFiles\RUN_TESTS_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
@@ -101,15 +101,15 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\DXProjects\GarbageCollector\BUILD\test\CMakeFiles\RUN_TESTS_force</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Code\Memory\GarbageCollector\BUILD\test\CMakeFiles\RUN_TESTS_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="D:\DXProjects\GarbageCollector\BUILD\ZERO_CHECK.vcxproj">
-      <Project>{79D30328-7196-3755-9080-47B78577E455}</Project>
+    <ProjectReference Include="D:\Code\Memory\GarbageCollector\BUILD\ZERO_CHECK.vcxproj">
+      <Project>{AC725CA4-A780-3F9E-BFDA-F77BE30ACE24}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

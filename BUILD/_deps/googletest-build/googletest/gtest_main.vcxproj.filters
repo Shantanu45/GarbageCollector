@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest\src\gtest_main.cc">
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest\src\gtest_main.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest\CMakeLists.txt" />
+    <CustomBuild Include="D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{9B9D4691-FC17-300D-8D72-1DAC178EF894}</UniqueIdentifier>
+      <UniqueIdentifier>{4C5E9AF3-8D22-36F6-977E-5F1361B92BAD}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

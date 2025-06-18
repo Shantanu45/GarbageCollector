@@ -13,7 +13,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{9C0264ED-72E7-3CB4-9F50-936CBEC55413}</ProjectGuid>
+    <ProjectGuid>{C03E89CD-A1C6-3C6D-B617-4D6023941CDF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -49,12 +49,12 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-subbuild\CMakeFiles\c2e6396ac4632d8e9f8549fd1c027399\generate.stamp.rule">
+    <CustomBuild Include="D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-subbuild\CMakeFiles\219a1ba7d05ca55ebfac0981b28fce4b\generate.stamp.rule">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Checking Build System</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/DXProjects/GarbageCollector/BUILD/_deps/googletest-subbuild -BD:/DXProjects/GarbageCollector/BUILD/_deps/googletest-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/DXProjects/GarbageCollector/BUILD/_deps/googletest-subbuild/googletest-populate.sln
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Code/Memory/GarbageCollector/BUILD/_deps/googletest-subbuild -BD:/Code/Memory/GarbageCollector/BUILD/_deps/googletest-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/Code/Memory/GarbageCollector/BUILD/_deps/googletest-subbuild/googletest-populate.sln
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -62,8 +62,8 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.0\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\PatchInfo.txt.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\RepositoryInfo.txt.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\UpdateInfo.txt.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\cfgcmd.txt.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\download.cmake.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\extractfile.cmake.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\mkdirs.cmake.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\Platform\WindowsPaths.cmake;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-subbuild\CMakeFiles\4.0.3\CMakeSystem.cmake;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-subbuild\CMakeLists.txt;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-subbuild\googletest-populate-prefix\tmp\googletest-populate-mkdirs.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-subbuild\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.0\Modules\CMakeDetermineSystem.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CMakeSystem.cmake.in;C:\Program Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\PatchInfo.txt.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\RepositoryInfo.txt.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\UpdateInfo.txt.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\cfgcmd.txt.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\download.cmake.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\extractfile.cmake.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\mkdirs.cmake.in;C:\Program Files\CMake\share\cmake-4.0\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\Platform\WindowsPaths.cmake;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-subbuild\CMakeFiles\4.0.2\CMakeSystem.cmake;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-subbuild\CMakeLists.txt;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-subbuild\googletest-populate-prefix\tmp\googletest-populate-mkdirs.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-subbuild\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>

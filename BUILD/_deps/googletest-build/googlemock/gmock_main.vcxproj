@@ -14,7 +14,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{79493A19-9921-3B7C-AAD5-1DFCE917F40A}</ProjectGuid>
+    <ProjectGuid>{E16923FF-4497-3E0A-8753-EB9D2E08B54E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -41,18 +41,18 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\DXProjects\GarbageCollector\BUILD\lib\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Code\Memory\GarbageCollector\BUILD\lib\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">gmock_main.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">gmock_main</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\DXProjects\GarbageCollector\BUILD\lib\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Code\Memory\GarbageCollector\BUILD\lib\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">gmock_main.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">gmock_main</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) -J -utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -73,15 +73,15 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <ProgramDataBaseFileName>D:\DXProjects\GarbageCollector\BUILD\lib\Debug\gmock_mainpdb_debug_postfix-NOTFOUND.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>D:\Code\Memory\GarbageCollector\BUILD\lib\Debug\gmock_mainpdb_debug_postfix-NOTFOUND.pdb</ProgramDataBaseFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_UNICODE;UNICODE;_WIN32;STRICT;WIN32_LEAN_AND_MEAN;GTEST_HAS_PTHREAD=0;_HAS_EXCEPTIONS=1;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -91,7 +91,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) -J -utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -112,15 +112,15 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <ProgramDataBaseFileName>D:\DXProjects\GarbageCollector\BUILD\lib\Release\gmock_main.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>D:\Code\Memory\GarbageCollector\BUILD\lib\Release\gmock_main.pdb</ProgramDataBaseFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_UNICODE;UNICODE;_WIN32;STRICT;WIN32_LEAN_AND_MEAN;GTEST_HAS_PTHREAD=0;_HAS_EXCEPTIONS=1;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest\include;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -129,11 +129,11 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\CMakeLists.txt">
+    <CustomBuild Include="D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/DXProjects/GarbageCollector/BUILD/_deps/googletest-src/googlemock/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/Code/Memory/GarbageCollector/BUILD/_deps/googletest-src/googlemock/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/DXProjects/GarbageCollector -BD:/DXProjects/GarbageCollector/BUILD --check-stamp-file D:/DXProjects/GarbageCollector/BUILD/_deps/googletest-build/googlemock/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Code/Memory/GarbageCollector -BD:/Code/Memory/GarbageCollector/BUILD --check-stamp-file D:/Code/Memory/GarbageCollector/BUILD/_deps/googletest-build/googlemock/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -141,12 +141,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.0\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindThreads.cmake;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\cmake\gmock.pc.in;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\cmake\gmock_main.pc.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-build\googlemock\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.0\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindThreads.cmake;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\cmake\gmock.pc.in;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\cmake\gmock_main.pc.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-build\googlemock\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/DXProjects/GarbageCollector/BUILD/_deps/googletest-src/googlemock/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/Code/Memory/GarbageCollector/BUILD/_deps/googletest-src/googlemock/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/DXProjects/GarbageCollector -BD:/DXProjects/GarbageCollector/BUILD --check-stamp-file D:/DXProjects/GarbageCollector/BUILD/_deps/googletest-build/googlemock/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Code/Memory/GarbageCollector -BD:/Code/Memory/GarbageCollector/BUILD --check-stamp-file D:/Code/Memory/GarbageCollector/BUILD/_deps/googletest-build/googlemock/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -154,20 +154,20 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.0\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindThreads.cmake;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\cmake\gmock.pc.in;D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\cmake\gmock_main.pc.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-build\googlemock\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.0\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.0\Modules\FindThreads.cmake;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\cmake\gmock.pc.in;D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\cmake\gmock_main.pc.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-build\googlemock\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googletest\src\gtest-all.cc" />
-    <ClCompile Include="D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\src\gmock-all.cc" />
-    <ClCompile Include="D:\DXProjects\GarbageCollector\BUILD\_deps\googletest-src\googlemock\src\gmock_main.cc" />
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googletest\src\gtest-all.cc" />
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\src\gmock-all.cc" />
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\BUILD\_deps\googletest-src\googlemock\src\gmock_main.cc" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="D:\DXProjects\GarbageCollector\BUILD\ZERO_CHECK.vcxproj">
-      <Project>{79D30328-7196-3755-9080-47B78577E455}</Project>
+    <ProjectReference Include="D:\Code\Memory\GarbageCollector\BUILD\ZERO_CHECK.vcxproj">
+      <Project>{AC725CA4-A780-3F9E-BFDA-F77BE30ACE24}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

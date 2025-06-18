@@ -14,7 +14,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D57732FA-A0A9-344D-98F2-1D3D716E41CD}</ProjectGuid>
+    <ProjectGuid>{3D2968B4-3D8B-37A1-891E-4B7F217A32FA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -41,13 +41,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\DXProjects\GarbageCollector\x64\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Code\Memory\GarbageCollector\x64\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GarbageCollector.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GarbageCollector</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\DXProjects\GarbageCollector\x64\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Code\Memory\GarbageCollector\x64\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GarbageCollector.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GarbageCollector</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
@@ -90,8 +90,8 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/DXProjects/GarbageCollector/x64/Debug/GarbageCollector.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/DXProjects/GarbageCollector/x64/Debug/GarbageCollector.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/Code/Memory/GarbageCollector/x64/Debug/GarbageCollector.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Code/Memory/GarbageCollector/x64/Debug/GarbageCollector.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -137,9 +137,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/DXProjects/GarbageCollector/x64/Release/GarbageCollector.lib</ImportLibrary>
+      <ImportLibrary>D:/Code/Memory/GarbageCollector/x64/Release/GarbageCollector.lib</ImportLibrary>
       <OptimizeReferences>true</OptimizeReferences>
-      <ProgramDataBaseFile>D:/DXProjects/GarbageCollector/x64/Release/GarbageCollector.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>D:/Code/Memory/GarbageCollector/x64/Release/GarbageCollector.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -147,11 +147,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\DXProjects\GarbageCollector\src\CMakeLists.txt">
+    <CustomBuild Include="D:\Code\Memory\GarbageCollector\src\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/DXProjects/GarbageCollector/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/Code/Memory/GarbageCollector/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/DXProjects/GarbageCollector -BD:/DXProjects/GarbageCollector/BUILD --check-stamp-file D:/DXProjects/GarbageCollector/BUILD/src/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Code/Memory/GarbageCollector -BD:/Code/Memory/GarbageCollector/BUILD --check-stamp-file D:/Code/Memory/GarbageCollector/BUILD/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -159,12 +159,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\DXProjects\GarbageCollector\CMake\Default.cmake;D:\DXProjects\GarbageCollector\CMake\DefaultCXX.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\DXProjects\GarbageCollector\BUILD\src\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Code\Memory\GarbageCollector\CMake\Default.cmake;D:\Code\Memory\GarbageCollector\CMake\DefaultCXX.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Code\Memory\GarbageCollector\BUILD\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/DXProjects/GarbageCollector/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/Code/Memory/GarbageCollector/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/DXProjects/GarbageCollector -BD:/DXProjects/GarbageCollector/BUILD --check-stamp-file D:/DXProjects/GarbageCollector/BUILD/src/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Code/Memory/GarbageCollector -BD:/Code/Memory/GarbageCollector/BUILD --check-stamp-file D:/Code/Memory/GarbageCollector/BUILD/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -172,28 +172,28 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\DXProjects\GarbageCollector\CMake\Default.cmake;D:\DXProjects\GarbageCollector\CMake\DefaultCXX.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\DXProjects\GarbageCollector\BUILD\src\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Code\Memory\GarbageCollector\CMake\Default.cmake;D:\Code\Memory\GarbageCollector\CMake\DefaultCXX.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Code\Memory\GarbageCollector\BUILD\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="D:\DXProjects\GarbageCollector\src\main.cpp" />
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\MemoryManager\Heap.h" />
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\MemoryManager\ObjectHeader.h" />
-    <ClCompile Include="D:\DXProjects\GarbageCollector\src\MemoryManager\MemoryManager.cpp" />
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\MemoryManager\MemoryManager.h" />
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\IAllocator.h" />
-    <ClCompile Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList\FreeList.cpp" />
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList\FreeList.h" />
-    <ClCompile Include="D:\DXProjects\GarbageCollector\src\Value\Value.cpp" />
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Value\Value.h" />
-    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Utils\number-util.h" />
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\src\main.cpp" />
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\MemoryManager\Heap.h" />
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\MemoryManager\ObjectHeader.h" />
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\src\MemoryManager\MemoryManager.cpp" />
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\MemoryManager\MemoryManager.h" />
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\Allocators\IAllocator.h" />
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\src\Allocators\FreeList\FreeList.cpp" />
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\Allocators\FreeList\FreeList.h" />
+    <ClCompile Include="D:\Code\Memory\GarbageCollector\src\Value\Value.cpp" />
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\Value\Value.h" />
+    <ClInclude Include="D:\Code\Memory\GarbageCollector\src\Utils\number-util.h" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="D:\DXProjects\GarbageCollector\BUILD\ZERO_CHECK.vcxproj">
-      <Project>{79D30328-7196-3755-9080-47B78577E455}</Project>
+    <ProjectReference Include="D:\Code\Memory\GarbageCollector\BUILD\ZERO_CHECK.vcxproj">
+      <Project>{AC725CA4-A780-3F9E-BFDA-F77BE30ACE24}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
