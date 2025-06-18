@@ -13,6 +13,13 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+if(MSVC)
+  set_target_properties(gtest         PROPERTIES FOLDER "ThirdParty/GTest")
+  set_target_properties(gtest_main    PROPERTIES FOLDER "ThirdParty/GTest")
+  set_target_properties(gmock         PROPERTIES FOLDER "ThirdParty/GTest")
+  set_target_properties(gmock_main    PROPERTIES FOLDER "ThirdParty/GTest")
+endif()
+
 source_group("" FILES ${UNGROUPED_FILES})
 
 set(ALL_FILES
