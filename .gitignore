@@ -34,3 +34,7 @@ CMakeSettings.json
 *.ncb
 *.ilk
 
+!/CMake/Default.cmake
+!/CMake/DefaultCXX.cmake
+!/CMake/DefaultFortran.cmake
+!/CMake/Utils.cmake
