@@ -19,10 +19,17 @@ set(Allocators
 )
 source_group("Allocators" FILES ${Allocators})
 
+set(Value
+	"Value/Value.cpp"
+	"Value/Value.h"
+)
+source_group("Value" FILES ${Value})
+
 set(ALL_FILES
 	${UNGROUPED_FILES}
 	${MemoryManager}
 	${Allocators}
+	${Value}
 )
 
 

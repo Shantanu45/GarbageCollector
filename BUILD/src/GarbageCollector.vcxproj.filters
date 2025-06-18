@@ -8,6 +8,9 @@
     <ClCompile Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList.cpp">
       <Filter>Allocators</Filter>
     </ClCompile>
+    <ClCompile Include="D:\DXProjects\GarbageCollector\src\Value\Value.cpp">
+      <Filter>Value</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D:\DXProjects\GarbageCollector\src\MemoryManager\Heap.h">
@@ -22,6 +25,9 @@
     <ClInclude Include="D:\DXProjects\GarbageCollector\src\Allocators\FreeList.h">
       <Filter>Allocators</Filter>
     </ClInclude>
+    <ClInclude Include="D:\DXProjects\GarbageCollector\src\Value\Value.h">
+      <Filter>Value</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\DXProjects\GarbageCollector\src\CMakeLists.txt" />
@@ -32,6 +38,9 @@
     </Filter>
     <Filter Include="MemoryManager">
       <UniqueIdentifier>{4A38EE07-0345-3CAA-87F8-1800F5B5A67F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Value">
+      <UniqueIdentifier>{0A22DAEB-07E0-3833-A24F-480576429603}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
