@@ -65,7 +65,6 @@ if(MSVC)
 	if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
 		target_compile_options(${PROJECT_NAME} PRIVATE
 			$<$<CONFIG:Debug>:
-				/std:c++20;
 				/Od
 			>
 			$<$<CONFIG:Release>:

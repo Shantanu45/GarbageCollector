@@ -41,7 +41,6 @@ if(MSVC)
 	if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
 		target_compile_options(${TEST_PROJECT_NAME} PRIVATE
 			$<$<CONFIG:Debug>:
-				/std:c++17;
 				/Od
 			>
 			$<$<CONFIG:Release>:
