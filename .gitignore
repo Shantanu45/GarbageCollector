@@ -1,0 +1,34 @@
+# Visual Studio files
+.vs/
+*.suo
+*.user
+Debug/
+Release/
+x64/Debug/
+x64/Release/
+Win32/Debug/
+Win32/Release/
+*.sdf
+*.opensdf
+ipch/
+
+# CMake files
+out/
+CMakeCache.txt
+CMakeFiles/
+Testing/
+cmake_install.cmake
+*.cmake
+CMakePresets.json
+CMakeSettings.json
+
+# Optional/Project specific
+*.manifest
+*.pdb
+*.VC.db
+[Bb]in/
+[Dd]ebug/
+[Rr]elease/
+*.aps
+*.ncb
+*.ilk

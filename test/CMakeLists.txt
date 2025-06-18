@@ -1,0 +1,68 @@
+set(TEST_PROJECT_NAME Test)
+
+set(UNGROUPED_FILES
+	"main.cpp"
+)
+
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/52eb8108c5bdec04579160ae17225d66034bd723.zip
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+source_group("" FILES ${UNGROUPED_FILES})
+
+set(ALL_FILES
+	${UNGROUPED_FILES}
+)
+
+add_executable(${TEST_PROJECT_NAME}
+	${ALL_FILES}
+)
+
+use_props(${TEST_PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
+
+################################################################################
+# Compile and link options
+################################################################################
+# Using target_compile_options in CMake allows you to add specific compiler options to a target, giving you more fine-grained control over how each target is built. 
+# This can be useful if you need to pass additional flags to the compiler or enable certain warnings or optimizations.
+if(MSVC)
+	if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+		target_compile_options(${TEST_PROJECT_NAME} PRIVATE
+			$<$<CONFIG:Debug>:
+				/std:c++17;
+				/Od
+			>
+			$<$<CONFIG:Release>:
+				/Oi;
+				/Gy
+			>
+			/permissive-;
+			/sdl;
+			/W3;
+			${DEFAULT_CXX_DEBUG_INFORMATION_FORMAT};
+			${DEFAULT_CXX_EXCEPTION_HANDLING}
+		)
+	endif()
+	if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+		target_link_options(${TEST_PROJECT_NAME} PRIVATE
+			$<$<CONFIG:Release>:
+				/OPT:REF;
+				/OPT:ICF
+			>
+			/DEBUG;
+			/SUBSYSTEM:CONSOLE
+		)
+	endif()
+endif()
+
+# Link with GTest
+target_link_libraries(Test gtest_main)
+
+# Add test to CTest
+include(GoogleTest)
+gtest_discover_tests(Test)
