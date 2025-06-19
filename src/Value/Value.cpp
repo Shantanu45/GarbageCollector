@@ -59,7 +59,9 @@ bool Value::isPointer() { return getType() == Type::Pointer; }
 /**
  * Checks whether a value is a Null Pointer.
  */
-bool Value::isNullPointer() { return isPointer() && _value == 0; }
+bool Value::isNullPointer() { 
+    return isPointer() && _value == 0; 
+}
 
 /**
  * Encodes a boolean.

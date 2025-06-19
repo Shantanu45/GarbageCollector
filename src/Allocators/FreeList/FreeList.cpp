@@ -58,6 +58,19 @@ Value SingleFreeListAllocator::allocate(uint32_t n) {
     return Value::Pointer(nullptr);
 }
 
+void readMemory(void* address, size_t size) {
+    uint8_t* ptr = static_cast<uint8_t*>(address);
+
+    std::cout << "Reading " << size << " bytes from address " << ptr << ":\n";
+
+    for (size_t i = 0; i < size; ++i) {
+        printf("0x%02X ", ptr[i]);  // Print each byte in hex
+        if ((i + 1) % 16 == 0) std::cout << "\n";
+    }
+
+    std::cout << "\n";
+}
+
 /**
  * Returns the block to the allocator.
  */
@@ -66,8 +79,10 @@ void SingleFreeListAllocator::free(Word address) {
 
     freeList.push_back((uint8_t*)header - heap->asBytePointer(0));
 
+    auto ptr = heap->asBytePointer(address);
+
     // Reset the block to 0.
-    memset(heap->asBytePointer(address), header->size, 0x0);
+    memset(heap->asBytePointer(address), 0x0, header->size);
 
     // Update total object count.
     _objectCount--;

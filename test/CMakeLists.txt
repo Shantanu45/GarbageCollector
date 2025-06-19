@@ -4,6 +4,18 @@ set(UNGROUPED_FILES
 	"main.cpp"
 )
 
+source_group("" FILES ${UNGROUPED_FILES})
+
+set(TESTS
+	"FreeListAllocatorTest.cpp"
+	"HeapTest.cpp"
+	"MemoryManagerTest.cpp"
+	"ObjectHeaderTest.cpp"
+	"ValueTest.cpp"
+)
+
+source_group("tests" FILES ${TESTS})
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -20,15 +32,21 @@ if(MSVC)
   set_target_properties(gmock_main    PROPERTIES FOLDER "ThirdParty/GTest")
 endif()
 
-source_group("" FILES ${UNGROUPED_FILES})
 
 set(ALL_FILES
 	${UNGROUPED_FILES}
+	${TESTS}
+	${PROJECT_SOURCE_DIR}/src/Value/Value.cpp
+	${PROJECT_SOURCE_DIR}/src/Allocators/FreeList/FreeList.cpp
 )
 
 add_executable(${TEST_PROJECT_NAME}
 	${ALL_FILES}
 )
+
+set(GC_INCLUDE "${PROJECT_SOURCE_DIR}/src")
+
+target_include_directories(${TEST_PROJECT_NAME} PRIVATE ${GC_INCLUDE})
 
 use_props(${TEST_PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
 
