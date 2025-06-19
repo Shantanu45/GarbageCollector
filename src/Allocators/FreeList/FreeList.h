@@ -88,5 +88,6 @@ private:
     void _resetFreeList();
     void _resetFirstBlock();
 
+    // keeping track of space that was never allocated. 
     Word _unTouchedSpace = 0;
 };
