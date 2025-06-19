@@ -10,14 +10,14 @@
 namespace {
 
 	static auto heap = std::make_shared<Heap>(32);
-	static SingleFreeListAllocator allocator(heap);
+	static FreeListAllocator allocator(heap);
 
 	void reset() {
 		heap->reset();
 		allocator.reset();
 	}
 
-	TEST(SingleFreeListAllocator, allocate) {
+	TEST(FreeListAllocator, allocate) {
 		reset();
 
 		auto p1 = allocator.allocate(3);
@@ -39,7 +39,7 @@ namespace {
 		EXPECT_EQ(allocator.getHeader(p2)->size, 8);
 	}
 
-	TEST(SingleFreeListAllocator, free) {
+	TEST(FreeListAllocator, free) {
 		reset();
 
 		auto p1 = allocator.allocate(4);
@@ -58,7 +58,7 @@ namespace {
 		EXPECT_EQ(p4, 4);
 	}
 
-	TEST(SingleFreeListAllocator, blockSize) {
+	TEST(FreeListAllocator, blockSize) {
 		reset();
 
 		auto p1 = allocator.allocate(16);
@@ -90,7 +90,7 @@ namespace {
 
 	}
 
-	TEST(SingleFreeListAllocator, reset) {
+	TEST(FreeListAllocator, reset) {
 		reset();
 
 		auto p1 = allocator.allocate(4);
@@ -102,7 +102,7 @@ namespace {
 		EXPECT_EQ(p2, 4);
 	}
 
-	TEST(SingleFreeListAllocator, getObjectCount) {
+	TEST(FreeListAllocator, getObjectCount) {
 		reset();
 
 		auto p1 = allocator.allocate(8);
@@ -126,7 +126,7 @@ namespace {
 		EXPECT_EQ(allocator.getObjectCount(), 2);
 	}
 
-	TEST(SingleFreeListAllocator, getHeader) {
+	TEST(FreeListAllocator, getHeader) {
 		reset();
 
 		auto p = allocator.allocate(4);

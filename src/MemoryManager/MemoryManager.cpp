@@ -53,6 +53,14 @@ Value MemoryManager::allocate(uint32_t n) { return allocator->allocate(n); }
 
 void MemoryManager::free(Word address) { allocator->free(address); }
 
+std::shared_ptr<GCStats> MemoryManager::collect() {
+	if (!collector) {
+		throw std::runtime_error("Collector is not specified.");
+	}
+
+	return collector->collect();
+}
+
 ObjectHeader* MemoryManager::getHeader(Word address) {
 	return allocator->getHeader(address);
 }

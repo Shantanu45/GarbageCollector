@@ -16,7 +16,7 @@
   *
   * Value::Pointer(nullptr) payload signals OOM.
   */
-Value SingleFreeListAllocator::allocate(uint32_t n) {
+Value FreeListAllocator::allocate(uint32_t n) {
     n = align<uint32_t>(n);
 
     for (const auto& free : freeList) {
@@ -74,7 +74,7 @@ void readMemory(void* address, size_t size) {
 /**
  * Returns the block to the allocator.
  */
-void SingleFreeListAllocator::free(Word address) {
+void FreeListAllocator::free(Word address) {
     auto header = getHeader(address);
 
     freeList.push_back((uint8_t*)header - heap->asBytePointer(0));
@@ -91,14 +91,14 @@ void SingleFreeListAllocator::free(Word address) {
 /**
  * Returns the reference to the object header.
  */
-ObjectHeader* SingleFreeListAllocator::getHeader(Word address) {
+ObjectHeader* FreeListAllocator::getHeader(Word address) {
     return (ObjectHeader*)(heap->asWordPointer(address) - 1);
 }
 
 /**
  * Returns child pointers of this object.
  */
-std::vector<Value*> SingleFreeListAllocator::getPointers(Word address) {
+std::vector<Value*> FreeListAllocator::getPointers(Word address) {
     std::vector<Value*> pointers;
 
     auto header = getHeader(address);
@@ -119,18 +119,18 @@ std::vector<Value*> SingleFreeListAllocator::getPointers(Word address) {
 /**
  * Returns total amount of objects on the heap.
  */
-uint32_t SingleFreeListAllocator::getObjectCount() { return _objectCount; }
+uint32_t FreeListAllocator::getObjectCount() { return _objectCount; }
 
 /**
  * Resets the allocator.
  */
-void SingleFreeListAllocator::reset() {
+void FreeListAllocator::reset() {
     _resetFirstBlock();
     _resetFreeList();
     _objectCount = 0;
 }
 
-void SingleFreeListAllocator::_resetFreeList() {
+void FreeListAllocator::_resetFreeList() {
     freeList.clear();
     freeList.push_back(0);
 }
@@ -139,7 +139,7 @@ void SingleFreeListAllocator::_resetFreeList() {
  * Initially the object header stored at the beginning
  * of the heap defines the whole heap as a "free block".
  */
-void SingleFreeListAllocator::_resetFirstBlock() {
+void FreeListAllocator::_resetFirstBlock() {
     *heap->asWordPointer(0) = ObjectHeader{
         .size = (uint8_t)(heap->size() - sizeof(ObjectHeader)),
     };

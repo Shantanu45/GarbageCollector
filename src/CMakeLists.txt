@@ -24,6 +24,17 @@ set(Allocators
 )
 source_group("Allocators" FILES ${Allocators})
 
+set(Collectors
+	"Collectors/ICollector.h"
+)
+source_group("Collectors" FILES ${Collectors})
+
+set(MarkSweep
+	"Collectors/MarkSweepGC/MarkSweepGC.h"
+	"Collectors/MarkSweepGC/MarkSweepGC.cpp"
+)
+source_group("Collectors/MarkSweep" FILES ${MarkSweep})
+
 set(Value
 	"Value/Value.cpp"
 	"Value/Value.h"
@@ -42,6 +53,8 @@ set(ALL_FILES
 	${FreeList}
 	${Value}
 	${Utils}
+	${Collectors}
+	${MarkSweep}
 )
 
 

@@ -13,7 +13,8 @@
 #include "Heap.h"
 #include "ObjectHeader.h"
 
-#include "../allocators/IAllocator.h"
+#include "../Allocators/IAllocator.h"
+#include "../Collectors/ICollector.h"
 
 class MemoryManager {
 public:
@@ -21,15 +22,27 @@ public:
 
 	std::shared_ptr<IAllocator> allocator;
 
-	// TODO: add ICollector
+	std::shared_ptr<ICollector> collector;
 
 	MemoryManager(
 		const std::shared_ptr<Heap> heap,
-		const std::shared_ptr<IAllocator> allocator)
+		const std::shared_ptr<IAllocator> allocator,
+		const std::shared_ptr<ICollector> collector = nullptr)
 		: heap(heap),
-		allocator(allocator) 
+		allocator(allocator),
+		collector(collector)
 	{
 		reset();
+	}
+
+	template <class Allocator, class Collector, uint32_t heapSize>
+	static std::shared_ptr<MemoryManager> create() 
+	{
+		auto heap = std::make_shared<Heap>(heapSize);
+		auto allocator = std::make_shared<Allocator>(heap);
+		auto collector = std::make_shared<Collector>(allocator);
+
+		return std::make_shared<MemoryManager>(heap, allocator, collector);
 	}
 
 	template <class Allocator, uint32_t heapSize>
@@ -38,7 +51,7 @@ public:
 		auto heap = std::make_shared<Heap>(heapSize);
 		auto allocator = std::make_shared<Allocator>(heap);
 
-		return std::make_shared<MemoryManager>(heap, allocator);
+		return std::make_shared<MemoryManager>(heap, allocator, nullptr);
 	}
 
 	void reset();
@@ -72,6 +85,8 @@ public:
 	Value allocate(uint32_t n);
 
 	void free(Word address);
+
+	std::shared_ptr<GCStats> collect();
 
 	ObjectHeader* getHeader(Word address);
 

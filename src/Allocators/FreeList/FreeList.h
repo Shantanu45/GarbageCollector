@@ -27,7 +27,7 @@
   *  ^                    ^
   *  ------ Header ------ User pointer
   */
-class SingleFreeListAllocator : public IAllocator {
+class FreeListAllocator : public IAllocator {
     /**
      * Total object count on the heap.
      */
@@ -40,12 +40,12 @@ class SingleFreeListAllocator : public IAllocator {
 
 public:
 
-    SingleFreeListAllocator(std::shared_ptr<Heap> heap)
+    FreeListAllocator(std::shared_ptr<Heap> heap)
         : IAllocator(heap), freeList() {
         reset();
     }
 
-    ~SingleFreeListAllocator() {}
+    ~FreeListAllocator() {}
 
     /**
      * Allocates a memory chunk with an object header.
