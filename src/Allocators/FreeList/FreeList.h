@@ -87,4 +87,6 @@ public:
 private:
     void _resetFreeList();
     void _resetFirstBlock();
+
+    Word _unTouchedSpace = 0;
 };

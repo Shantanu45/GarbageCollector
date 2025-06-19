@@ -13,7 +13,7 @@
 
 namespace {
 
-	static auto heap = std::make_shared<Heap>(32);
+	static auto heap = std::make_shared<Heap>(48);
 	static auto allocator = std::make_shared<FreeListAllocator>(heap);
 	static MarkSweepGC msgc(allocator);
 
@@ -24,7 +24,7 @@ namespace {
 
 
 	TEST(MarkSweepGC, API) {
-		EXPECT_EQ(msgc.allocator->heap->size(), 32);
+		EXPECT_EQ(msgc.allocator->heap->size(), 48);
 	}
 
 	TEST(MarkSweepGC, collect) {
@@ -45,7 +45,7 @@ namespace {
 		msgc.collect();
 		EXPECT_EQ(msgc.stats->total, 4);
 		EXPECT_EQ(msgc.stats->alive, 2);
-		EXPECT_EQ(msgc.stats->reclaimed, 2);
+		EXPECT_EQ(msgc.stats->reclaimed, 3);
 
 		msgc.init();
 		EXPECT_EQ(msgc.stats->total, 2);

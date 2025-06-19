@@ -31,7 +31,7 @@ Value FreeListAllocator::allocate(uint32_t n) {
         // Found block of a needed size:
         freeList.remove(free);
 
-        auto rawPayload = ((Word*)header) + 1;
+        Word* rawPayload = ((Word*)header) + 1;                      // pointer to the data, next to header data.
         auto payload = heap->asVirtualAddress(rawPayload);          // position of payload of current object
 
         // See if we can split the larger block, reserving at least
@@ -51,6 +51,11 @@ Value FreeListAllocator::allocate(uint32_t n) {
 
         // Update total object count.
         _objectCount++;
+
+        if (_unTouchedSpace < heap->h_size)
+        {
+            _unTouchedSpace = (Word)(payload + n + sizeof(ObjectHeader));
+        }
 
         return Value::Pointer(payload);
     }
@@ -84,8 +89,11 @@ void FreeListAllocator::free(Word address) {
     // Reset the block to 0.
     memset(heap->asBytePointer(address), 0x0, header->size);
 
-    // Update total object count.
-    _objectCount--;
+    // Update total object count. Ignoring never allocated space.
+    if ((address + header->size) <= _unTouchedSpace)
+    {
+        _objectCount--;
+    }
 }
 
 /**
