@@ -63,18 +63,18 @@ Value FreeListAllocator::allocate(uint32_t n) {
     return Value::Pointer(nullptr);
 }
 
-void readMemory(void* address, size_t size) {
-    uint8_t* ptr = static_cast<uint8_t*>(address);
-
-    std::cout << "Reading " << size << " bytes from address " << ptr << ":\n";
-
-    for (size_t i = 0; i < size; ++i) {
-        printf("0x%02X ", ptr[i]);  // Print each byte in hex
-        if ((i + 1) % 16 == 0) std::cout << "\n";
-    }
-
-    std::cout << "\n";
-}
+//void readMemory(void* address, size_t size) {
+//    uint8_t* ptr = static_cast<uint8_t*>(address);
+//
+//    std::cout << "Reading " << size << " bytes from address " << ptr << ":\n";
+//
+//    for (size_t i = 0; i < size; ++i) {
+//        printf("0x%02X ", ptr[i]);  // Print each byte in hex
+//        if ((i + 1) % 16 == 0) std::cout << "\n";
+//    }
+//
+//    std::cout << "\n";
+//}
 
 /**
  * Returns the block to the allocator.
@@ -104,7 +104,7 @@ ObjectHeader* FreeListAllocator::getHeader(Word address) {
 }
 
 /**
- * Returns child pointers of this object.
+ * Returns child pointers (virtual) of this object.
  */
 std::vector<Value*> FreeListAllocator::getPointers(Word address) {
     std::vector<Value*> pointers;
@@ -151,4 +151,14 @@ void FreeListAllocator::_resetFirstBlock() {
     *heap->asWordPointer(0) = ObjectHeader{
         .size = (uint8_t)(heap->size() - sizeof(ObjectHeader)),
     };
+}
+
+void FreeListAllocator::_resetFirstBlock(int firstBlock)
+{
+    memset(heap->asBytePointer(firstBlock), 0x0, heap->h_size);
+    *heap->asWordPointer(firstBlock) = ObjectHeader{
+    .size = (uint8_t)(heap->size() - (sizeof(ObjectHeader) + firstBlock)),
+    };
+    freeList.clear();
+    freeList.push_back(firstBlock);
 }

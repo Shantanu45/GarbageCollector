@@ -13,6 +13,7 @@ set(TESTS
 	"MemoryManagerTest.cpp"
 	"ObjectHeaderTest.cpp"
 	"ValueTest.cpp"
+	"MarkCompactGCTest.cpp"
 )
 
 source_group("tests" FILES ${TESTS})
@@ -40,6 +41,7 @@ set(ALL_FILES
 	${PROJECT_SOURCE_DIR}/src/Value/Value.cpp
 	${PROJECT_SOURCE_DIR}/src/Allocators/FreeList/FreeList.cpp
 	${PROJECT_SOURCE_DIR}/src/Collectors/MarkSweepGC/MarkSweepGC.cpp
+	${PROJECT_SOURCE_DIR}/src/Collectors/MarkCompactGC/MarkCompactGC.cpp
 )
 
 add_executable(${TEST_PROJECT_NAME}

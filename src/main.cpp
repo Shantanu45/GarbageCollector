@@ -5,6 +5,7 @@
 #include "MemoryManager/MemoryManager.h"
 #include "Allocators/FreeList/FreeList.h"
 #include "Collectors/MarkSweepGC/MarkSweepGC.h"
+#include "Collectors/MarkCompactGC/MarkCompactGC.h"
 #include "Value/Value.h"
 
 #define log(title, value) std::cout << title << " " << value << std::endl
@@ -12,7 +13,7 @@
 
 int main()
 {
-	auto mm = MemoryManager::create<FreeListAllocator, MarkSweepGC, 64>();
+	auto mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
 
 	auto p1 = mm->allocate(12);
 

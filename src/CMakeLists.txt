@@ -35,6 +35,12 @@ set(MarkSweep
 )
 source_group("Collectors/MarkSweep" FILES ${MarkSweep})
 
+set(MarkCompact
+	"Collectors/MarkCompactGC/MarkCompactGC.h"
+	"Collectors/MarkCompactGC/MarkCompactGC.cpp"
+)
+source_group("Collectors/MarkSweep" FILES ${MarkCompact})
+
 set(Value
 	"Value/Value.cpp"
 	"Value/Value.h"
@@ -55,6 +61,7 @@ set(ALL_FILES
 	${Utils}
 	${Collectors}
 	${MarkSweep}
+	${MarkCompact}
 )
 
 
@@ -102,3 +109,7 @@ if(MSVC)
 		)
 	endif()
 endif()
+
+set(INCLUDES "${CMAKE_BINARY_DIR}/_deps/googletest-src/googletest/include")
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${INCLUDES})

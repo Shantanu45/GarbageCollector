@@ -143,4 +143,15 @@ namespace {
 		EXPECT_EQ(header->size, 4);
 	}
 
+	TEST(FreeListAllocator, setFreeRegion) {
+		reset();
+
+		auto p = allocator.allocate(4);
+		allocator.setFreeRegion(0);
+
+		auto header = allocator.getHeader(p);
+		EXPECT_EQ(header->size, 32 - sizeof(ObjectHeader));
+		EXPECT_FALSE(header->mark);
+	}
+
 }  // namespace

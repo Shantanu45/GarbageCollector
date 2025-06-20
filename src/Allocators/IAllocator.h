@@ -68,4 +68,6 @@ struct IAllocator {
    * Returns child pointers of this object.
    */
   virtual std::vector<Value*> getPointers(Word address) = 0;
+
+  virtual void setFreeRegion(int startVirtualAddress) = 0;
 };

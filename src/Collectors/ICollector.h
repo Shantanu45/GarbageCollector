@@ -50,7 +50,11 @@ class ICollector {
   std::shared_ptr<GCStats> stats;
 
   ICollector(std::shared_ptr<IAllocator> allocator)
-      : allocator(allocator), stats(std::make_shared<GCStats>()) {}
+      : allocator(allocator), stats(std::make_shared<GCStats>()) 
+  {
+      // TODO: impelement actual roots, use first block for now.
+      _roots.push_back(0 + sizeof(ObjectHeader));
+  }
 
   virtual ~ICollector() {}
 
@@ -62,11 +66,13 @@ class ICollector {
   /**
    * Returns GC roots.
    */
-  std::vector<Word> getRoots() {
-    std::vector<Word> roots;
-    // TODO: impelement actual roots, use first block for now.
-    roots.push_back(0 + sizeof(ObjectHeader));
-    return roots;
+  std::vector<Word> getRoots() {  
+    return _roots;
+  }
+
+  void setRoots(std::vector<Word>& newRoots)
+  {
+      _roots = newRoots;
   }
 
   /**
@@ -85,4 +91,6 @@ class ICollector {
     stats->alive = 0;
     stats->reclaimed = 0;
   }
+
+  std::vector<Word> _roots;
 };
