@@ -83,6 +83,7 @@ enable_testing()
 # Sub-projects
 ################################################################################
 add_subdirectory(src)
+add_subdirectory(src/Sample)
 add_subdirectory(test)
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "Test")

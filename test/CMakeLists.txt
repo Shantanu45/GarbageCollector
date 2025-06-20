@@ -88,8 +88,15 @@ if(MSVC)
 	endif()
 endif()
 
-# Link with GTest
-target_link_libraries(Test gtest_main)
+target_compile_definitions(${TEST_PROJECT_NAME} PRIVATE ENABLED_GC_TEST)
+
+# Link with GTest and GarbageCollector
+set(ADDITIONAL_LIBRARY_DEPENDENCIES
+	GarbageCollector
+	gtest_main
+)
+
+target_link_libraries(${TEST_PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
 
 # Add test to CTest
 include(GoogleTest)

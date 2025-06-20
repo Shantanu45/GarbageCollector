@@ -10,6 +10,14 @@
 
 #include "gtest/gtest.h";
 
+#ifdef ENABLED_GC_TEST
+namespace GC_TEST {
+	class MarkCompactGCTest_ComputeLocation_Test;
+	class MarkCompactGCTest_UpdateReferences_Test;
+	class MarkCompactGCTest_Relocate_Test;
+}
+#endif
+
  /**
   * Mark-Compact garbage collector.
   *
@@ -44,9 +52,11 @@ public:
 
 private:
 
-	FRIEND_TEST(MarkCompactGCTest, ComputeLocation);
-	FRIEND_TEST(MarkCompactGCTest, UpdateReferences);
-	FRIEND_TEST(MarkCompactGCTest, Relocate);
+#ifdef ENABLED_GC_TEST
+	FRIEND_TEST(GC_TEST::MarkCompactGCTest, ComputeLocation);
+	FRIEND_TEST(GC_TEST::MarkCompactGCTest, UpdateReferences);
+	FRIEND_TEST(GC_TEST::MarkCompactGCTest, Relocate);
+#endif
 
 	/**
 	 * Computes new locations for the objects.

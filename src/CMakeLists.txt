@@ -1,10 +1,5 @@
 set(PROJECT_NAME GarbageCollector)
 
-set(UNGROUPED_FILES
-	"main.cpp"
-)
-source_group("" FILES ${UNGROUPED_FILES})
-
 set(MemoryManager
 	"MemoryManager/Heap.h"
 	"MemoryManager/ObjectHeader.h"
@@ -39,7 +34,7 @@ set(MarkCompact
 	"Collectors/MarkCompactGC/MarkCompactGC.h"
 	"Collectors/MarkCompactGC/MarkCompactGC.cpp"
 )
-source_group("Collectors/MarkSweep" FILES ${MarkCompact})
+source_group("Collectors/MarkCompact" FILES ${MarkCompact})
 
 set(Value
 	"Value/Value.cpp"
@@ -53,7 +48,6 @@ set(Utils
 source_group("Utils" FILES ${Utils})
 
 set(ALL_FILES
-	${UNGROUPED_FILES}
 	${MemoryManager}
 	${Allocators}
 	${FreeList}
@@ -65,7 +59,7 @@ set(ALL_FILES
 )
 
 
-add_executable(${PROJECT_NAME}
+add_library(${PROJECT_NAME}
 ${ALL_FILES}
 )
 
