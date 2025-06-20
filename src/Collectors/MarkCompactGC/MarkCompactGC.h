@@ -41,6 +41,13 @@ public:
 	 */
 	void compact();
 
+
+private:
+
+	FRIEND_TEST(MarkCompactGCTest, ComputeLocation);
+	FRIEND_TEST(MarkCompactGCTest, UpdateReferences);
+	FRIEND_TEST(MarkCompactGCTest, Relocate);
+
 	/**
 	 * Computes new locations for the objects.
 	 */
@@ -56,8 +63,4 @@ public:
 	 * Relocates the objects to the new locations.
 	 */
 	void _relocate();
-private:
-
-	//FRIEND_TEST(MarkCompactGCTest, ComputeLocation);
-
 };

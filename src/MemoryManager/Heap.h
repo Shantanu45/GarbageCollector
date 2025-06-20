@@ -26,7 +26,7 @@ struct Heap {
 
 	Heap(uint32_t size) : h_size(size) {
 		storage = reinterpret_cast<uint8_t*>(malloc(size));			// remeber to dealloc after done.
-		memset(storage, h_size, 0x0);
+		memset(storage, 0x0, h_size);
 	}
 
 	uint8_t& operator[](int offset) { return storage[offset]; }
@@ -39,12 +39,16 @@ struct Heap {
 	/**
 	 * Returns an actual Word pointer for the virtual pointer address.
 	 */
-	Word* asWordPointer(Word address) { return (Word*)&storage[address]; }
+	Word* asWordPointer(Word address) { 
+		return (Word*)&storage[address]; 
+	}
 
 	/**
 	 * Returns an actual byte pointer for the virtual pointer address.
 	 */
-	uint8_t* asBytePointer(Word address) { return &storage[address]; }
+	uint8_t* asBytePointer(Word address) { 
+		return &storage[address]; 
+	}
 
 	/**
 	 * Converts an actual Word pointer to the virtual address.
@@ -83,5 +87,9 @@ struct Heap {
 		}
 
 		std::cout << std::endl;
+	}
+
+	~Heap() {
+		delete storage;
 	}
 };

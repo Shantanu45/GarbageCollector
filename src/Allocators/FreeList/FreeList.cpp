@@ -153,12 +153,13 @@ void FreeListAllocator::_resetFirstBlock() {
     };
 }
 
-void FreeListAllocator::_resetFirstBlock(int firstBlock)
+void FreeListAllocator::_resetFreeListWithOffset(int firstBlock)
 {
-    memset(heap->asBytePointer(firstBlock), 0x0, heap->h_size);
-    *heap->asWordPointer(firstBlock) = ObjectHeader{
-    .size = (uint8_t)(heap->size() - (sizeof(ObjectHeader) + firstBlock)),
+    memset(heap->asBytePointer(firstBlock), 0x0, (uint8_t)(heap->size() - firstBlock));
+    *heap->asWordPointer(firstBlock) = ObjectHeader {
+        .size = (uint8_t)(heap->size() - (sizeof(ObjectHeader) + firstBlock)),
     };
     freeList.clear();
     freeList.push_back(firstBlock);
+
 }
