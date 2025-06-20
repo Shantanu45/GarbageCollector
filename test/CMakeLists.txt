@@ -38,10 +38,6 @@ endif()
 set(ALL_FILES
 	${UNGROUPED_FILES}
 	${TESTS}
-	${PROJECT_SOURCE_DIR}/src/Value/Value.cpp
-	${PROJECT_SOURCE_DIR}/src/Allocators/FreeList/FreeList.cpp
-	${PROJECT_SOURCE_DIR}/src/Collectors/MarkSweepGC/MarkSweepGC.cpp
-	${PROJECT_SOURCE_DIR}/src/Collectors/MarkCompactGC/MarkCompactGC.cpp
 )
 
 add_executable(${TEST_PROJECT_NAME}

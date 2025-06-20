@@ -1,8 +1,3 @@
-/**
- * The MIT License (MIT)
- * Copyright (c) 2018-present Dmitry Soshnikov <dmitry.soshnikov@gmail.com>
- */
-
 #include <memory>
 
 #include "MemoryManager/Heap.h"

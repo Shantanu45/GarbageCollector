@@ -1,8 +1,3 @@
-/**
- * The MIT License (MIT)
- * Copyright (c) 2018-present Dmitry Soshnikov <dmitry.soshnikov@gmail.com>
- */
-
 #include "Collectors/MarkSweepGC/MarkSweepGC.h"
 #include "MemoryManager/MemoryManager.h"
 #include "Allocators/FreeList/FreeList.h"
