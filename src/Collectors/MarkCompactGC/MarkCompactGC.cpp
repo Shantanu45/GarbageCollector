@@ -3,9 +3,6 @@
 
 #include <iostream>
 
- /**
-  * Main collection cycle.
-  */
 std::shared_ptr<GCStats> MarkCompactGC::collect() {
 	_resetStats();
 	mark();
@@ -13,9 +10,6 @@ std::shared_ptr<GCStats> MarkCompactGC::collect() {
 	return stats;
 }
 
-/**
- * Mark phase.
- */
 void MarkCompactGC::mark() {
 	auto worklist = getRoots();
 
@@ -35,18 +29,12 @@ void MarkCompactGC::mark() {
 	}
 }
 
-/**
- * Compact phase using Lisp2 algorithm.
- */
 void MarkCompactGC::compact() {
 	_computeLocations();
 	_updateReferences();
 	_relocate();
 }
 
-/**
- * Computes new locations for the objects.
- */
 void MarkCompactGC::_computeLocations() {
 	auto scan = 0 + sizeof(ObjectHeader);
 	auto free = scan;
@@ -69,10 +57,6 @@ void MarkCompactGC::_computeLocations() {
 	}
 }
 
-/**
- * Updates child references of the object according
- * to the new locations.
- */
 void MarkCompactGC::_updateReferences() {
 	std::vector<Word> roots = _roots;
 	for (auto root : roots)
@@ -101,9 +85,6 @@ void MarkCompactGC::_updateReferences() {
 	}
 }
 
-/**
- * Relocates the objects to the new locations.
- */
 void MarkCompactGC::_relocate() {
 	auto scan = 0 + sizeof(ObjectHeader);
 
