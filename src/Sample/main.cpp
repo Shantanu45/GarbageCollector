@@ -1,17 +1,10 @@
 
 #include <iostream>
 #include <memory>
-
-#include "MemoryManager/MemoryManager.h"
-#include "Allocators/FreeList/FreeList.h"
-#include "Collectors/MarkSweepGC/MarkSweepGC.h"
-#include "Collectors/MarkCompactGC/MarkCompactGC.h"
+#include "Utils/alloc-util.h"
 #include "Value/Value.h"
 
-#define log(title, value) std::cout << title << " " << value << std::endl
-//#define log(text) std::cout << text << std::endl
-
-int main()
+void sample_1()
 {
 	auto mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
 
@@ -42,4 +35,40 @@ int main()
 
 	log("\nAfter GC:", "");
 	mm->dump();
+}
+
+struct MyObject
+{
+	Value val;
+	Value ptr;
+};
+
+void sample_2()
+{
+	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
+
+	MyObject* obj = gc_new<MyObject>(mm, Value::Number(42), Value::Pointer(nullptr));
+
+	obj->ptr = Value::Pointer(mm->allocate(4));
+	mm->writeValue(obj->ptr, Value::Number(99));
+
+	log("MyObj Value", obj->val.decode());
+
+	log("\nBefore GC:", "");
+
+	mm->dump();
+
+	auto gcStats = mm->collect();
+
+	log("    total:", gcStats->total);
+	log("    alive:", gcStats->alive);
+	log("reclaimed:", gcStats->reclaimed);				// will include every unreachalbe block including the empty space at then end of heap...even if we didn't allocate it, its not reachable from the root and will be reclainmed.
+
+	log("\nAfter GC:", "");
+	mm->dump();
+}
+
+int main()
+{
+	sample_2();
 } 

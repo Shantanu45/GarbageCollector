@@ -44,6 +44,7 @@ source_group("Value" FILES ${Value})
 
 set(Utils
 	"Utils/number-util.h"
+	"Utils/alloc-util.h"
 )
 source_group("Utils" FILES ${Utils})
 
