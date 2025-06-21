@@ -42,7 +42,7 @@ public:
 	/**
 	 * Default constructor.
 	 */
-	Value(uint32_t value) : _value(value) {}
+	Value(uint32_t value = 0) : _value(value) {}
 
 	/**
 	 * Values constant declarations.

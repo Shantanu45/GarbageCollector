@@ -6,16 +6,16 @@ namespace {
     TEST(Header, MarkSweep) {
         ObjectHeader header = {
             .size = 0xA,
-            .mark = true,
+            .mark = 1,
         };
 
         EXPECT_EQ(header.size, 0xA);
-        EXPECT_EQ(header.mark, true);
+        EXPECT_EQ(header.mark, 1);
 
         EXPECT_EQ(header.toInt(), 0x010A0000);
         EXPECT_EQ((uint32_t)header, header.toInt());
 
-        header.mark = false;
+        header.mark = 0;
         EXPECT_EQ(header.toInt(), 0x000A0000);
 
         header.size = 0xFF;

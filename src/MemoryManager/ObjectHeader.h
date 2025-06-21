@@ -27,7 +27,7 @@ struct ObjectHeader {
         /**
          * Used by Mark-Sweep GC during trace phase.
          */
-        bool mark;
+        uint8_t mark;
 
         /**
          * Reference counter in RC collector (up to 255 references).

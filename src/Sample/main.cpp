@@ -45,14 +45,18 @@ struct MyObject
 
 void sample_2()
 {
-	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkSweepGC, 64>();
+	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
 
-	MyObject* obj = gc_new<MyObject>(mm, Value::Number(42), Value::Pointer(nullptr));
+	GSetActiveMemoryManager(mm);
 
+	MyObject* obj = gc_new<MyObject>();
+
+	obj->val = Value::Number(42);
 	obj->ptr = Value::Pointer(mm->allocate(4));
+
 	mm->writeValue(obj->ptr, Value::Number(45));
 
-	//gc_delete(mm, obj->ptr);
+	gc_delete(obj->ptr);
 
 	log("MyObj Value", obj->val.decode());
 

@@ -146,7 +146,7 @@ namespace {
 
 		auto header = allocator.getHeader(p);
 		EXPECT_EQ(header->size, 32 - sizeof(ObjectHeader));
-		EXPECT_FALSE(header->mark);
+		EXPECT_EQ(header->mark, 0);
 	}
 
 }  // namespace

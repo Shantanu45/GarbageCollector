@@ -31,8 +31,8 @@ namespace GC_TEST
 		auto headerP1 = mcgc.allocator->getHeader(p1);
 		auto headerP2 = mcgc.allocator->getHeader(p2);
 
-		EXPECT_TRUE(headerP1->mark);
-		EXPECT_TRUE(headerP2->mark);
+		EXPECT_EQ(headerP1->mark, 1);
+		EXPECT_EQ(headerP2->mark, 1);
 
 	}
 
@@ -130,7 +130,7 @@ namespace GC_TEST
 
 		auto headerP2 = mcgc.allocator->getHeader(p2);
 
-		EXPECT_TRUE(headerP2->mark);
+		EXPECT_EQ(headerP2->mark, 1);
 
 		auto childP2 = *mcgc.allocator->getPointers(p2)[0];
 
@@ -138,10 +138,10 @@ namespace GC_TEST
 
 		auto headerP3 = mcgc.allocator->getHeader(p3);
 
-		EXPECT_TRUE(headerP3->mark);
+		EXPECT_EQ(headerP3->mark, 1);
 
 		auto headerP4 = mcgc.allocator->getHeader(p4);
 
-		EXPECT_FALSE(headerP4->mark);
+		EXPECT_EQ(headerP4->mark, 0);
 	}
 }

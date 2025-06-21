@@ -51,7 +51,11 @@ Value* MemoryManager::readValue(uint32_t address) {
 
 Value MemoryManager::allocate(uint32_t n) { return allocator->allocate(n); }
 
-void MemoryManager::free(Word address) { allocator->free(address); }
+void MemoryManager::free(Word address) { 
+	auto header = getHeader(address);
+	header->mark = 2;		// 2 means freed explicitly by user.
+	allocator->free(address); 
+}
 
 std::shared_ptr<GCStats> MemoryManager::collect() {
 	if (!collector) {
