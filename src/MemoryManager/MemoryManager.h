@@ -66,6 +66,8 @@ public:
 
 	Word* asWordPointer(Word assress);
 
+	Word toVirtualAddress(void* assress);
+
 	void writeWord(uint32_t address, uint32_t value);
 
 	Word readWord(Word address);

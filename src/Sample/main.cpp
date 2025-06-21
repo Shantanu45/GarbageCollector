@@ -49,10 +49,16 @@ void sample_2()
 
 	GSetActiveMemoryManager(mm);
 
-	MyObject* obj = gc_new<MyObject>();
+	MyObject* obj = gc_new <MyObject>();
 
 	obj->val = Value::Number(42);
-	obj->ptr = Value::Pointer(mm->allocate(4));
+
+	MyObject* obj2 = gc_new<MyObject>();
+
+	obj2->val = Value::Number(24);
+	obj2->ptr = Value::Pointer(mm->allocate(4));
+
+	obj->ptr = Value::Pointer(mm->toVirtualAddress(obj2));
 
 	mm->writeValue(obj->ptr, Value::Number(45));
 

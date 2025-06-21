@@ -19,6 +19,11 @@ Word* MemoryManager::asWordPointer(Word address) {
 	return heap->asWordPointer(address);
 }
 
+Word MemoryManager::toVirtualAddress(void* ptr)
+{
+	return heap->asVirtualAddress((Word*)ptr);
+}
+
 void MemoryManager::writeWord(Word address, Word value) {
 	*asWordPointer(address) = value;
 }
