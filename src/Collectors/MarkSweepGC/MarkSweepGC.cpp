@@ -22,12 +22,12 @@ void MarkSweepGC::mark() {
 		{
 			header->mark = 1;
 			stats->alive++;
+			stats->used += header->size + sizeof(ObjectHeader);
 			for (const auto& p: allocator->getPointers(v))
 			{
 				worklist.push_back(p->decode());
 			}
 		}
-
 	}
 
 }
@@ -36,6 +36,7 @@ void MarkSweepGC::sweep()
 {
 	auto scan = 0 + sizeof(ObjectHeader);
 
+	stats->free = allocator->heap->size() - stats->used;
 	while (scan < allocator->heap->size()) {
 		auto header = allocator->getHeader(scan);
 

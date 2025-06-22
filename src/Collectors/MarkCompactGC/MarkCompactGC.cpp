@@ -101,6 +101,7 @@ void MarkCompactGC::_relocate() {
 			auto from = allocator->heap->asWordPointer(fromptr);
 			memcpy(moveTo, from, header->size + sizeof(ObjectHeader));
 			freePointer = std::max(freePointer, freePointer + scan);
+			header->mark == 0;
 		}
 
 		// Move to the next block.

@@ -100,6 +100,8 @@ public:
 
 	uint32_t getObjectCount();
 
+	std::shared_ptr<GCStats> getGCStats();
+
 private:
 
 };

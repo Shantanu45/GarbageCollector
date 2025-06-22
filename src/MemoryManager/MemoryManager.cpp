@@ -85,3 +85,8 @@ std::vector<Value*> MemoryManager::getPointers(Word address) {
 uint32_t MemoryManager::getObjectCount() { return allocator->getObjectCount(); }
 
 void MemoryManager::dump() { heap->dump(); }
+
+std::shared_ptr<GCStats> MemoryManager::getGCStats()
+{
+	return collector->stats;
+}

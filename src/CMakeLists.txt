@@ -42,6 +42,11 @@ set(Value
 )
 source_group("Value" FILES ${Value})
 
+set(Stats
+	"Stats/GCStats.h"
+)
+source_group("Stats" FILES ${Stats})
+
 set(Utils
 	"Utils/number-util.h"
 	"Utils/alloc-util.h"
@@ -57,6 +62,7 @@ set(ALL_FILES
 	${Collectors}
 	${MarkSweep}
 	${MarkCompact}
+	${Stats}
 )
 
 

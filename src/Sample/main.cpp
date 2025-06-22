@@ -4,6 +4,14 @@
 #include "Utils/alloc-util.h"
 #include "Value/Value.h"
 
+void printGCStats(std::shared_ptr<MemoryManager> mm)
+{
+	std::shared_ptr<GCStats> gcStats = mm->getGCStats();
+	log("    total:", gcStats->total);
+	log("    alive:", gcStats->alive);
+	log("reclaimed:", gcStats->reclaimed);				// will include every unreachalbe block including the empty space at then end of heap...even if we didn't allocate it, its not reachable from the root and will be reclainmed.
+}
+
 void sample_1()
 {
 	auto mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
@@ -29,9 +37,7 @@ void sample_1()
 
 	auto gcStats = mm->collect();
 
-	log("    total:", gcStats->total);
-	log("    alive:", gcStats->alive);
-	log("reclaimed:", gcStats->reclaimed);				// will include every unreachalbe block including the empty space at then end of heap...even if we didn't allocate it, its not reachable from the root and will be reclainmed.
+	printGCStats(mm);
 
 	log("\nAfter GC:", "");
 	mm->dump();
@@ -45,7 +51,7 @@ struct MyObject
 
 void sample_2()
 {
-	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
+	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkSweepGC, 64>();
 
 	GSetActiveMemoryManager(mm);
 
@@ -62,7 +68,7 @@ void sample_2()
 
 	mm->writeValue(obj->ptr, Value::Number(45));
 
-	gc_delete(obj->ptr);
+	//gc_delete(obj->ptr);
 
 	log("MyObj Value", obj->val.decode());
 
@@ -70,11 +76,11 @@ void sample_2()
 
 	mm->dump();
 
+	printGCStats(mm);
+
 	auto gcStats = mm->collect();
 
-	log("    total:", gcStats->total);
-	log("    alive:", gcStats->alive);
-	log("reclaimed:", gcStats->reclaimed);				// will include every unreachalbe block including the empty space at then end of heap...even if we didn't allocate it, its not reachable from the root and will be reclainmed.
+	printGCStats(mm);
 
 	log("\nAfter GC:", "");
 	mm->dump();
