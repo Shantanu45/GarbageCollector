@@ -20,4 +20,9 @@ struct HeapStats
 			usedLocations.emplace(i);
 		}
 	}
+
+	void Reset()
+	{
+		usedLocations.clear();
+	}
 };
