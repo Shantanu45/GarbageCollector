@@ -12,6 +12,21 @@ void printGCStats(std::shared_ptr<MemoryManager> mm)
 	log("reclaimed:", gcStats->reclaimed);				// will include every unreachalbe block including the empty space at then end of heap...even if we didn't allocate it, its not reachable from the root and will be reclainmed.
 }
 
+void printHeapStats(std::shared_ptr<MemoryManager> mm)
+{
+	for (size_t i = 0; i < mm->heap->size(); i++)
+	{
+		if (mm->allocator->heapStats->usedLocations.find(i) != mm->allocator->heapStats->usedLocations.end())
+		{
+			std::cout << "=";
+		}
+		else
+		{
+			std::cout << "-";
+		}
+	}
+}
+
 void sample_1()
 {
 	auto mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
@@ -49,26 +64,39 @@ struct MyObject
 	Value ptr;
 };
 
+struct MyObject2
+{
+	Value val;
+	Value ptr;
+	Value ptr2;
+};
+
 void sample_2()
 {
-	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkSweepGC, 64>();
+	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
 
 	GSetActiveMemoryManager(mm);
 
-	MyObject* obj = gc_new <MyObject>();
+	MyObject2* obj = gc_new <MyObject2>();
 
 	obj->val = Value::Number(42);
 
 	MyObject* obj2 = gc_new<MyObject>();
 
+	auto ptr = mm->allocate(4);
+
 	obj2->val = Value::Number(24);
-	obj2->ptr = Value::Pointer(mm->allocate(4));
+	obj2->ptr = Value::Pointer(ptr);
 
 	obj->ptr = Value::Pointer(mm->toVirtualAddress(obj2));
+	obj->ptr2 = Value::Pointer(ptr);
 
 	mm->writeValue(obj->ptr, Value::Number(45));
 
-	//gc_delete(obj->ptr);
+	//obj->obj2->ptr
+	printHeapStats(mm);
+
+	gc_delete(mm->toVirtualAddress(obj2));
 
 	log("MyObj Value", obj->val.decode());
 
@@ -76,11 +104,13 @@ void sample_2()
 
 	mm->dump();
 
-	printGCStats(mm);
-
+	//printGCStats(mm);
+	printHeapStats(mm);
 	auto gcStats = mm->collect();
 
 	printGCStats(mm);
+	printHeapStats(mm);
+
 
 	log("\nAfter GC:", "");
 	mm->dump();

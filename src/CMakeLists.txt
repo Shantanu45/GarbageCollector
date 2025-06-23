@@ -44,6 +44,7 @@ source_group("Value" FILES ${Value})
 
 set(Stats
 	"Stats/GCStats.h"
+	"Stats/HeapStats.h"
 )
 source_group("Stats" FILES ${Stats})
 

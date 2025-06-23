@@ -44,6 +44,8 @@ Value FreeListAllocator::allocate(uint32_t n) {
             freeList.push_back(nextHeaderP);
         }
 
+        heapStats->MarkUsed(payload - sizeof(ObjectHeader), header->size + sizeof(ObjectHeader));
+
         // Update total object count.
         _objectCount++;
 
@@ -58,19 +60,6 @@ Value FreeListAllocator::allocate(uint32_t n) {
     return Value::Pointer(nullptr);
 }
 
-//void readMemory(void* address, size_t size) {
-//    uint8_t* ptr = static_cast<uint8_t*>(address);
-//
-//    std::cout << "Reading " << size << " bytes from address " << ptr << ":\n";
-//
-//    for (size_t i = 0; i < size; ++i) {
-//        printf("0x%02X ", ptr[i]);  // Print each byte in hex
-//        if ((i + 1) % 16 == 0) std::cout << "\n";
-//    }
-//
-//    std::cout << "\n";
-//}
-
 /**
  * Returns the block to the allocator.
  */
@@ -81,6 +70,8 @@ void FreeListAllocator::free(Word address) {
 
     auto ptr = heap->asBytePointer(address);
 
+    heapStats->MarkUsed(address - sizeof(ObjectHeader), header->size + sizeof(ObjectHeader), true);
+
     // Reset the block to 0.
     memset(heap->asBytePointer(address), 0x0, header->size);
 
@@ -89,6 +80,15 @@ void FreeListAllocator::free(Word address) {
     {
         _objectCount--;
     }
+}
+
+void FreeListAllocator::relocate(Word to, Word from, size_t size)
+{
+    heapStats->MarkUsed(from, size, true);
+    heapStats->MarkUsed(to, size);
+    auto moveTo = heap->asWordPointer(to);
+    auto moveFrom = heap->asWordPointer(from);
+    memcpy(moveTo, moveFrom, size);
 }
 
 /**
@@ -151,10 +151,13 @@ void FreeListAllocator::_resetFirstBlock() {
 void FreeListAllocator::_resetFreeListWithOffset(int firstBlock)
 {
     memset(heap->asBytePointer(firstBlock), 0x0, (uint8_t)(heap->size() - firstBlock));
+
     *heap->asWordPointer(firstBlock) = ObjectHeader {
         .size = (uint8_t)(heap->size() - (sizeof(ObjectHeader) + firstBlock)),
     };
+
     freeList.clear();
     freeList.push_back(firstBlock);
+    heapStats->MarkUsed(firstBlock, heap->size() - firstBlock, true);
 
 }

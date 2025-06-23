@@ -7,6 +7,7 @@
 #include "../MemoryManager/Heap.h"
 #include "../MemoryManager/ObjectHeader.h"
 #include "../Value/Value.h"
+#include "../Stats/HeapStats.h"
 
 /**
  * Abstract allocator class.
@@ -20,7 +21,10 @@ struct IAllocator {
    */
   std::shared_ptr<Heap> heap;
 
-  IAllocator(std::shared_ptr<Heap> heap): heap(heap) {}
+  std::shared_ptr<HeapStats> heapStats;
+
+  IAllocator(std::shared_ptr<Heap> heap)
+	  : heap(heap), heapStats(std::make_shared<HeapStats>()) {}
 
   virtual ~IAllocator() {}
 
@@ -40,6 +44,11 @@ struct IAllocator {
    * Returns the block to the allocator.
    */
   virtual void free(Word address) = 0;
+
+  /**
+	* Move parts of heap to different address
+  */
+  virtual void relocate(Word To, Word from, size_t size) = 0;
 
   /**
    * Resets the allocator.

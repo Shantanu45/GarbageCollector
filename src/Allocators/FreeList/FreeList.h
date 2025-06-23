@@ -52,17 +52,22 @@ public:
      *
      * Value::Pointer(nullptr) payload signals OOM.
      */
-    Value allocate(uint32_t n);
+    Value allocate(uint32_t n) override;
 
     /**
      * Returns the block to the allocator.
      */
-    void free(Word address);
+    void free(Word address) override;
+
+    /**
+      * Move parts of heap to different address
+    */
+    void relocate(Word To, Word from, size_t size) override;
 
     /**
      * Resets the allocator.
      */
-    void reset();
+    void reset() override;
 
     /**
      * Returns the reference to the object header.

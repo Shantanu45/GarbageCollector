@@ -88,7 +88,7 @@ void MarkCompactGC::_updateReferences() {
 void MarkCompactGC::_relocate() {
 	auto scan = 0 + sizeof(ObjectHeader);
 
-	auto freePointer = scan;
+	uint32_t freePointer = 0;
 
 	while (scan < allocator->heap->size()) {
 		auto header = allocator->getHeader(scan);
@@ -96,11 +96,9 @@ void MarkCompactGC::_relocate() {
 		// Alive object, reset the mark bit for future collection cycles.
 		if (header->mark == 1) {
 			auto toptr = header->forward - sizeof(ObjectHeader);
-			auto moveTo = allocator->heap->asWordPointer(toptr);
 			auto fromptr = scan - sizeof(ObjectHeader);
-			auto from = allocator->heap->asWordPointer(fromptr);
-			memcpy(moveTo, from, header->size + sizeof(ObjectHeader));
-			freePointer = std::max(freePointer, freePointer + scan);
+			allocator->relocate(toptr, fromptr, header->size + sizeof(ObjectHeader));
+			freePointer = std::max(freePointer, (uint32_t)(toptr + sizeof(ObjectHeader) + header->size)/*freePointer + scan*/);
 			header->mark == 0;
 		}
 
@@ -108,5 +106,5 @@ void MarkCompactGC::_relocate() {
 		scan += header->size + sizeof(ObjectHeader);
 	}
 
-	allocator->setFreeRegion(freePointer - sizeof(ObjectHeader));
+	allocator->setFreeRegion(freePointer);
 }
