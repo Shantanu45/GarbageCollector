@@ -52,12 +52,19 @@ inline void printHeapStats(std::shared_ptr<HeapStats> heapStats)
 		{
 			if (u.second.name != "")
 			{
-				heapState.erase(heapState.begin()+(u.first+1), heapState.begin() + u.first + (u.second.size));
-				heapState[i] = u.second.name + "(" + std::to_string(u.second.size) + ")";
-
-				break;
+				heapState[u.first] = u.second.name + "(" + std::to_string(u.second.size) + ")";
+				for (size_t i = u.first + 1; i < u.first + u.second.size; i++)
+				{
+					heapState[i] = "";
+				}
 			}
-			heapState[i] = "=";
+			else
+			{
+				for (size_t i = u.first; i < u.first + u.second.size; i++)
+				{
+					heapState[i] = "=";
+				}
+			}
 		}
 	}
 
