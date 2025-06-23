@@ -5,7 +5,7 @@
 #include "../Collectors/MarkSweepGC/MarkSweepGC.h"
 #include "../Collectors/MarkCompactGC/MarkCompactGC.h"
 
-#define log(title, value) std::cout << title << " " << value << std::endl
+//#define log(title, value) std::cout << title << " " << value << std::endl
 
 inline std::shared_ptr<MemoryManager> GActiveMemoryManager = nullptr;
 

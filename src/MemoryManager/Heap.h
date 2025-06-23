@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../Utils/number-util.h"
+#include "spdlog/spdlog.h"
 
  /**
   * 32 bit machine word.
@@ -61,27 +62,30 @@ struct Heap {
 	 * Dumps the heap memory.
 	 */
 	void dump() {
-		std::cout << "\n Memory dump:\n";
-		std::cout << "------------------------\n\n";
+
+		spdlog::info("\nMemory dump:------------------------\n");
 
 		int address = 0;
-		std::string row = "";
 
 		auto words = asWordPointer(0);
 		auto wordsCount = size() / sizeof(Word);
 
 		for (auto i = 0; i < wordsCount; i++) {
-			auto v = words[i];
+			std::string row = "";
+
 			row += int_to_hex(address) + " : ";
-			auto value = int_to_hex(v, /*usePrefix*/ false);
+
+			auto value = int_to_hex(words[i], /*usePrefix*/ false);
 			insert_delimeter(value, 2, " ");
+
 			row += value;
+
+			spdlog::info(row);
+
 			address += sizeof(Word);
-			std::cout << row << std::endl;
-			row.clear();
 		}
 
-		std::cout << std::endl;
+		spdlog::info("");  // blank line
 	}
 
 	~Heap() {

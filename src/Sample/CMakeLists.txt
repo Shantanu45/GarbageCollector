@@ -56,3 +56,6 @@ set(INCLUDES
 )
 
 target_include_directories(${SAMPLE_PROJECT_NAME} PRIVATE ${INCLUDES})
+
+# Link spdlog
+target_link_libraries(${SAMPLE_PROJECT_NAME} PRIVATE spdlog::spdlog)

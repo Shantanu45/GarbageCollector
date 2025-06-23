@@ -51,6 +51,7 @@ source_group("Stats" FILES ${Stats})
 set(Utils
 	"Utils/number-util.h"
 	"Utils/alloc-util.h"
+	"Utils/stat-util.h"
 )
 source_group("Utils" FILES ${Utils})
 
@@ -115,3 +116,6 @@ endif()
 set(INCLUDES "${CMAKE_BINARY_DIR}/_deps/googletest-src/googletest/include")
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${INCLUDES})
+
+# Link spdlog
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)

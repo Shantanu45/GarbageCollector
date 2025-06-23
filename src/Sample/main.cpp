@@ -2,30 +2,8 @@
 #include <iostream>
 #include <memory>
 #include "Utils/alloc-util.h"
+#include "Utils/stat-util.h"
 #include "Value/Value.h"
-
-void printGCStats(std::shared_ptr<MemoryManager> mm)
-{
-	std::shared_ptr<GCStats> gcStats = mm->getGCStats();
-	log("    total:", gcStats->total);
-	log("    alive:", gcStats->alive);
-	log("reclaimed:", gcStats->reclaimed);				// will include every unreachalbe block including the empty space at then end of heap...even if we didn't allocate it, its not reachable from the root and will be reclainmed.
-}
-
-void printHeapStats(std::shared_ptr<MemoryManager> mm)
-{
-	for (size_t i = 0; i < mm->heap->size(); i++)
-	{
-		if (mm->allocator->heapStats->usedLocations.find(i) != mm->allocator->heapStats->usedLocations.end())
-		{
-			std::cout << "=";
-		}
-		else
-		{
-			std::cout << "-";
-		}
-	}
-}
 
 void sample_1()
 {
@@ -46,7 +24,7 @@ void sample_1()
 	mm->writeValue(mm->allocate(4), Value::Number(4));
 	mm->writeValue(mm->allocate(4), Value::Number(5));
 
-	log("\nBefore GC:", "");
+	//log("\nBefore GC:", "");
 
 	mm->dump();
 
@@ -54,7 +32,7 @@ void sample_1()
 
 	printGCStats(mm);
 
-	log("\nAfter GC:", "");
+	//log("\nAfter GC:", "");
 	mm->dump();
 }
 
@@ -98,9 +76,9 @@ void sample_2()
 
 	gc_delete(mm->toVirtualAddress(obj2));
 
-	log("MyObj Value", obj->val.decode());
+	//log("MyObj Value", obj->val.decode());
 
-	log("\nBefore GC:", "");
+	//log("\nBefore GC:", "");
 
 	mm->dump();
 
@@ -112,7 +90,7 @@ void sample_2()
 	printHeapStats(mm);
 
 
-	log("\nAfter GC:", "");
+	//log("\nAfter GC:", "");
 	mm->dump();
 }
 

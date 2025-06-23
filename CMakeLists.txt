@@ -79,6 +79,17 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 ## Enable testing for current directory and below
 enable_testing()
 
+# Enable FetchContent
+include(FetchContent)
+
+# Declare and fetch spdlog
+FetchContent_Declare(
+  spdlog
+  GIT_REPOSITORY https://github.com/gabime/spdlog.git
+  GIT_TAG v1.15.3  # Replace with the latest stable tag if needed
+)
+FetchContent_MakeAvailable(spdlog)
+
 ################################################################################
 # Sub-projects
 ################################################################################
