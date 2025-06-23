@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memory>
 #include "Utils/alloc-util.h"
-#include "Utils/stat-util.h"
+#include "Utils/log-util.h"
 #include "Value/Value.h"
 
 void sample_1()
@@ -29,8 +29,7 @@ void sample_1()
 	mm->dump();
 
 	auto gcStats = mm->collect();
-
-	printGCStats(mm);
+	printGCStats(gcStats);
 
 	//log("\nAfter GC:", "");
 	mm->dump();
@@ -51,7 +50,7 @@ struct MyObject2
 
 void sample_2()
 {
-	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
+	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkSweepGC, 64>();
 
 	GSetActiveMemoryManager(mm);
 
@@ -72,7 +71,7 @@ void sample_2()
 	mm->writeValue(obj->ptr, Value::Number(45));
 
 	//obj->obj2->ptr
-	printHeapStats(mm);
+	printHeapStats(mm->allocator->heapStats);
 
 	gc_delete(mm->toVirtualAddress(obj2));
 
@@ -83,11 +82,11 @@ void sample_2()
 	mm->dump();
 
 	//printGCStats(mm);
-	printHeapStats(mm);
+	printHeapStats(mm->allocator->heapStats);
 	auto gcStats = mm->collect();
 
-	printGCStats(mm);
-	printHeapStats(mm);
+	printGCStats(gcStats);
+	printHeapStats(mm->allocator->heapStats);
 
 
 	//log("\nAfter GC:", "");
@@ -96,5 +95,6 @@ void sample_2()
 
 int main()
 {
+	setupLogger();
 	sample_2();
 } 

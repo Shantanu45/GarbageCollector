@@ -24,7 +24,9 @@ struct IAllocator {
   std::shared_ptr<HeapStats> heapStats;
 
   IAllocator(std::shared_ptr<Heap> heap)
-	  : heap(heap), heapStats(std::make_shared<HeapStats>()) {}
+	  : heap(heap), heapStats(std::make_shared<HeapStats>()) {
+	  heapStats->size = heap->size();
+  }
 
   virtual ~IAllocator() {}
 

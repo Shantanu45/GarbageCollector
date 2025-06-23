@@ -90,6 +90,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(spdlog)
 
+if(MSVC)
+  set_target_properties(spdlog         PROPERTIES FOLDER "ThirdParty/spdlog")
+endif()
+
 ################################################################################
 # Sub-projects
 ################################################################################

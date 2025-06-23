@@ -1,16 +1,7 @@
 #pragma once
 
-#include <stdint.h>
-#include <iostream>
-#include <vector>
-
-#include "../Utils/number-util.h"
-#include "spdlog/spdlog.h"
-
- /**
-  * 32 bit machine word.
-  */
-using Word = uint32_t;
+#include "../Utils/log-util.h"
+#include "../Utils/common.h"
 
 /**
  * Virtual heap storage with convenient methods of converting
@@ -62,30 +53,7 @@ struct Heap {
 	 * Dumps the heap memory.
 	 */
 	void dump() {
-
-		spdlog::info("\nMemory dump:------------------------\n");
-
-		int address = 0;
-
-		auto words = asWordPointer(0);
-		auto wordsCount = size() / sizeof(Word);
-
-		for (auto i = 0; i < wordsCount; i++) {
-			std::string row = "";
-
-			row += int_to_hex(address) + " : ";
-
-			auto value = int_to_hex(words[i], /*usePrefix*/ false);
-			insert_delimeter(value, 2, " ");
-
-			row += value;
-
-			spdlog::info(row);
-
-			address += sizeof(Word);
-		}
-
-		spdlog::info("");  // blank line
+		dumpHeapContents(asWordPointer(0), size() / sizeof(Word));
 	}
 
 	~Heap() {
