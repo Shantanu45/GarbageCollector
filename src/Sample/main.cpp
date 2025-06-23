@@ -1,9 +1,6 @@
 
-#include <iostream>
-#include <memory>
 #include "Utils/alloc-util.h"
 #include "Utils/log-util.h"
-#include "Value/Value.h"
 
 void sample_1()
 {
@@ -77,11 +74,10 @@ void sample_2()
 
 	//log("MyObj Value", obj->val.decode());
 
-	//log("\nBefore GC:", "");
+	spdlog::info("\nBefore GC:");
 
 	mm->dump();
 
-	//printGCStats(mm);
 	printHeapStats(mm->allocator->heapStats);
 	auto gcStats = mm->collect();
 
@@ -89,7 +85,8 @@ void sample_2()
 	printHeapStats(mm->allocator->heapStats);
 
 
-	//log("\nAfter GC:", "");
+	spdlog::info("\After GC:");
+
 	mm->dump();
 }
 

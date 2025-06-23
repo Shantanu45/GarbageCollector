@@ -6,21 +6,28 @@
 
 struct HeapStats
 {
+	struct unit
+	{
+		uint32_t from;
+		uint32_t size;
+
+		bool operator<(const unit& other) const {
+			return from < other.from || (from == other.from && size < other.size);
+		}
+	};
 	uint32_t size;
 
-	std::set<uint32_t> usedLocations;
+	std::set<unit> usedLocations;
 
 	void MarkUsed(uint32_t from, uint32_t size, bool Unmark = false)
 	{
-		for (size_t i = from; i < from + size; i++)
+		if (Unmark)
 		{
-			if (Unmark)
-			{
-				usedLocations.erase(i);
-				continue;
-			}
-			usedLocations.emplace(i);
+			usedLocations.erase({ from, size });
+			return;
 		}
+		usedLocations.emplace(from, size);
+
 	}
 
 	void Reset()
