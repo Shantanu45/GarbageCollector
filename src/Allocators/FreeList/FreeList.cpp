@@ -44,13 +44,6 @@ Value FreeListAllocator::allocate(uint32_t n) {
             freeList.push_back(nextHeaderP);
         }
 
-        size_t from = payload - sizeof(ObjectHeader);
-        size_t to = from + header->size;
-        for (size_t i = from; i <= to; i++)
-        {
-            stats->usedLocations.emplace(i);
-        }
-
         // Update total object count.
         _objectCount++;
 
@@ -87,14 +80,6 @@ void FreeListAllocator::free(Word address) {
     freeList.push_back((uint8_t*)header - heap->asBytePointer(0));
 
     auto ptr = heap->asBytePointer(address);
-
-    size_t from = address - sizeof(ObjectHeader);
-    size_t to = from + header->size;
-    for (size_t i = from; i <= to; i++)
-    {
-        stats->usedLocations.erase(i);
-    }
-    stats->usedLocations.erase(address - sizeof(ObjectHeader));
 
     // Reset the block to 0.
     memset(heap->asBytePointer(address), 0x0, header->size);
