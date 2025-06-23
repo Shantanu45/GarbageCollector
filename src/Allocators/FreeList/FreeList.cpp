@@ -11,7 +11,7 @@
   *
   * Value::Pointer(nullptr) payload signals OOM.
   */
-Value FreeListAllocator::allocate(uint32_t n) {
+Value FreeListAllocator::allocate(uint32_t n, std::string name) {
     n = align<uint32_t>(n);
 
     for (const auto& free : freeList) {
@@ -44,7 +44,7 @@ Value FreeListAllocator::allocate(uint32_t n) {
             freeList.push_back(nextHeaderP);
         }
 
-        heapStats->MarkUsed(payload - sizeof(ObjectHeader), header->size + sizeof(ObjectHeader));
+        heapStats->MarkUsed(payload - sizeof(ObjectHeader), header->size + sizeof(ObjectHeader), name);
 
         // Update total object count.
         _objectCount++;
@@ -70,7 +70,7 @@ void FreeListAllocator::free(Word address) {
 
     auto ptr = heap->asBytePointer(address);
 
-    heapStats->MarkUsed(address - sizeof(ObjectHeader), header->size + sizeof(ObjectHeader), true);
+    heapStats->MarkUnUsed(address - sizeof(ObjectHeader));
 
     // Reset the block to 0.
     memset(heap->asBytePointer(address), 0x0, header->size);
@@ -84,8 +84,9 @@ void FreeListAllocator::free(Word address) {
 
 void FreeListAllocator::relocate(Word to, Word from, size_t size)
 {
-    heapStats->MarkUsed(from, size, true);
-    heapStats->MarkUsed(to, size);
+    std::string name = heapStats->usedLocations[from].name;
+    heapStats->MarkUnUsed(from);
+    heapStats->MarkUsed(to, size, name);
     auto moveTo = heap->asWordPointer(to);
     auto moveFrom = heap->asWordPointer(from);
     memcpy(moveTo, moveFrom, size);
@@ -158,6 +159,6 @@ void FreeListAllocator::_resetFreeListWithOffset(int firstBlock)
 
     freeList.clear();
     freeList.push_back(firstBlock);
-    heapStats->MarkUsed(firstBlock, heap->size() - firstBlock, true);
+    heapStats->MarkUnUsed(firstBlock);
 
 }

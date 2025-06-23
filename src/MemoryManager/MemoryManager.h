@@ -84,7 +84,7 @@ public:
 
 	Value* readValue(Word address);
 
-	Value allocate(uint32_t n);
+	Value allocate(uint32_t n, std::string name = "");
 
 	void free(Word address);
 

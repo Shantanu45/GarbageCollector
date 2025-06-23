@@ -47,17 +47,17 @@ struct MyObject2
 
 void sample_2()
 {
-	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkSweepGC, 64>();
+	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
 
 	GSetActiveMemoryManager(mm);
 
-	MyObject2* obj = gc_new <MyObject2>();
+	MyObject2* obj = gc_new <MyObject2>("Obj");
 
 	obj->val = Value::Number(42);
 
-	MyObject* obj2 = gc_new<MyObject>();
+	MyObject* obj2 = gc_new<MyObject>("Obj2");
 
-	auto ptr = mm->allocate(4);
+	auto ptr = mm->allocate(4, "FOUR");
 
 	obj2->val = Value::Number(24);
 	obj2->ptr = Value::Pointer(ptr);
@@ -70,7 +70,7 @@ void sample_2()
 	//obj->obj2->ptr
 	printHeapStats(mm->allocator->heapStats);
 
-	gc_delete(mm->toVirtualAddress(obj2));
+	//gc_delete(mm->toVirtualAddress(obj2));
 
 	//log("MyObj Value", obj->val.decode());
 

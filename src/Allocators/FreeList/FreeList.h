@@ -52,7 +52,7 @@ public:
      *
      * Value::Pointer(nullptr) payload signals OOM.
      */
-    Value allocate(uint32_t n) override;
+    Value allocate(uint32_t n, std::string name = "") override;
 
     /**
      * Returns the block to the allocator.

@@ -17,7 +17,7 @@ inline bool GSetActiveMemoryManager(std::shared_ptr<MemoryManager> mm)
 
 
 template <typename T, typename... Args>
-inline T* gc_new(Args&&... args) {
+inline T* gc_new(std::string name = "", Args&&... args) {
 	if (!GActiveMemoryManager)
 	{
 		static_assert("No registered Memory Manager found. Please set GActiveMemoryManager via GSetActiveMemoryManager()");
@@ -39,7 +39,7 @@ inline T* gc_new(Args&&... args) {
 
 
 template <typename T>
-inline T* gc_new() {
+inline T* gc_new(std::string name = "") {
 	if (!GActiveMemoryManager)
 	{
 		static_assert("No registered Memory Manager found. Please set GActiveMemoryManager via GSetActiveMemoryManager()");
@@ -49,7 +49,7 @@ inline T* gc_new() {
 
 	// Allocate memory for T (in words)
 	size_t sizeInBytes = sizeof(T);
-	auto addr = GActiveMemoryManager->allocate(sizeInBytes);
+	auto addr = GActiveMemoryManager->allocate(sizeInBytes, name);
 
 	void* raw = (void*)GActiveMemoryManager->heap->asWordPointer(addr);
 	// Construct object in place using placement new

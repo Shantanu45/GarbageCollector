@@ -6,32 +6,33 @@
 
 struct HeapStats
 {
-	struct unit
-	{
-		uint32_t from;
-		uint32_t size;
+    struct data
+    {
+        uint32_t size;
+        std::string name;
 
-		bool operator<(const unit& other) const {
-			return from < other.from || (from == other.from && size < other.size);
-		}
-	};
-	uint32_t size;
+        bool operator==(const data& other) const {
+            return size == other.size && name == other.name;
+        }
+    };
 
-	std::set<unit> usedLocations;
+    uint32_t totalSize;
 
-	void MarkUsed(uint32_t from, uint32_t size, bool Unmark = false)
-	{
-		if (Unmark)
-		{
-			usedLocations.erase({ from, size });
-			return;
-		}
-		usedLocations.emplace(from, size);
+    // from -> data (used block)
+    std::unordered_map<uint32_t, data> usedLocations;
 
-	}
+    void MarkUsed(uint32_t from, uint32_t size, const std::string& name = "")
+    {
+        usedLocations.emplace(from, data{ size, name });
+    }
 
-	void Reset()
-	{
-		usedLocations.clear();
-	}
+    void MarkUnUsed(uint32_t from)
+    {
+        usedLocations.erase(from);
+    }
+
+    void Reset()
+    {
+        usedLocations.clear();
+    }
 };

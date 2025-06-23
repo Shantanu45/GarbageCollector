@@ -25,7 +25,7 @@ struct IAllocator {
 
   IAllocator(std::shared_ptr<Heap> heap)
 	  : heap(heap), heapStats(std::make_shared<HeapStats>()) {
-	  heapStats->size = heap->size();
+	  heapStats->totalSize = heap->h_size;
   }
 
   virtual ~IAllocator() {}
@@ -40,7 +40,7 @@ struct IAllocator {
    *
    * Returns a virtual pointer (Value::Pointer) to the payload.
    */
-  virtual Value allocate(uint32_t n) = 0;
+  virtual Value allocate(uint32_t n, std::string name = "") = 0;
 
   /**
    * Returns the block to the allocator.

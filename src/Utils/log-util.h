@@ -42,62 +42,46 @@ inline void printHeapStats(std::shared_ptr<HeapStats> heapStats)
 {
 	auto logger = spdlog::get("HEAP_STAT");
 	std::ostringstream out;
-	out << "\033[33;1m[";
-	std::vector<uint32_t> heapState(heapStats->size, 0);
+	out << "\033[0m[";
 
-	bool flag = true;
+	std::vector<std::string> heapState(heapStats->totalSize, "-");
+
 	for (auto& u : heapStats->usedLocations)
 	{
-		for (size_t i = u.from; i < u.from+u.size; i++)
+		for (size_t i = u.first; i < u.first + u.second.size; i++)
 		{
-			heapState[i] = flag?1:2;
+			if (u.second.name != "")
+			{
+				heapState.erase(heapState.begin()+(u.first+1), heapState.begin() + u.first + (u.second.size));
+				heapState[i] = u.second.name + "(" + std::to_string(u.second.size) + ")";
+
+				break;
+			}
+			heapState[i] = "=";
 		}
-		flag = !flag;
 	}
-	flag = true;
-	for (auto s: heapState)
+
+	for (auto s : heapState)
 	{
-		if (s == 0)
+		if (s == "-")
 		{
 			out << "\033[0m";
 			out << "-";
 		}
-		else if(s == 1){
-			if (flag == false)
-			{
-				out << "\033[0m";
-				out << "\033[32;1m";
-				flag = true;
-			}
+		else if (s == "=")
+		{
+			out << "\033[32;1m";
 			out << "=";
+		} 
+		else
+		{
+			out << "\033[33;1m";
+			out << s;
 		}
-		else if (s == 2) {
-			if (flag == true)
-			{
-				out << "\033[0m";
-				out << "\033[31;1m";
-				flag = false;
-			}
-			out << "=";
-		}
-	}
-	//for (size_t i = 0; i < heapStats->size; i++)
-	//{
-	//	bool used = false;
-	//	for (auto& u : heapStats->usedLocations)
-	//	{
-	//		if (i >= u.from && i < u.from + u.size)
-	//		{
-	//			used = true;
-	//			break;  // no need to check further
-	//		}
-	//	}
 
-	//	if (used)
-	//		out << "=";
-	//	else
-	//		out << "-";
-	//}
+
+	}
+
 	out << "]\033[0m";
 	logger->info("Heap usage: {}", out.str());
 }
