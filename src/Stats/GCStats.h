@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdint.h>
 #include <memory>
 #include <set>
@@ -20,14 +22,4 @@ struct GCStats {
 	 * Number of reclaimed objects.
 	 */
 	uint32_t reclaimed;
-
-	/*
-	* Free memory
-	*/
-	uint32_t free;
-
-	/*
-	* Used memory
-	*/
-	uint32_t used;
 };

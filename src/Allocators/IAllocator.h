@@ -7,6 +7,7 @@
 #include "../MemoryManager/Heap.h"
 #include "../MemoryManager/ObjectHeader.h"
 #include "../Value/Value.h"
+#include "../Stats/HeapStats.h"
 
 /**
  * Abstract allocator class.
@@ -20,7 +21,13 @@ struct IAllocator {
    */
   std::shared_ptr<Heap> heap;
 
-  IAllocator(std::shared_ptr<Heap> heap): heap(heap) {}
+  /**
+	* Stats for the collection cycle.
+	*/
+  std::shared_ptr<HeapStats> stats;
+
+  IAllocator(std::shared_ptr<Heap> heap): heap(heap),
+	  stats(std::make_shared<HeapStats>()) {}
 
   virtual ~IAllocator() {}
 
