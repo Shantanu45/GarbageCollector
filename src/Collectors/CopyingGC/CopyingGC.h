@@ -8,6 +8,7 @@
 #include "../../Value/Value.h"
 #include "../../Allocators/IAllocator.h"
 
+
 /**
  * Mark-Sweep garbage collector.
  *
@@ -26,6 +27,8 @@ public:
         FromHeap = allocatorOne->heap;
         ToHeap = allocatorTwo->heap;
         ToAllocator = allocatorTwo;
+
+        totalAllocSize = ToHeap->h_size + ToHeap->h_size;
     };
 
     /**
@@ -46,5 +49,7 @@ public:
 
     std::shared_ptr<IAllocator> ToAllocator;
     std::shared_ptr<IAllocator> FromAllocator;
+
+    uint32_t totalAllocSize;
 private:
 };

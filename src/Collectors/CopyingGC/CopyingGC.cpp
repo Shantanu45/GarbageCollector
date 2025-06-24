@@ -23,15 +23,15 @@ void CopyingGC::copy()
 
 		stats->alive++;
 
-		auto newLoc = RelocateToNewHeap(v - sizeof(ObjectHeader), FromAllocator, dstAlloc, ToAllocator);
+		auto newLoc = CopyToNewHeap(v - sizeof(ObjectHeader), FromAllocator, dstAlloc, ToAllocator);
 		ReplaceHeaderWithRawPtr(v, FromAllocator, newLoc);
-		for (const auto& p : ToAllocator->getPointers(v))
-		{
-			if (!isObjectHeaderRawPointer((Word*)FromAllocator->getHeader(*p)) && FromAllocator->getHeader(*p)->size != 0)
-			{
-				roots.push_back(p->decode());
-			}
-		}
+		//for (const auto& p : ToAllocator->getPointers(v))
+		//{
+		//	if (!isObjectHeaderRawPointer((Word*)FromAllocator->getHeader(*p)) && FromAllocator->getHeader(*p)->size != 0)
+		//	{
+		//		roots.push_back(p->decode());
+		//	}
+		//}
 		dstAlloc += sizeof(ObjectHeader) + header->size;
 	}
 }

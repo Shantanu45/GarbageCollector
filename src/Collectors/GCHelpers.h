@@ -43,7 +43,7 @@ inline Word RelocatreToForwardAddr(Word src, std::shared_ptr<IAllocator> allocat
 }
 
 // return actual address of destination
-inline Word* RelocateToNewHeap(Word src, std::shared_ptr<IAllocator> srcAllocator, Word dst, std::shared_ptr<IAllocator> dstAllocator)
+inline Word* CopyToNewHeap(Word src, std::shared_ptr<IAllocator> srcAllocator, Word dst, std::shared_ptr<IAllocator> dstAllocator)
 {
 	auto header = (ObjectHeader*)srcAllocator->heap->asWordPointer(src);
 	auto moveTo = dstAllocator->heap->asWordPointer(dst);
@@ -98,10 +98,12 @@ inline void ReplaceHeaderWithRawPtr(Word src, std::shared_ptr<IAllocator> alloca
 	*rawSrc = reinterpret_cast<Word>(forward);
 }
 
-// takes raw pointer
-inline bool isObjectHeaderRawPointer(Word* ptr)
+// takes src of allocatorOne
+inline bool isForwardPointingToSwapHeap(Word src, std::shared_ptr<IAllocator> allocatorOne)
 {
-	if (ptr != nullptr && ptr + sizeof(ObjectHeader) == 0x0)
+	auto header = allocatorOne->getHeader(src);
+	auto factor = header->forward / allocatorOne->heap->size();
+	if ( factor >= 1 && factor < 2)
 	{
 		return true;
 	} 

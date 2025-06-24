@@ -16,6 +16,7 @@ set(TESTS
 	"MarkCompactGCTest.cpp"
 	"CopyingGCTest.cpp"
 	"StatTest.cpp"
+	"GCHelpersTest.cpp"
 )
 
 source_group("tests" FILES ${TESTS})
