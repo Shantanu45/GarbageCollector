@@ -40,11 +40,12 @@ inline void printGCStats(std::shared_ptr<GCStats> gcStats)
 
 inline void printHeapStats(std::shared_ptr<HeapStats> heapStats)
 {
-	auto logger = spdlog::get("HEAP_STAT");
-	std::ostringstream out;
-	out << "\033[0m[";
+    auto logger = spdlog::get("HEAP_STAT");
+    std::ostringstream out;
+    out << "\033[0m[";  // Reset color, start of heap line
 
-	std::vector<std::string> heapState(heapStats->totalSize, "-");
+    // Initialize heap state with placeholder characters
+    std::vector<std::string> heapState(heapStats->totalSize, "-");
 
 	for (auto& u : heapStats->usedLocations)
 	{
@@ -68,29 +69,25 @@ inline void printHeapStats(std::shared_ptr<HeapStats> heapStats)
 		}
 	}
 
-	for (auto s : heapState)
-	{
-		if (s == "-")
-		{
-			out << "\033[0m";
-			out << "-";
-		}
-		else if (s == "=")
-		{
-			out << "\033[32;1m";
-			out << "=";
-		} 
-		else
-		{
-			out << "\033[33;1m";
-			out << s;
-		}
+    // Output with colors
+    for (const auto& s : heapState)
+    {
+        if (s == "-")
+        {
+            out << "\033[0m" << "-";
+        }
+        else if (s == "=")
+        {
+            out << "\033[32;1m" << "=";  // Green for unnamed used block
+        }
+        else
+        {
+            out << "\033[33;1m" << s;    // Yellow for labeled block
+        }
+    }
 
-
-	}
-
-	out << "]\033[0m";
-	logger->info("Heap usage: {}", out.str());
+    out << "]\033[0m";  // Reset at the end
+    logger->info("Heap usage: {}", out.str());
 }
 
 inline void dumpHeapContents(Word* heapStart, uint32_t wordsCount)

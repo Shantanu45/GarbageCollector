@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 #include <memory>
+#include <unordered_map>
+#include <string>
 
 struct HeapStats
 {

@@ -51,25 +51,27 @@ void sample_2()
 
 	GSetActiveMemoryManager(mm);
 
-	MyObject2* obj = gc_new <MyObject2>("Obj");
+	MyObject2* obj = gc_new <MyObject2>("Obj1");
 
 	obj->val = Value::Number(42);
 
 	MyObject* obj2 = gc_new<MyObject>("Obj2");
 
-	auto ptr = mm->allocate(4, "FOUR");
+	auto ptr = mm->allocate(4, "Obj3");
 
 	obj2->val = Value::Number(24);
 	obj2->ptr = Value::Pointer(ptr);
 
 	obj->ptr = Value::Pointer(mm->toVirtualAddress(obj2));
-	obj->ptr2 = Value::Pointer(ptr);
+	obj->ptr2 = Value::Pointer(nullptr);
 
 	mm->writeValue(obj->ptr, Value::Number(45));
 
 	//obj->obj2->ptr
+	spdlog::info("Initial Heap state...");
 	printHeapStats(mm->allocator->heapStats);
 
+	spdlog::info("Deleting obj2...");
 	gc_delete(mm->toVirtualAddress(obj2));
 
 	//log("MyObj Value", obj->val.decode());
@@ -79,15 +81,20 @@ void sample_2()
 	mm->dump();
 
 	printHeapStats(mm->allocator->heapStats);
+
 	auto gcStats = mm->collect();
+	spdlog::info("\After GC:");
 
 	printGCStats(gcStats);
 	printHeapStats(mm->allocator->heapStats);
 
-
-	spdlog::info("\After GC:");
-
 	mm->dump();
+}
+
+void sample_3() {
+	static auto heap = std::make_shared<Heap>(32);
+	static auto allocator = std::make_shared<FreeListAllocator>(heap);
+	MarkCompactGC cgc(allocator);
 }
 
 int main()

@@ -22,4 +22,4 @@ struct GCStats {
 	 * Number of reclaimed objects.
 	 */
 	uint32_t reclaimed;
-};
+};      

@@ -84,14 +84,15 @@ public:
      */
     std::vector<Value*> getPointers(Word address);
 
-    void setFreeRegion(int startVirtualAddress) {
+    void setFreeRegion(Word startVirtualAddress) {
         _resetFreeListWithOffset(startVirtualAddress);
     }
 
 private:
     void _resetFreeList();
     void _resetFirstBlock();
-    void _resetFreeListWithOffset(int firstBlock);
+    void _setFreeRegion(Word from, Word to);
+    void _resetFreeListWithOffset(Word firstBlock);
 
     // keeping track of space that was never allocated. 
     Word _unTouchedSpace = 0;
