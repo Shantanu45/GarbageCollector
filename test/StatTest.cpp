@@ -13,6 +13,7 @@ namespace {
 		HeapStats stats = {};
 
 		stats.MarkUsed(5, 3);
+
 		//std::set<HeapStats::> expectedAfterUnmark = { 5 }
 		//stats.usedLocations.emplace(5, 3);
 
