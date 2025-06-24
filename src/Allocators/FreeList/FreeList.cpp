@@ -160,7 +160,7 @@ void FreeListAllocator::_setFreeRegion(Word from, Word to)
     memset(heap->asBytePointer(from), 0x0, (size_t)(to - from));
 
     *heap->asWordPointer(from) = ObjectHeader{
-        .size = (uint8_t)(to - from),
+        .size = (uint8_t)(to - (from + sizeof(ObjectHeader))),
     };
 
     // TODO: add test for this. if freeList is represeted correctly when Marked Used/Unused

@@ -47,7 +47,7 @@ struct MyObject2
 
 void sample_2()
 {
-	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkSweepGC, 64>();
+	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
 
 	GSetActiveMemoryManager(mm);
 
@@ -63,7 +63,7 @@ void sample_2()
 	obj2->ptr = Value::Pointer(ptr);
 
 	obj->ptr = Value::Pointer(mm->toVirtualAddress(obj2));
-	obj->ptr2 = Value::Pointer(nullptr);
+	obj->ptr2 = Value::Pointer(ptr);
 
 	mm->writeValue(obj->ptr, Value::Number(45));
 
