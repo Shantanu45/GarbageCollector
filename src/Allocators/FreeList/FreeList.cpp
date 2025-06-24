@@ -166,6 +166,12 @@ void FreeListAllocator::_setFreeRegion(Word from, Word to)
     // TODO: add test for this. if freeList is represeted correctly when Marked Used/Unused
     freeList.clear();
     freeList.push_back(from);
-    heapStats->MarkUnUsed(from);
+    for (auto used: heapStats->usedLocations)
+    {
+        if (used.first >= from && used.first < to)
+        {
+            heapStats->MarkUnUsed(used.first);
+        }
+    }
 
 }
