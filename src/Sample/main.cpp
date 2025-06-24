@@ -1,6 +1,7 @@
 
 #include "Utils/alloc-util.h"
 #include "Utils/log-util.h"
+#include "../Collectors/CopyingGC/CopyingGC.h"
 
 void sample_1()
 {
@@ -92,13 +93,20 @@ void sample_2()
 }
 
 void sample_3() {
-	static auto heap = std::make_shared<Heap>(32);
-	static auto allocator = std::make_shared<FreeListAllocator>(heap);
-	MarkCompactGC cgc(allocator);
+
+	auto heap = std::make_shared<Heap>(32);
+	std::shared_ptr<IAllocator> allocator = std::make_shared<FreeListAllocator>(heap);
+
+	auto heapTwo = std::make_shared<Heap>(32);
+	std::shared_ptr<IAllocator> allocatorTwo = std::make_shared<FreeListAllocator>(heapTwo);
+
+	// Instantiate CopyingGC with FreeListAllocator
+	CopyingGC gc(allocator, allocatorTwo);
 }
 
 int main()
 {
 	setupLogger();
 	sample_2();
+	sample_3();
 } 

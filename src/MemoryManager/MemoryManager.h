@@ -16,6 +16,10 @@
 #include "../Allocators/IAllocator.h"
 #include "../Collectors/ICollector.h"
 
+#include <type_traits> // for std::is_same
+
+class CopyingGC;
+
 class MemoryManager {
 public:
 	std::shared_ptr<Heap> heap;
@@ -40,7 +44,18 @@ public:
 	{
 		auto heap = std::make_shared<Heap>(heapSize);
 		auto allocator = std::make_shared<Allocator>(heap);
-		auto collector = std::make_shared<Collector>(allocator);
+		std::shared_ptr<Collector> collector;
+
+		if constexpr (std::is_same<Collector, CopyingGC>::value) {
+			auto heapTwo = std::make_shared<Heap>(heapSize);
+			auto allocatorTwo = std::make_shared<Allocator>(heapTwo);
+			collector = std::make_shared<Collector>(allocator, allocatorTwo);
+
+		}
+		else
+		{
+			collector = std::make_shared<Collector>(allocator);
+		}
 
 		return std::make_shared<MemoryManager>(heap, allocator, collector);
 	}

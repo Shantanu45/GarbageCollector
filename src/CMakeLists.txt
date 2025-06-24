@@ -37,6 +37,12 @@ set(MarkCompact
 )
 source_group("Collectors/MarkCompact" FILES ${MarkCompact})
 
+set(CopyingGC
+	"Collectors/CopyingGC/CopyingGC.h"
+	"Collectors/CopyingGC/CopyingGC.cpp"
+)
+source_group("Collectors/CopyingGC" FILES ${CopyingGC})
+
 set(Value
 	"Value/Value.cpp"
 	"Value/Value.h"
@@ -67,6 +73,7 @@ set(ALL_FILES
 	${Collectors}
 	${MarkSweep}
 	${MarkCompact}
+	${CopyingGC}
 	${Stats}
 )
 
