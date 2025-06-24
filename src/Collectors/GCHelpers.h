@@ -42,6 +42,16 @@ inline Word RelocatreToForwardAddr(Word src, std::shared_ptr<IAllocator> allocat
 	return RelocatreToAddr(src, header->forward - sizeof(ObjectHeader), allocator);
 }
 
+// return actual address of destination
+inline Word* RelocateToNewHeap(Word src, std::shared_ptr<IAllocator> srcAllocator, Word dst, std::shared_ptr<IAllocator> dstAllocator)
+{
+	auto header = (ObjectHeader*)srcAllocator->heap->asWordPointer(src);
+	auto moveTo = dstAllocator->heap->asWordPointer(dst);
+	auto moveFrom = srcAllocator->heap->asWordPointer(src);
+	memcpy(moveTo, moveFrom, header->size);
+	return moveTo;
+}
+
 
 inline void UpdateChildPtrToForwardAddr(Word src, std::shared_ptr<IAllocator> allocator)
 {
@@ -79,4 +89,21 @@ inline void UpdateForwardAddr(Word src, Word forward, std::shared_ptr<IAllocator
 {
 	auto header = allocator->getHeader(src);
 	header->forward = forward;
+}
+
+inline void ReplaceHeaderWithRawPtr(Word src, std::shared_ptr<IAllocator> allocator, Word* forward)
+{
+	Word* rawSrc = allocator->heap->asWordPointer(src);
+	memset(rawSrc + sizeof(ObjectHeader), 0x0, allocator->getHeader(src)->size);
+	*rawSrc = reinterpret_cast<Word>(forward);
+}
+
+// takes raw pointer
+inline bool isObjectHeaderRawPointer(Word* ptr)
+{
+	if (ptr != nullptr && ptr + sizeof(ObjectHeader) == 0x0)
+	{
+		return true;
+	} 
+	return false;
 }

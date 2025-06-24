@@ -13,7 +13,7 @@ struct ObjectHeader {
     /**
      * The forwarding address (using by moving/copying collectors).
      */
-    uint16_t forward;
+    uint16_t forward = 0x0;
 
     /**
      * The block size.

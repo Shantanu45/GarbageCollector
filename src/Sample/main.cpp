@@ -90,6 +90,12 @@ void sample_2()
 	mm->dump();
 }
 
+void sample_3() {
+	static auto heap = std::make_shared<Heap>(32);
+	static auto allocator = std::make_shared<FreeListAllocator>(heap);
+	MarkCompactGC cgc(allocator);
+}
+
 int main()
 {
 	setupLogger();

@@ -14,6 +14,7 @@ set(TESTS
 	"ObjectHeaderTest.cpp"
 	"ValueTest.cpp"
 	"MarkCompactGCTest.cpp"
+	"CopyingGCTest.cpp"
 	"StatTest.cpp"
 )
 
