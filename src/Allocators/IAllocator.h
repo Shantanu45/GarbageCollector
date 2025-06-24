@@ -75,5 +75,5 @@ struct IAllocator {
    */
   virtual std::vector<Value*> getPointers(Word address) = 0;
 
-  virtual void setFreeRegion(int startVirtualAddress) = 0;
+  virtual void setFreeRegion(Word startVirtualAddress) = 0;
 };

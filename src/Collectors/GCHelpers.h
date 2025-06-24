@@ -25,17 +25,23 @@ inline void MarkAllAlive(std::vector<Word> roots, std::shared_ptr<IAllocator> al
 	}
 }
 
+inline Word RelocatreToAddr(Word src, Word dst, std::shared_ptr<IAllocator> allocator)
+{
+	auto header = (ObjectHeader*)allocator->heap->asWordPointer(src);
+	auto toptr = dst;
+	auto fromptr = src;
+	allocator->relocate(toptr, fromptr, header->size + sizeof(ObjectHeader));
+	return toptr;
+}
+
 // src: virtual address of ObjectHeader
 // moves ObjectHeader + data
 inline Word RelocatreToForwardAddr(Word src, std::shared_ptr<IAllocator> allocator)
 {
 	auto header = (ObjectHeader*)allocator->heap->asWordPointer(src);
-
-	auto toptr = header->forward - sizeof(ObjectHeader);
-	auto fromptr = src;
-	allocator->relocate(toptr, fromptr, header->size + sizeof(ObjectHeader));
-	return toptr;
+	return RelocatreToAddr(src, header->forward - sizeof(ObjectHeader), allocator);
 }
+
 
 inline void UpdateChildPtrToForwardAddr(Word src, std::shared_ptr<IAllocator> allocator)
 {
@@ -67,4 +73,10 @@ inline void UpdateForwardAddrToFree(std::shared_ptr<IAllocator> allocator, std::
 		// Move to the next block.
 		scan += header->size + sizeof(ObjectHeader);
 	}
+}
+
+inline void UpdateForwardAddr(Word src, Word forward, std::shared_ptr<IAllocator> allocator)
+{
+	auto header = allocator->getHeader(src);
+	header->forward = forward;
 }

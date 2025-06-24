@@ -149,16 +149,23 @@ void FreeListAllocator::_resetFirstBlock() {
     };
 }
 
-void FreeListAllocator::_resetFreeListWithOffset(int firstBlock)
+void FreeListAllocator::_resetFreeListWithOffset(Word firstBlock)
 {
-    memset(heap->asBytePointer(firstBlock), 0x0, (uint8_t)(heap->size() - firstBlock));
+    _setFreeRegion(firstBlock, heap->size());
 
-    *heap->asWordPointer(firstBlock) = ObjectHeader {
-        .size = (uint8_t)(heap->size() - (sizeof(ObjectHeader) + firstBlock)),
+}
+
+void FreeListAllocator::_setFreeRegion(Word from, Word to)
+{
+    memset(heap->asBytePointer(from), 0x0, (size_t)(to - from));
+
+    *heap->asWordPointer(from) = ObjectHeader{
+        .size = (uint8_t)(to - from),
     };
 
+    // TODO: add test for this. if freeList is represeted correctly when Marked Used/Unused
     freeList.clear();
-    freeList.push_back(firstBlock);
-    heapStats->MarkUnUsed(firstBlock);
+    freeList.push_back(from);
+    heapStats->MarkUnUsed(from);
 
 }
