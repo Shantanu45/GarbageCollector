@@ -40,50 +40,59 @@ inline void printGCStats(std::shared_ptr<GCStats> gcStats)
 
 inline void printHeapStats(std::shared_ptr<HeapStats> heapStats)
 {
-	auto logger = spdlog::get("HEAP_STAT");
-	std::ostringstream out;
-	out << "\033[0m[";
+    auto logger = spdlog::get("HEAP_STAT");
+    std::ostringstream out;
+    out << "\033[0m[";  // Reset color, start of heap line
 
-	std::vector<std::string> heapState(heapStats->totalSize, "-");
+    // Initialize heap state with placeholder characters
+    std::vector<std::string> heapState(heapStats->totalSize, "-");
 
-	for (auto& u : heapStats->usedLocations)
-	{
-		for (size_t i = u.first; i < u.first + u.second.size; i++)
-		{
-			if (u.second.name != "")
-			{
-				heapState.erase(heapState.begin()+(u.first+1), heapState.begin() + u.first + (u.second.size));
-				heapState[i] = u.second.name + "(" + std::to_string(u.second.size) + ")";
+    // Populate the heap visualization with used blocks
+    for (const auto& [addr, data] : heapStats->usedLocations)
+    {
+        // Clamp upper bound to avoid overflow
+        size_t end = std::min(addr + data.size, (uint32_t)heapState.size());
 
-				break;
-			}
-			heapState[i] = "=";
-		}
-	}
+        if (!data.name.empty())
+        {
+            // Represent the block with a label at the first cell
+            heapState[addr] = data.name + "(" + std::to_string(data.size) + ")";
 
-	for (auto s : heapState)
-	{
-		if (s == "-")
-		{
-			out << "\033[0m";
-			out << "-";
-		}
-		else if (s == "=")
-		{
-			out << "\033[32;1m";
-			out << "=";
-		} 
-		else
-		{
-			out << "\033[33;1m";
-			out << s;
-		}
+            // Fill the rest of the block with '='
+            for (size_t i = addr + 1; i < end; ++i)
+            {
+                heapState[i] = "";
+            }
+        }
+        else
+        {
+            // If no name, fill the entire block with '='
+            for (size_t i = addr; i < end; ++i)
+            {
+                heapState[i] = "=";
+            }
+        }
+    }
 
+    // Output with colors
+    for (const auto& s : heapState)
+    {
+        if (s == "-")
+        {
+            out << "\033[0m" << "-";
+        }
+        else if (s == "=")
+        {
+            out << "\033[32;1m" << "=";  // Green for unnamed used block
+        }
+        else
+        {
+            out << "\033[33;1m" << s;    // Yellow for labeled block
+        }
+    }
 
-	}
-
-	out << "]\033[0m";
-	logger->info("Heap usage: {}", out.str());
+    out << "]\033[0m";  // Reset at the end
+    logger->info("Heap usage: {}", out.str());
 }
 
 inline void dumpHeapContents(Word* heapStart, uint32_t wordsCount)

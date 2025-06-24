@@ -4,12 +4,10 @@
 #include <memory>
 #include <vector>
 
-#include "../Allocators/IAllocator.h"
-
-#include "../MemoryManager/Heap.h"
-#include "../MemoryManager/ObjectHeader.h"
-
 #include "../Stats/GCStats.h"
+#include "../MemoryManager/Heap.h"
+#include "GCHelpers.h"
+
 
 /**
  * Abstract collector class.

@@ -21,6 +21,7 @@ source_group("Allocators" FILES ${Allocators})
 
 set(Collectors
 	"Collectors/ICollector.h"
+	"Collectors/GCHelpers.h"
 )
 source_group("Collectors" FILES ${Collectors})
 

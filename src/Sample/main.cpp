@@ -70,7 +70,7 @@ void sample_2()
 	//obj->obj2->ptr
 	printHeapStats(mm->allocator->heapStats);
 
-	//gc_delete(mm->toVirtualAddress(obj2));
+	gc_delete(mm->toVirtualAddress(obj2));
 
 	//log("MyObj Value", obj->val.decode());
 

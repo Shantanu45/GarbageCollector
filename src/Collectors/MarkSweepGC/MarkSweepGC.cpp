@@ -11,25 +11,7 @@ std::shared_ptr<GCStats> MarkSweepGC::collect() {
 }
 
 void MarkSweepGC::mark() {
-	std::vector<Word> worklist = getRoots();
-
-	while (!worklist.empty()) {
-		Word v = worklist.back();
-		worklist.pop_back();
-		ObjectHeader* header = allocator->getHeader(v);
-
-		if (header->mark == 0)
-		{
-			header->mark = 1;
-			stats->alive++;
-
-			for (const auto& p: allocator->getPointers(v))
-			{
-				worklist.push_back(p->decode());
-			}
-		}
-	}
-
+	MarkAllAlive(getRoots(), allocator, stats);
 }
 
 void MarkSweepGC::sweep()
