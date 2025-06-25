@@ -33,13 +33,13 @@ void sample_1()
 	mm->dump();
 }
 
-struct MyObject
+struct MyObject2
 {
 	Value val;
 	Value ptr;
 };
 
-struct MyObject2
+struct MyObject
 {
 	Value val;
 	Value ptr;
@@ -52,11 +52,11 @@ void sample_2()
 
 	GSetActiveMemoryManager(mm);
 
-	MyObject2* obj = gc_new <MyObject2>("Obj1");
+	MyObject* obj = gc_new <MyObject>("Obj1");
 
 	obj->val = Value::Number(42);
 
-	MyObject* obj2 = gc_new<MyObject>("Obj2");
+	MyObject2* obj2 = gc_new<MyObject2>("Obj2");
 
 	auto ptr = mm->allocate(4, "Obj3");
 
@@ -66,7 +66,7 @@ void sample_2()
 	obj->ptr = Value::Pointer(mm->toVirtualAddress(obj2));
 	obj->ptr2 = Value::Pointer(ptr);
 
-	mm->writeValue(obj->ptr, Value::Number(45));
+	//mm->writeValue(obj->ptr, Value::Number(45));
 
 	//obj->obj2->ptr
 	spdlog::info("Initial Heap state...");
@@ -97,21 +97,20 @@ void sample_3() {
 
 	GSetActiveMemoryManager(mm);
 
-	MyObject2* obj = gc_new <MyObject2>("Obj1");
+	MyObject* obj = gc_new <MyObject>("Obj1");
+
+	MyObject2* obj2 = gc_new<MyObject2>("Obj2");
+	obj2->val = Value::Number(24);
+
+	auto obj3 = mm->allocate(4, "Obj3");
+	obj2->ptr = Value::Pointer(obj3);
+
 
 	obj->val = Value::Number(42);
-
-	MyObject* obj2 = gc_new<MyObject>("Obj2");
-
-	auto ptr = mm->allocate(4, "Obj3");
-
-	obj2->val = Value::Number(24);
-	obj2->ptr = Value::Pointer(ptr);
-
 	obj->ptr = Value::Pointer(mm->toVirtualAddress(obj2));
-	obj->ptr2 = Value::Pointer(ptr);
+	obj->ptr2 = Value::Pointer(obj3);
 
-	mm->writeValue(obj->ptr, Value::Number(45));
+	//mm->writeValue(obj->ptr, Value::Number(45));
 
 	//obj->obj2->ptr
 	spdlog::info("Initial Heap state...");
@@ -140,5 +139,5 @@ void sample_3() {
 int main()
 {
 	setupLogger();
-	sample_3();
+	sample_2();
 } 

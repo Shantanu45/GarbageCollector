@@ -47,7 +47,8 @@ inline Word CopyToNewHeap(Word src, std::shared_ptr<IAllocator> srcAllocator, st
 {
 	auto header = (ObjectHeader*)srcAllocator->heap->asWordPointer(src);
 	Word* data = ((Word*)header) + 1;
-	auto dstData = dstAllocator->allocateWithData(header->size, data);
+	std::string name = srcAllocator->heapStats->usedLocations.find(src)->second.name;
+	auto dstData = dstAllocator->allocateWithData(header->size, data, name);
 	return dstData;
 }
 
@@ -96,32 +97,5 @@ inline void ReplaceHeaderWithRawPtr(Word src, std::shared_ptr<IAllocator> alloca
 	memset(rawSrc + sizeof(ObjectHeader), 0x0, allocator->getHeader(src)->size);
 	*rawSrc = reinterpret_cast<Word>(forward);
 }
-
-//inline bool isVirtualAddressInOriginalHeap(Word src, std::shared_ptr<IAllocator> allocatorOne) {
-//	auto header = allocatorOne->getHeader(src);
-//	auto factor = header->forward / allocatorOne->heap->size();
-//	if (factor < 1 && factor >= 0)
-//	{
-//		return true;
-//	}
-//	return false;
-//}
-//
-//inline bool isVirtualAddressInSwapHeap(Word src, std::shared_ptr<IAllocator> allocatorOne) {
-//	auto header = allocatorOne->getHeader(src);
-//	auto factor = src / allocatorOne->heap->size();
-//	if (factor >= 1 && factor < 2)
-//	{
-//		return true;
-//	}
-//	return false;
-//}
-
-// takes src of allocatorOne
-//inline bool isForwardPointingToSwapHeap(Word src, std::shared_ptr<IAllocator> allocatorOne)
-//{
-//	auto header = allocatorOne->getHeader(src);
-//	return isVirtualAddressInSwapHeap(header->forward, allocatorOne);
-//}
 
 
