@@ -42,6 +42,8 @@ struct IAllocator {
    */
   virtual Value allocate(uint32_t n, std::string name = "") = 0;
 
+  virtual Value allocateWithData(uint32_t n, Word* data, std::string name = "") = 0;
+
   /**
    * Returns the block to the allocator.
    */

@@ -54,6 +54,9 @@ public:
      */
     Value allocate(uint32_t n, std::string name = "") override;
 
+
+    Value allocateWithData(uint32_t n, Word* data, std::string name = "");
+
     /**
      * Returns the block to the allocator.
      */

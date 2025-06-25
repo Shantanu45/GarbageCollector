@@ -59,4 +59,7 @@ struct Heap {
 	~Heap() {
 		delete storage;
 	}
+	
+private:
+
 };

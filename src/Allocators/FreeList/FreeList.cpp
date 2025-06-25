@@ -60,6 +60,57 @@ Value FreeListAllocator::allocate(uint32_t n, std::string name) {
     return Value::Pointer(nullptr);
 }
 
+Value FreeListAllocator::allocateWithData(uint32_t n, Word* data, std::string name) {
+    n = align<uint32_t>(n);
+
+    for (const auto& free : freeList) {
+        auto header = (ObjectHeader*)(heap->asWordPointer(free));
+        auto size = header->size;
+
+        // Too small block, move further.
+        if (size < n) {
+            continue;
+        }
+
+        // Found block of a needed size:
+        freeList.remove(free);
+
+        Word* rawPayload = ((Word*)header) + 1;                      // pointer to the data, next to header data.
+        auto payload = heap->asVirtualAddress(rawPayload);          // position of payload of current object
+
+        // See if we can split the larger block, reserving at least
+        // one word with a header.
+        auto canSplit = (size >= n + (sizeof(Word) * 2));           // (sizeof(Word) * 2) acts as a minimum threshold for the remaining part of the block after the allocation. It ensures that if the block is split, the newly created free block is still a usable minimum size. A usable free block must have at least an ObjectHeader and a minimum of one Word of payload. Given that ObjectHeader has a uint16_t forward, uint8_t size, and a union (e.g., bool mark), its size is likely sizeof(Word) (4 bytes) due to alignment and internal packing. Therefore, (sizeof(Word) * 2) would ensure enough space for the new ObjectHeader (sizeof(Word)) plus at least one Word for the payload of the new free block (sizeof(Word)).
+
+        if (canSplit) {
+            // This block becomes of size `n`.
+            header->size = n;
+
+            // Split the new block.
+            auto nextHeaderP = payload + n;
+            auto nextSize = (uint8_t)(size - n - sizeof(ObjectHeader));
+            *heap->asWordPointer(nextHeaderP) = ObjectHeader{ .size = nextSize };
+            freeList.push_back(nextHeaderP);
+        }
+
+        memcpy(rawPayload, data, n);
+
+        heapStats->MarkUsed(payload - sizeof(ObjectHeader), header->size + sizeof(ObjectHeader), name);
+
+        // Update total object count.
+        _objectCount++;
+
+        if (_unTouchedSpace < heap->h_size)
+        {
+            _unTouchedSpace = (Word)(payload + n + sizeof(ObjectHeader));
+        }
+
+        return Value::Pointer(payload);
+    }
+
+    return Value::Pointer(nullptr);
+}
+
 /**
  * Returns the block to the allocator.
  */

@@ -38,9 +38,11 @@ public:
 
     void copy();
 
-    void forward();
+    Word copyBlock(Word src);
 
-    void fixPointer();
+    void forward(Word src, Word dst);
+
+    void fixPointer(Value* ptr, Word src);
 
     void swap();
 
@@ -51,5 +53,15 @@ public:
     std::shared_ptr<IAllocator> FromAllocator;
 
     uint32_t totalAllocSize;
+    Word dstAlloc = 0;
+
+    bool isVirtualAddressInFromHeap(Word src);
+    bool isVirtualAddressInToHeap(Word src);
+
+    uint16_t virtualAddressRelativeToToHeap(Word src);
+    uint16_t virtualAddressRelativeToFromHeap(Word src);
+
+    bool isForwardPointingToSwapHeap(Word src);
 private:
+
 };

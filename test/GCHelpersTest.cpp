@@ -18,7 +18,7 @@ namespace {
 	TEST(GCHelpers, CopyToNewHeap)
 	{
 		auto p1 = allocatorOne->allocate(4);
-
+		*allocatorOne->heap->asWordPointer(p1) = Value::Number(2);
 		CopyToNewHeap(0, allocatorOne, 0, allocatorTwo);
 
 		EXPECT_TRUE(std::memcmp((const void*)allocatorOne->heap->storage, (const void*)allocatorTwo->heap->storage, 8) == 0);
@@ -35,11 +35,5 @@ namespace {
 		UpdateForwardAddr(p1, allocatorOne->heap->size() + p2, allocatorOne);
 
 		EXPECT_EQ(allocatorOne->getHeader(p1)->forward, allocatorOne->heap->size() + p2);
-		EXPECT_TRUE(isForwardPointingToSwapHeap(p1, allocatorOne));
-		//Word* loc = allocatorTwo->heap->asWordPointer(p2);;
-
-		//ReplaceHeaderWithRawPtr(0, allocatorOne, loc);
-
-		//EXPECT_EQ((Word*)(*allocatorOne->heap->asWordPointer(0)), loc);
 	}
 }
