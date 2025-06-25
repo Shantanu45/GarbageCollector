@@ -43,13 +43,12 @@ inline Word RelocatreToForwardAddr(Word src, std::shared_ptr<IAllocator> allocat
 }
 
 // return actual address of destination
-inline Word CopyToNewHeap(Word src, std::shared_ptr<IAllocator> srcAllocator, Word dst, std::shared_ptr<IAllocator> dstAllocator)
+inline Word CopyToNewHeap(Word src, std::shared_ptr<IAllocator> srcAllocator, std::shared_ptr<IAllocator> dstAllocator)
 {
 	auto header = (ObjectHeader*)srcAllocator->heap->asWordPointer(src);
-	auto moveTo = dstAllocator->heap->asWordPointer(dst);
-	auto moveFrom = srcAllocator->heap->asWordPointer(src);
-	memcpy(moveTo, moveFrom, sizeof(ObjectHeader) + header->size);
-	return (dst + sizeof(ObjectHeader));
+	Word* data = ((Word*)header) + 1;
+	auto dstData = dstAllocator->allocateWithData(header->size, data);
+	return dstData;
 }
 
 

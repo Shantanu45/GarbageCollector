@@ -27,7 +27,7 @@ Word CopyingGC::copyBlock(Word src)
 {
 	stats->alive++;
 	ObjectHeader* header = FromAllocator->getHeader(src);
-	auto newLoc = virtualAddressRelativeToFromHeap(CopyToNewHeap(src - sizeof(ObjectHeader), FromAllocator, dstAlloc - sizeof(ObjectHeader), ToAllocator));
+	auto newLoc = virtualAddressRelativeToFromHeap(CopyToNewHeap(src - sizeof(ObjectHeader), FromAllocator, ToAllocator));
 	dstAlloc += sizeof(ObjectHeader) + header->size;
 
 	forward(src, newLoc);

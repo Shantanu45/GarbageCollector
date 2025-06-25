@@ -19,12 +19,12 @@ namespace {
 	{
 		auto p1 = allocatorOne->allocate(4);
 		*allocatorOne->heap->asWordPointer(p1) = Value::Number(2);
-		CopyToNewHeap(0, allocatorOne, 0, allocatorTwo);
+		CopyToNewHeap(0, allocatorOne, allocatorTwo);
+		EXPECT_TRUE(std::memcmp((Word*)allocatorOne->getHeader(p1) + 1, (Word*)allocatorTwo->getHeader(4) + 1, 4) == 0);
+		EXPECT_EQ(allocatorOne->getHeader(p1)->size, 4);
 
-		EXPECT_TRUE(std::memcmp((const void*)allocatorOne->heap->storage, (const void*)allocatorTwo->heap->storage, 8) == 0);
-
-		CopyToNewHeap(0, allocatorOne, 1, allocatorTwo);
-		EXPECT_TRUE(std::memcmp((const void*)allocatorOne->heap->storage, (const void*)(allocatorTwo->heap->storage + 1), 8) == 0);
+		//CopyToNewHeap(0, allocatorOne, 1, allocatorTwo);
+		//EXPECT_TRUE(std::memcmp((Word*)allocatorOne->getHeader(p1)+1, (Word*)allocatorTwo->getHeader(4) + 1, 4) == 0);
 	}
 
 	TEST(GCHelpers, UpdateForwardAddr)
