@@ -47,7 +47,14 @@ inline Word CopyToNewHeap(Word src, std::shared_ptr<IAllocator> srcAllocator, st
 {
 	auto header = (ObjectHeader*)srcAllocator->heap->asWordPointer(src);
 	Word* data = ((Word*)header) + 1;
-	std::string name = srcAllocator->heapStats->usedLocations.find(src)->second.name;
+	auto find = srcAllocator->heapStats->usedLocations.find(src);
+	std::string name = "";
+
+	if (find != srcAllocator->heapStats->usedLocations.end())
+	{
+		name = find->second.name;
+	}
+
 	auto dstData = dstAllocator->allocateWithData(header->size, data, name);
 	return dstData;
 }

@@ -33,18 +33,25 @@ Word CopyingGC::copyBlock(Word src)
 	forward(src, newLoc);
 	for (const auto& p : ToAllocator->getPointers(virtualAddressRelativeToToHeap(newLoc)))
 	{
-		if (isVirtualAddressInFromHeap(*p))
+		bool isDeleted = FromAllocator->getHeader(*p)->mark == 2;
+		if (!isDeleted)
 		{
-			if (!isForwardPointingToSwapHeap(*p))
+			if (isVirtualAddressInFromHeap(*p))
 			{
-				auto movedPtr = copyBlock(p->decode());
-				fixPointer(p, virtualAddressRelativeToToHeap(movedPtr));
+				if (!isForwardPointingToSwapHeap(*p))
+				{
+					auto movedPtr = copyBlock(p->decode());
+					fixPointer(p, virtualAddressRelativeToToHeap(movedPtr));
+				}
+				else
+				{
+					auto ptr = virtualAddressRelativeToToHeap(FromAllocator->getHeader((Word)p->decode())->forward);
+					ToAllocator->getHeader(virtualAddressRelativeToToHeap(newLoc))->forward = ptr;
+				}
 			}
-			else
-			{
-				auto ptr = virtualAddressRelativeToToHeap(FromAllocator->getHeader((Word)p->decode())->forward);
-				ToAllocator->getHeader(virtualAddressRelativeToToHeap(newLoc))->forward = ptr;
-			}
+		}
+		else {
+			*p = 0;
 		}
 	}
 	return newLoc;
@@ -63,7 +70,9 @@ void CopyingGC::fixPointer(Value* ptr, Word src)
 void CopyingGC::swap()
 {
 	FromAllocator->setFreeRegion(0);
+
 	std::swap(FromAllocator, ToAllocator);
+
 	//allocator = FromAllocator;
 	//std::shared_ptr<IAllocator> tempAlloc = FromAllocator;
 	//FromAllocator = ToAllocator;
