@@ -7,15 +7,26 @@
 
 #include "../../Value/Value.h"
 #include "../../Allocators/IAllocator.h"
+#include "gtest/gtest.h";
+
+#ifdef ENABLED_GC_TEST
+namespace GC_TEST {
+    class CopyingGCTest_API_Test;
+    class CopyingGCTest_Copy_Test;
+    class CopyingGCTest_Collect_Test;
+}
+#endif
 
 
 /**
- * Mark-Sweep garbage collector.
+ * Copying garbage collector.
  *
- *   - Mark phase: trace, marks reachable objects as alive
- *   - Sweep phase: reclaims memory occupied by unreachable objects
+ *   - Copy phase: trace, marks reachable objects as alive
+ *   - Forward phase: reclaims memory occupied by unreachable objects
+ *   - Fix pointers phase:
+ *   - Swap phase:
  *
- * Collects stats during collection.
+ * Collects stats during swap.
  *
  */
 class CopyingGC : public ICollector {
@@ -46,6 +57,22 @@ public:
 
     void swap();
 
+private:
+
+#ifdef ENABLED_GC_TEST
+    FRIEND_TEST(GC_TEST::CopyingGCTest, API);
+    FRIEND_TEST(GC_TEST::CopyingGCTest, Copy);
+    FRIEND_TEST(GC_TEST::CopyingGCTest, Collect);
+#endif
+
+    bool isVirtualAddressInFromHeap(Word src);
+    bool isVirtualAddressInToHeap(Word src);
+
+    uint16_t virtualAddressRelativeToToHeap(Word src);
+    uint16_t virtualAddressRelativeToFromHeap(Word src);
+
+    bool isForwardPointingToSwapHeap(Word src);
+
     std::shared_ptr<Heap> ToHeap;
     std::shared_ptr<Heap> FromHeap;
 
@@ -55,13 +82,5 @@ public:
     uint32_t totalAllocSize;
     Word dstAlloc = 0;
 
-    bool isVirtualAddressInFromHeap(Word src);
-    bool isVirtualAddressInToHeap(Word src);
-
-    uint16_t virtualAddressRelativeToToHeap(Word src);
-    uint16_t virtualAddressRelativeToFromHeap(Word src);
-
-    bool isForwardPointingToSwapHeap(Word src);
-private:
 
 };

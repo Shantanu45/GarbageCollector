@@ -99,7 +99,7 @@ target_link_libraries(${TEST_PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDEN
 
 # Add test to CTest
 include(GoogleTest)
-gtest_discover_tests(Test)
+gtest_discover_tests(${TEST_PROJECT_NAME})
 
 # Link spdlog
 target_link_libraries(${TEST_PROJECT_NAME} PRIVATE spdlog::spdlog)

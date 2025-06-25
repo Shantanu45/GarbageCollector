@@ -9,7 +9,7 @@ static MarkCompactGC mcgc(allocator);
 
 namespace GC_TEST
 {
-	void reset() {
+	static void reset() {
 		heap->reset();
 		allocator->reset();
 	}

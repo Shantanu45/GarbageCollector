@@ -76,9 +76,6 @@ include(CMake/GlobalSettingsInclude.cmake OPTIONAL)
 ################################################################################
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-## Enable testing for current directory and below
-enable_testing()
-
 # Enable FetchContent
 include(FetchContent)
 
@@ -102,3 +99,5 @@ add_subdirectory(src/Sample)
 add_subdirectory(test)
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "SampleGC")
+
+enable_testing()

@@ -12,23 +12,23 @@ static auto heapTwo = std::make_shared<Heap>(32);
 static auto allocatorTwo = std::make_shared<FreeListAllocator>(heapTwo);
 static CopyingGC cgc(allocator, allocatorTwo);
 
-namespace
+namespace GC_TEST
 {
-	void reset() {
+	static void reset() {
 		heap->reset();
 		heapTwo->reset();
 		allocator->reset();
 		allocatorTwo->reset();
 	}
 
-	TEST(Copying, API) {
+	TEST(CopyingGCTest, API) {
 		EXPECT_EQ(cgc.allocator->heap->size(), 32);
 		EXPECT_EQ(cgc.ToAllocator->heap->size(), 32);
 		EXPECT_EQ(cgc.FromAllocator->heap->size(), 32);
 		//cgc.forward();
 	}
 
-	TEST(CopyingGC, Copy)
+	TEST(CopyingGCTest, Copy)
 	{
 		reset();
 
@@ -62,7 +62,7 @@ namespace
 
 	}
 
-	TEST(CopyingGC, Collect)
+	TEST(CopyingGCTest, Collect)
 	{
 		reset();
 
@@ -82,7 +82,6 @@ namespace
 
 		EXPECT_EQ(*cgc.FromAllocator->heap->asWordPointer(4), 12);
 		EXPECT_EQ(*cgc.FromAllocator->heap->asWordPointer(12), 4);
-		//EXPECT_EQ(cgc.virtualAddressRelativeToToHeap(allocator->getHeader(p2)->forward), 12);
 
 	}
 }

@@ -7,12 +7,13 @@
 
 #include "gtest/gtest.h"
 
-namespace {
+namespace
+{
 
-	static auto heap = std::make_shared<Heap>(32);
+	auto heap = std::make_shared<Heap>(32);
 	static FreeListAllocator allocator(heap);
 
-	void reset() {
+	static void reset() {
 		heap->reset();
 		allocator.reset();
 	}
