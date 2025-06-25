@@ -7,14 +7,16 @@
 
 #include "../../Value/Value.h"
 #include "../../Allocators/IAllocator.h"
-#include "gtest/gtest.h";
 
 #ifdef ENABLED_GC_TEST
+
+#include "gtest/gtest.h"; 
 namespace GC_TEST {
     class CopyingGCTest_API_Test;
     class CopyingGCTest_Copy_Test;
     class CopyingGCTest_Collect_Test;
 }
+
 #endif
 
 
@@ -47,6 +49,15 @@ public:
      */
     std::shared_ptr<GCStats> collect();
 
+
+private:
+
+#ifdef ENABLED_GC_TEST
+    FRIEND_TEST(GC_TEST::CopyingGCTest, API);
+    FRIEND_TEST(GC_TEST::CopyingGCTest, Copy);
+    FRIEND_TEST(GC_TEST::CopyingGCTest, Collect);
+#endif
+
     void copy();
 
     Word copyBlock(Word src);
@@ -56,14 +67,6 @@ public:
     void fixPointer(Value* ptr, Word src);
 
     void swap();
-
-private:
-
-#ifdef ENABLED_GC_TEST
-    FRIEND_TEST(GC_TEST::CopyingGCTest, API);
-    FRIEND_TEST(GC_TEST::CopyingGCTest, Copy);
-    FRIEND_TEST(GC_TEST::CopyingGCTest, Collect);
-#endif
 
     bool isVirtualAddressInFromHeap(Word src);
     bool isVirtualAddressInToHeap(Word src);
