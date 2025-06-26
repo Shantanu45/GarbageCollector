@@ -116,6 +116,7 @@ Value FreeListAllocator::allocateWithData(uint32_t n, Word* data, std::string na
  */
 void FreeListAllocator::free(Word address) {
     auto header = getHeader(address);
+    header->mark = 2;
 
     freeList.push_back((uint8_t*)header - heap->asBytePointer(0));
 
@@ -124,7 +125,7 @@ void FreeListAllocator::free(Word address) {
     heapStats->MarkUnUsed(address - sizeof(ObjectHeader));
 
     // Reset the block to 0.
-    memset(heap->asBytePointer(address), 0x0, header->size);
+    //memset(heap->asBytePointer(address), 0x0, header->size);
 
     // Update total object count. Ignoring never allocated space.
     if ((address + header->size) <= _unTouchedSpace)

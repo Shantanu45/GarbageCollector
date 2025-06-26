@@ -57,8 +57,8 @@ Value* MemoryManager::readValue(uint32_t address) {
 Value MemoryManager::allocate(uint32_t n, std::string name) { return allocator->allocate(n, name); }
 
 void MemoryManager::free(Word address) { 
-	auto header = getHeader(address);
-	header->mark = 2;		// 2 means freed explicitly by user.
+	//auto header = getHeader(address);
+	//header->mark = 2;		// 2 means freed explicitly by user.
 	allocator->free(address); 
 }
 

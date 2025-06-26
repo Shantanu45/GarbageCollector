@@ -11,6 +11,7 @@ struct HeapStats
     {
         uint32_t size;
         std::string name;
+        bool deleted = false;
 
         bool operator==(const data& other) const {
             return size == other.size && name == other.name;
@@ -29,6 +30,7 @@ struct HeapStats
 
     void MarkUnUsed(uint32_t from)
     {
+        usedLocations.find(from)->second.deleted = true;
         usedLocations.erase(from);
     }
 
