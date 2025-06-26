@@ -1,16 +1,7 @@
 #include "FreeList.h"
 #include "../../Utils/number-util.h"
 
- /**
-  * Allocates a memory chunk with an object header.
-  * The payload pointer is set to the first byte (after the header).
-  *
-  * This returns a "virtual pointer" (Value::Pointer), the byte address in
-  * the virtual heap. To convert it to C++ pointer, use `asWordPointer(p)` or
-  * `asBytePointer(p)`.
-  *
-  * Value::Pointer(nullptr) payload signals OOM.
-  */
+
 Value FreeListAllocator::allocate(uint32_t n, std::string name) {
     n = align<uint32_t>(n);
 
@@ -49,7 +40,7 @@ Value FreeListAllocator::allocate(uint32_t n, std::string name) {
         // Update total object count.
         _objectCount++;
 
-        if (_unTouchedSpace < heap->h_size)
+        if (_unTouchedSpace < heap->size())
         {
             _unTouchedSpace = (Word)(payload + n + sizeof(ObjectHeader));
         }
@@ -100,7 +91,7 @@ Value FreeListAllocator::allocateWithData(uint32_t n, Word* data, std::string na
         // Update total object count.
         _objectCount++;
 
-        if (_unTouchedSpace < heap->h_size)
+        if (_unTouchedSpace < heap->size())
         {
             _unTouchedSpace = (Word)(payload + n + sizeof(ObjectHeader));
         }
@@ -111,9 +102,6 @@ Value FreeListAllocator::allocateWithData(uint32_t n, Word* data, std::string na
     return Value::Pointer(nullptr);
 }
 
-/**
- * Returns the block to the allocator.
- */
 void FreeListAllocator::free(Word address) {
     auto header = getHeader(address);
     header->mark = 2;
@@ -124,7 +112,7 @@ void FreeListAllocator::free(Word address) {
 
     heapStats->MarkUnUsed(address - sizeof(ObjectHeader));
 
-    // Reset the block to 0.
+    // Reset the block to 0. NOT DOING THIS BECAUSE GC WILL TAKE CARE OF IT.
     //memset(heap->asBytePointer(address), 0x0, header->size);
 
     // Update total object count. Ignoring never allocated space.
@@ -144,16 +132,10 @@ void FreeListAllocator::relocate(Word to, Word from, size_t size)
     memcpy(moveTo, moveFrom, size);
 }
 
-/**
- * Returns the reference to the object header.
- */
 ObjectHeader* FreeListAllocator::getHeader(Word address) {
     return (ObjectHeader*)(heap->asWordPointer(address) - 1);
 }
 
-/**
- * Returns child pointers (virtual) of this object.
- */
 std::vector<Value*> FreeListAllocator::getPointers(Word address) {
     std::vector<Value*> pointers;
 
@@ -172,14 +154,8 @@ std::vector<Value*> FreeListAllocator::getPointers(Word address) {
     return pointers;
 }
 
-/**
- * Returns total amount of objects on the heap.
- */
 uint32_t FreeListAllocator::getObjectCount() { return _objectCount; }
 
-/**
- * Resets the allocator.
- */
 void FreeListAllocator::reset() {
     _resetFirstBlock();
     _resetFreeList();
@@ -191,20 +167,10 @@ void FreeListAllocator::_resetFreeList() {
     freeList.push_back(0);
 }
 
-/**
- * Initially the object header stored at the beginning
- * of the heap defines the whole heap as a "free block".
- */
 void FreeListAllocator::_resetFirstBlock() {
     *heap->asWordPointer(0) = ObjectHeader{
         .size = (uint8_t)(heap->size() - sizeof(ObjectHeader)),
     };
-}
-
-void FreeListAllocator::_resetFreeListWithOffset(Word firstBlock)
-{
-    _setFreeRegion(firstBlock, heap->size());
-
 }
 
 void FreeListAllocator::_setFreeRegion(Word from, Word to)

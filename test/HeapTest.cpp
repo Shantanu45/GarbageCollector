@@ -6,8 +6,7 @@ namespace {
 	TEST(Heap, API) {
 		Heap heap(32);
 
-		EXPECT_EQ(heap.h_size, 32);
-		EXPECT_EQ(heap.size(), heap.h_size);
+		EXPECT_EQ(heap.size(), 32);
 
 		heap[0] = 10;
 		EXPECT_EQ(heap[0], 10);

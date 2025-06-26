@@ -69,7 +69,7 @@ void CopyingGC::fixPointer(Value* ptr, Word src)
 
 void CopyingGC::swap()
 {
-	FromAllocator->setFreeRegion(0);
+	FromAllocator->setFreeTailRegion(0);
 
 	std::swap(FromAllocator, ToAllocator);
 

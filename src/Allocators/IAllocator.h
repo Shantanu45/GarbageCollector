@@ -25,7 +25,7 @@ struct IAllocator {
 
   IAllocator(std::shared_ptr<Heap> heap)
 	  : heap(heap), heapStats(std::make_shared<HeapStats>()) {
-	  heapStats->totalSize = heap->h_size;
+	  heapStats->totalSize = heap->size();
   }
 
   virtual ~IAllocator() {}
@@ -77,5 +77,5 @@ struct IAllocator {
    */
   virtual std::vector<Value*> getPointers(Word address) = 0;
 
-  virtual void setFreeRegion(Word startVirtualAddress) = 0;
+  virtual void setFreeTailRegion(Word startVirtualAddress) = 0;
 };

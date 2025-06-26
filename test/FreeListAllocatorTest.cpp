@@ -139,11 +139,11 @@ namespace
 		EXPECT_EQ(header->size, 4);
 	}
 
-	TEST(FreeListAllocator, setFreeRegion) {
+	TEST(FreeListAllocator, setFreeTailRegion) {
 		reset();
 
 		auto p = allocator.allocate(4);
-		allocator.setFreeRegion(0);
+		allocator.setFreeTailRegion(0);
 
 		auto header = allocator.getHeader(p);
 		EXPECT_EQ(header->size, 32 - sizeof(ObjectHeader));

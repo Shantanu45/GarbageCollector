@@ -69,5 +69,5 @@ void MarkCompactGC::_relocate() {
 		scan += header->size + sizeof(ObjectHeader);
 	}
 
-	allocator->setFreeRegion(freePointer);
+	allocator->setFreeTailRegion(freePointer);
 }

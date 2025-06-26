@@ -41,7 +41,7 @@ public:
         ToHeap = allocatorTwo->heap;
         ToAllocator = allocatorTwo;
 
-        totalAllocSize = ToHeap->h_size + ToHeap->h_size;
+        totalAllocSize = ToHeap->size() + ToHeap->size();
     };
 
     /**
