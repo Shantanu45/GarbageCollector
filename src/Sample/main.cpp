@@ -139,5 +139,5 @@ void sample_3() {
 int main()
 {
 	setupLogger();
-	sample_3();
+	sample_2();
 } 

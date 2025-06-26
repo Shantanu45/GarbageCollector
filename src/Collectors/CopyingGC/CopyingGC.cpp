@@ -26,35 +26,53 @@ void CopyingGC::copy()
 Word CopyingGC::copyBlock(Word src)
 {
 	stats->alive++;
+
+	// Get header and calculate new location in ToHeap
 	ObjectHeader* header = FromAllocator->getHeader(src);
-	auto newLoc = virtualAddressRelativeToFromHeap(CopyToNewHeap(src - sizeof(ObjectHeader), FromAllocator, ToAllocator));
+	Word newLoc = virtualAddressRelativeToFromHeap(
+		CopyToNewHeap(src - sizeof(ObjectHeader), FromAllocator, ToAllocator)
+	);
+
+	// Update destination allocation pointer
 	dstAlloc += sizeof(ObjectHeader) + header->size;
 
+	// Set forwarding pointer
 	forward(src, newLoc);
-	for (const auto& p : ToAllocator->getPointers(virtualAddressRelativeToToHeap(newLoc)))
+
+	// Get pointer list from the new object's location in ToHeap
+	auto pointers = ToAllocator->getPointers(virtualAddressRelativeToToHeap(newLoc));
+
+	for (const auto& p : pointers)
 	{
-		bool isDeleted = FromAllocator->getHeader(*p)->mark == 2;
-		if (!isDeleted)
-		{
-			if (isVirtualAddressInFromHeap(*p))
-			{
-				if (!isForwardPointingToSwapHeap(*p))
-				{
-					auto movedPtr = copyBlock(p->decode());
-					fixPointer(p, virtualAddressRelativeToToHeap(movedPtr));
-				}
-				else
-				{
-					auto ptr = virtualAddressRelativeToToHeap(FromAllocator->getHeader((Word)p->decode())->forward);
-					ToAllocator->getHeader(virtualAddressRelativeToToHeap(newLoc))->forward = ptr;
-				}
-			}
+		ObjectHeader* targetHeader = FromAllocator->getHeader(*p);
+
+		// If the object is marked deleted, null out the pointer
+		if (targetHeader->mark == 2) {
+			*p = 0;
+			continue;
+		}
+
+		// Only process pointers that are in FromHeap
+		if (!isVirtualAddressInFromHeap(*p)) {
+			continue;
+		}
+
+		// If not already forwarded, move the block and fix the pointer
+		if (!isForwardPointingToSwapHeap(*p)) {
+			Word movedPtr = copyBlock(p->decode());
+			fixPointer(p, virtualAddressRelativeToToHeap(movedPtr));
 		}
 		else {
-			*p = 0;
+			// Already forwarded — fix the forward reference in the copied object's header
+			Word fwdPtr = FromAllocator->getHeader((Word)p->decode())->forward;
+			Word relativeFwdPtr = virtualAddressRelativeToToHeap(fwdPtr);
+
+			ToAllocator->getHeader(virtualAddressRelativeToToHeap(newLoc))->forward = relativeFwdPtr;
 		}
 	}
+
 	return newLoc;
+
 }
 
 void CopyingGC::forward(Word src, Word dst)

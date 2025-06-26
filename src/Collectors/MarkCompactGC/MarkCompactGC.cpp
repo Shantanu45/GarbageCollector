@@ -25,24 +25,19 @@ void MarkCompactGC::_computeLocations() {
 }
 
 void MarkCompactGC::_updateReferences() {
-	std::vector<Word> roots = _roots;
-	for (auto root : roots)
-	{
-		_roots.pop_back();
-
-		auto header = allocator->getHeader(root);
-		auto newRoot = header->forward;
-		_roots.push_back(newRoot);
+	// Update all root pointers to their forwarded addresses
+	for (Word& root : _roots) {
+		ObjectHeader* header = allocator->getHeader(root);
+		root = header->forward;
 	}
 
-	auto scan = 0 + sizeof(ObjectHeader);
+	// Scan the heap and update pointers in all live objects
+	uint32_t scan = sizeof(ObjectHeader); // Skip over any heap prologue if needed
 
-	while (scan < allocator->heap->size())
-	{
+	while (scan < allocator->heap->size()) {
 		ObjectHeader* header = allocator->getHeader(scan);
 
-		if (header->mark == 1)
-		{
+		if (header->mark == 1) {
 			UpdateChildPtrToForwardAddr(scan, allocator);
 		}
 
@@ -50,24 +45,26 @@ void MarkCompactGC::_updateReferences() {
 	}
 }
 
-void MarkCompactGC::_relocate() {
-	auto scan = 0 + sizeof(ObjectHeader);
 
+void MarkCompactGC::_relocate() {
+	uint32_t scan = sizeof(ObjectHeader); // Start scanning after heap prologue
 	uint32_t freePointer = 0;
 
 	while (scan < allocator->heap->size()) {
-		auto header = allocator->getHeader(scan);
+		ObjectHeader* header = allocator->getHeader(scan);
 
-		// Alive object, reset the mark bit for future collection cycles.
 		if (header->mark == 1) {
-			auto toptr = RelocatreToForwardAddr(scan - sizeof(ObjectHeader), allocator);
-			freePointer = std::max(freePointer, (uint32_t)(toptr + sizeof(ObjectHeader) + header->size)/*freePointer + scan*/);
-			header->mark == 0;
+			Word relocatedAddr = RelocatreToForwardAddr(scan - sizeof(ObjectHeader), allocator);
+			freePointer = std::max(freePointer, static_cast<uint32_t>(
+				relocatedAddr + sizeof(ObjectHeader) + header->size));
+
+			// Reset mark for next GC cycle
+			header->mark = 0;
 		}
 
-		// Move to the next block.
 		scan += header->size + sizeof(ObjectHeader);
 	}
 
 	allocator->setFreeTailRegion(freePointer);
 }
+

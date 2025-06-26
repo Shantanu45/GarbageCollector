@@ -28,6 +28,8 @@ public:
      */
     std::shared_ptr<GCStats> collect();
 
+private:
+
     /**
      * Mark phase. Returns number of live objects.
      */

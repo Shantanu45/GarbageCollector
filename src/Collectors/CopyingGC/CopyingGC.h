@@ -4,9 +4,9 @@
 #include <memory>
 
 #include "../ICollector.h"
-
 #include "../../Value/Value.h"
 #include "../../Allocators/IAllocator.h"
+
 
 #ifdef ENABLED_GC_TEST
 
@@ -32,6 +32,7 @@ namespace GC_TEST {
  *
  */
 class CopyingGC : public ICollector {
+
 public:
 
     CopyingGC(const std::shared_ptr<IAllocator>& allocatorOne, const std::shared_ptr<IAllocator>& allocatorTwo)
@@ -75,6 +76,8 @@ private:
     uint16_t virtualAddressRelativeToFromHeap(Word src);
 
     bool isForwardPointingToSwapHeap(Word src);
+
+private:
 
     std::shared_ptr<Heap> ToHeap;
     std::shared_ptr<Heap> FromHeap;
