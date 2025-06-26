@@ -90,3 +90,8 @@ std::shared_ptr<GCStats> MemoryManager::getGCStats()
 {
 	return collector->stats;
 }
+
+std::shared_ptr<HeapStats> MemoryManager::getHeapStats()
+{
+	return allocator->heapStats;
+}

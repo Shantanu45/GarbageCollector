@@ -117,6 +117,8 @@ public:
 
 	std::shared_ptr<GCStats> getGCStats();
 
+	std::shared_ptr<HeapStats> getHeapStats();
+
 private:
 
 };

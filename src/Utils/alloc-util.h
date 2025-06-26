@@ -4,16 +4,15 @@
 #include "../Allocators/FreeList/FreeList.h"
 #include "../Collectors/MarkSweepGC/MarkSweepGC.h"
 #include "../Collectors/MarkCompactGC/MarkCompactGC.h"
+#include "common.h"
 
 //#define log(title, value) std::cout << title << " " << value << std::endl
 
-inline std::shared_ptr<MemoryManager> GActiveMemoryManager = nullptr;
+extern std::shared_ptr<MemoryManager> GActiveMemoryManager;
 
-inline bool GSetActiveMemoryManager(std::shared_ptr<MemoryManager> mm)
-{
-	GActiveMemoryManager = mm;
-	return true;
-}
+VIEW_INTERFACE std::shared_ptr<MemoryManager> GGetActiveMemoryManager();
+
+VIEW_INTERFACE bool GSetActiveMemoryManager(std::shared_ptr<MemoryManager> mm);
 
 
 template <typename T, typename... Args>

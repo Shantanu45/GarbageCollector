@@ -2,6 +2,7 @@ set(GCAPI_PROJECT API)
 
 set(ADDITIONAL_LIBRARY_DEPENDENCIES
 	GarbageCollector
+	spdlog::spdlog
 )
 
 set(INCLUDES 

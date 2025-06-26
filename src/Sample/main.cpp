@@ -52,6 +52,12 @@ void sample_2()
 
 	GSetActiveMemoryManager(mm);
 
+	if (mm == nullptr)
+	{
+		spdlog::info("Memory Manager is Invalid/Null");
+		return;
+	}
+
 	MyObject* obj = gc_new <MyObject>("Obj1");
 
 	obj->val = Value::Number(42);
@@ -131,7 +137,7 @@ void sample_3() {
 	spdlog::info("After GC:");
 
 	printGCStats(gcStats);
-	printHeapStats(mm->allocator->heapStats);
+	printHeapStats(mm->getHeapStats());
 
 	mm->dump();
 }

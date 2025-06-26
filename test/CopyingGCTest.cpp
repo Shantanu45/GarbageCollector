@@ -3,8 +3,6 @@
 #include "Allocators/FreeList/FreeList.h"
 #include "gtest/gtest.h"
 
-#include "spdlog/spdlog.h"
-
 static auto heap = std::make_shared<Heap>(32);
 static auto allocator = std::make_shared<FreeListAllocator>(heap);
 

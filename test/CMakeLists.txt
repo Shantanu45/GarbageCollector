@@ -49,7 +49,7 @@ add_executable(${TEST_PROJECT_NAME}
 	${ALL_FILES}
 )
 
-set(GC_INCLUDE 
+set(TEST_INCLUDE 
 "${PROJECT_SOURCE_DIR}/src"
 "${PROJECT_SOURCE_DIR}/api"
 )
@@ -97,13 +97,13 @@ target_compile_definitions(${TEST_PROJECT_NAME} PRIVATE ENABLED_GC_TEST)
 set(ADDITIONAL_LIBRARY_DEPENDENCIES
 	GarbageCollector
 	gtest_main
-	API
 	spdlog::spdlog
+	API
 )
 
-target_link_libraries(${TEST_PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
+target_link_libraries(${TEST_PROJECT_NAME} PUBLIC ${ADDITIONAL_LIBRARY_DEPENDENCIES})
 
-target_include_directories(${TEST_PROJECT_NAME} PRIVATE ${GC_INCLUDE})
+target_include_directories(${TEST_PROJECT_NAME} PRIVATE ${TEST_INCLUDE})
 
 # Add test to CTest
 include(GoogleTest)

@@ -58,6 +58,7 @@ source_group("Stats" FILES ${Stats})
 set(Utils
 	"Utils/number-util.h"
 	"Utils/alloc-util.h"
+	"Utils/alloc_util.cpp"
 	"Utils/stat-util.h"
 	"Utils/log-util.h"
 	"Utils/common.h"
@@ -133,6 +134,6 @@ set(ADDITIONAL_LIBRARY_DEPENDENCIES
 	spdlog::spdlog
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
+target_link_libraries(${PROJECT_NAME} PRIVATE ${ADDITIONAL_LIBRARY_DEPENDENCIES})
 
 target_compile_options(spdlog PRIVATE /EHsc)
