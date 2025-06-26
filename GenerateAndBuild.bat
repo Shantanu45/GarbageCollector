@@ -7,4 +7,7 @@ echo Build Successful
 echo Joining WPF project into Cpp solution
 call AddProject.bat
 
+echo Building WPF app
+call BuildWPF.bat
+
 pause
