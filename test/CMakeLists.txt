@@ -17,6 +17,7 @@ set(TESTS
 	"CopyingGCTest.cpp"
 	"StatTest.cpp"
 	"GCHelpersTest.cpp"
+	"APITest.cpp"
 )
 
 source_group("tests" FILES ${TESTS})
@@ -47,9 +48,11 @@ add_executable(${TEST_PROJECT_NAME}
 	${ALL_FILES}
 )
 
-set(GC_INCLUDE "${PROJECT_SOURCE_DIR}/src")
+set(GC_INCLUDE 
+"${PROJECT_SOURCE_DIR}/src"
+"${PROJECT_SOURCE_DIR}/api"
+)
 
-target_include_directories(${TEST_PROJECT_NAME} PRIVATE ${GC_INCLUDE})
 
 use_props(${TEST_PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
 
@@ -93,13 +96,14 @@ target_compile_definitions(${TEST_PROJECT_NAME} PRIVATE ENABLED_GC_TEST)
 set(ADDITIONAL_LIBRARY_DEPENDENCIES
 	GarbageCollector
 	gtest_main
+	API
+	spdlog::spdlog
 )
 
 target_link_libraries(${TEST_PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
 
+target_include_directories(${TEST_PROJECT_NAME} PRIVATE ${GC_INCLUDE})
+
 # Add test to CTest
 include(GoogleTest)
 gtest_discover_tests(${TEST_PROJECT_NAME})
-
-# Link spdlog
-target_link_libraries(${TEST_PROJECT_NAME} PRIVATE spdlog::spdlog)

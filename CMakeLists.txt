@@ -97,6 +97,7 @@ endif()
 add_subdirectory(src)
 add_subdirectory(src/Sample)
 add_subdirectory(test)
+add_subdirectory(api)
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "SampleGC")
 
