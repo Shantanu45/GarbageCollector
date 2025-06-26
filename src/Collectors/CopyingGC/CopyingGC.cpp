@@ -63,7 +63,7 @@ Word CopyingGC::copyBlock(Word src)
 			fixPointer(p, virtualAddressRelativeToToHeap(movedPtr));
 		}
 		else {
-			// Already forwarded — fix the forward reference in the copied object's header
+			// Already forwarded fix the forward reference in the copied object's header
 			Word fwdPtr = FromAllocator->getHeader((Word)p->decode())->forward;
 			Word relativeFwdPtr = virtualAddressRelativeToToHeap(fwdPtr);
 

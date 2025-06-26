@@ -106,7 +106,8 @@ void FreeListAllocator::free(Word address) {
     auto header = getHeader(address);
     header->mark = 2;
 
-    freeList.push_back((uint8_t*)header - heap->asBytePointer(0));
+    ptrdiff_t offset = reinterpret_cast<uint8_t*>(header) - heap->asBytePointer(0);
+    freeList.push_back(static_cast<uint32_t>(offset));
 
     auto ptr = heap->asBytePointer(address);
 
@@ -122,7 +123,7 @@ void FreeListAllocator::free(Word address) {
     }
 }
 
-void FreeListAllocator::relocate(Word to, Word from, size_t size)
+void FreeListAllocator::relocate(Word to, Word from, uint32_t size)
 {
     std::string name = heapStats->usedLocations[from].name;
     heapStats->MarkUnUsed(from);

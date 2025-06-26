@@ -52,7 +52,7 @@ struct IAllocator {
   /**
 	* Move parts of heap to different address
   */
-  virtual void relocate(Word To, Word from, size_t size) = 0;
+  virtual void relocate(Word To, Word from, uint32_t size) = 0;
 
   /**
    * Resets the allocator.

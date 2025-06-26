@@ -48,7 +48,7 @@ inline T* gc_new(std::string name = "") {
 	static_assert(std::is_trivially_destructible<T>::value, "Only trivially destructible types are allowed for now.");
 
 	// Allocate memory for T (in words)
-	size_t sizeInBytes = sizeof(T);
+	uint32_t sizeInBytes = sizeof(T);
 	auto addr = GActiveMemoryManager->allocate(sizeInBytes, name);
 
 	void* raw = (void*)GActiveMemoryManager->heap->asWordPointer(addr);

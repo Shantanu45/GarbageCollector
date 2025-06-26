@@ -85,11 +85,20 @@ inline void UpdateForwardAddr(Word src, Word forward, const std::shared_ptr<IAll
 	allocator->getHeader(src)->forward = forward;
 }
 
-inline void ReplaceHeaderWithRawPtr(Word src, const std::shared_ptr<IAllocator>& allocator, Word* forward)
-{
-	Word* rawPtr = allocator->heap->asWordPointer(src);
-	ObjectHeader* header = allocator->getHeader(src);
-
-	memset(rawPtr + sizeof(ObjectHeader), 0x0, header->size);
-	*rawPtr = reinterpret_cast<Word>(forward);
-}
+//inline void ReplaceHeaderWithRawPtr(Word src, const std::shared_ptr<IAllocator>& allocator, Word* forward)
+//{
+//	//Word* rawPtr = allocator->heap->asWordPointer(src);
+//	//ObjectHeader* header = allocator->getHeader(src);
+//
+//	//memset(rawPtr + sizeof(ObjectHeader), 0x0, header->size);
+//	//*rawPtr = reinterpret_cast<Word>(forward);
+//
+//	ObjectHeader* header = allocator->getHeader(src);
+//	Word* rawPtr = allocator->heap->asWordPointer(src);
+//
+//	// Zero out the payload portion after the header
+//	std::memset(rawPtr + 1, 0x0, header->size); // advance 1 Word*, not sizeof(ObjectHeader) bytes
+//
+//	// Replace header pointer with raw forward pointer
+//	*rawPtr = reinterpret_cast<Word>(forward);
+//}

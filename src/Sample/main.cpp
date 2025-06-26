@@ -48,7 +48,7 @@ struct MyObject
 
 void sample_2()
 {
-	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkSweepGC, 64>();
+	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
 
 	GSetActiveMemoryManager(mm);
 
@@ -84,7 +84,7 @@ void sample_2()
 	printHeapStats(mm->allocator->heapStats);
 
 	auto gcStats = mm->collect();
-	spdlog::info("\After GC:");
+	spdlog::info("After GC:");
 
 	printGCStats(gcStats);
 	printHeapStats(mm->allocator->heapStats);
@@ -128,7 +128,7 @@ void sample_3() {
 	printHeapStats(mm->allocator->heapStats);
 
 	auto gcStats = mm->collect();
-	spdlog::info("\After GC:");
+	spdlog::info("After GC:");
 
 	printGCStats(gcStats);
 	printHeapStats(mm->allocator->heapStats);
@@ -139,5 +139,5 @@ void sample_3() {
 int main()
 {
 	setupLogger();
-	sample_2();
+	sample_3();
 } 

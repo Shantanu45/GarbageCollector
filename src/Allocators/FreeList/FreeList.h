@@ -65,7 +65,7 @@ public:
     /**
       * Move parts of heap to different address
     */
-    void relocate(Word To, Word from, size_t size) override;
+    void relocate(Word To, Word from, uint32_t size) override;
 
     /**
      * Resets the allocator.

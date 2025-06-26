@@ -10,7 +10,7 @@
 
 #ifdef ENABLED_GC_TEST
 
-#include "gtest/gtest.h"; 
+#include "gtest/gtest.h"
 namespace GC_TEST {
     class CopyingGCTest_API_Test;
     class CopyingGCTest_Copy_Test;

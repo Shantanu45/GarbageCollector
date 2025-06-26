@@ -9,7 +9,7 @@
  */
 struct Heap {
 	uint8_t* storage;
-	size_t h_size;
+	uint32_t h_size;
 
 	Heap(uint32_t size) : h_size(size) {
 		storage = reinterpret_cast<uint8_t*>(malloc(size));			// remeber to dealloc after done.
@@ -41,7 +41,7 @@ struct Heap {
 	 * Converts an actual Word pointer to the virtual address.
 	 */
 	Word asVirtualAddress(Word* address) {
-		return (uint8_t*)address - asBytePointer(0);
+		return (Word)((uint8_t*)address - asBytePointer(0));
 	}
 
 	/**

@@ -100,7 +100,7 @@ inline void dumpHeapContents(Word* heapStart, uint32_t wordsCount)
 
 	auto words = heapStart;
 
-	for (auto i = 0; i < wordsCount; i++) {
+	for (uint32_t i = 0; i < wordsCount; i++) {
 		std::string row = "";
 
 		row += int_to_hex(address) + " : ";

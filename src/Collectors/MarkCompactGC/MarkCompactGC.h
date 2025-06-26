@@ -11,7 +11,7 @@
 
 #ifdef ENABLED_GC_TEST
 
-#include "gtest/gtest.h";
+#include "gtest/gtest.h"
 namespace GC_TEST {
 	class MarkCompactGCTest_ComputeLocation_Test;
 	class MarkCompactGCTest_UpdateReferences_Test;

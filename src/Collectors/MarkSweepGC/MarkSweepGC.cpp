@@ -16,7 +16,7 @@ void MarkSweepGC::mark() {
 
 void MarkSweepGC::sweep()
 {
-	auto scan = 0 + sizeof(ObjectHeader);
+	Word scan = 0 + sizeof(ObjectHeader);
 
 	while (scan < allocator->heap->size()) {
 		auto header = allocator->getHeader(scan);
