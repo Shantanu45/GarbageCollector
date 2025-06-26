@@ -123,9 +123,14 @@ if(MSVC)
 	endif()
 endif()
 
-set(INCLUDES "${CMAKE_BINARY_DIR}/_deps/googletest-src/googletest/include")
+set(INCLUDES 
+"${CMAKE_BINARY_DIR}/_deps/googletest-src/googletest/include"
+)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${INCLUDES})
 
-# Link spdlog
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
+set(ADDITIONAL_LIBRARY_DEPENDENCIES
+	spdlog::spdlog
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE "${ADDITIONAL_LIBRARY_DEPENDENCIES}")

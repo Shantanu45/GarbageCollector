@@ -1,9 +1,5 @@
 set(SAMPLE_PROJECT_NAME SampleGC)
 
-set(ADDITIONAL_LIBRARY_DEPENDENCIES
-	GarbageCollector
-)
-
 set(UNGROUPED_FILES
 	main.cpp
 )
@@ -48,6 +44,12 @@ if(MSVC)
 	endif()
 endif()
 
+set(ADDITIONAL_LIBRARY_DEPENDENCIES
+	GarbageCollector
+	spdlog::spdlog
+)
+
+
 target_link_libraries(${SAMPLE_PROJECT_NAME} PRIVATE "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
 
 set(INCLUDES 
@@ -56,6 +58,3 @@ set(INCLUDES
 )
 
 target_include_directories(${SAMPLE_PROJECT_NAME} PRIVATE ${INCLUDES})
-
-# Link spdlog
-target_link_libraries(${SAMPLE_PROJECT_NAME} PRIVATE spdlog::spdlog)
