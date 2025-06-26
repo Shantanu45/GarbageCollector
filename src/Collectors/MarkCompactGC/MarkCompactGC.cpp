@@ -54,7 +54,7 @@ void MarkCompactGC::_relocate() {
 		ObjectHeader* header = allocator->getHeader(scan);
 
 		if (header->mark == 1) {
-			Word relocatedAddr = RelocatreToForwardAddr(scan - sizeof(ObjectHeader), allocator);
+			Word relocatedAddr = RelocateToForwardAddr(scan - sizeof(ObjectHeader), allocator);
 			freePointer = std::max(freePointer, static_cast<uint32_t>(
 				relocatedAddr + sizeof(ObjectHeader) + header->size));
 

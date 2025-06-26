@@ -3,83 +3,72 @@
 #include "../MemoryManager/ObjectHeader.h"
 #include "../Allocators/IAllocator.h"
 
-inline void MarkAllAlive(std::vector<Word> roots, std::shared_ptr<IAllocator> allocator, std::shared_ptr<GCStats> stats)
+inline void MarkAllAlive(const std::vector<Word>& roots, const std::shared_ptr<IAllocator>& allocator, const std::shared_ptr<GCStats>& stats)
 {
 	std::vector<Word> worklist = roots;
 
 	while (!worklist.empty()) {
-		Word v = worklist.back();
+		Word current = worklist.back();
 		worklist.pop_back();
-		ObjectHeader* header = allocator->getHeader(v);
 
-		if (header->mark == 0)
-		{
+		ObjectHeader* header = allocator->getHeader(current);
+		if (header->mark == 0) {
 			header->mark = 1;
 			stats->alive++;
 
-			for (const auto& p : allocator->getPointers(v))
-			{
+			for (const auto& p : allocator->getPointers(current)) {
 				worklist.push_back(p->decode());
 			}
 		}
 	}
 }
 
-inline Word RelocatreToAddr(Word src, Word dst, std::shared_ptr<IAllocator> allocator)
+inline Word RelocateToAddr(Word src, Word dst, const std::shared_ptr<IAllocator>& allocator)
 {
-	auto header = (ObjectHeader*)allocator->heap->asWordPointer(src);
-	auto toptr = dst;
-	auto fromptr = src;
-	allocator->relocate(toptr, fromptr, header->size + sizeof(ObjectHeader));
-	return toptr;
+	ObjectHeader* header = reinterpret_cast<ObjectHeader*>(allocator->heap->asWordPointer(src));
+	allocator->relocate(dst, src, header->size + sizeof(ObjectHeader));
+	return dst;
 }
 
 // src: virtual address of ObjectHeader
-// moves ObjectHeader + data
-inline Word RelocatreToForwardAddr(Word src, std::shared_ptr<IAllocator> allocator)
+// moves ObjectHeader + data to header->forward
+inline Word RelocateToForwardAddr(Word src, const std::shared_ptr<IAllocator>& allocator)
 {
-	auto header = (ObjectHeader*)allocator->heap->asWordPointer(src);
-	return RelocatreToAddr(src, header->forward - sizeof(ObjectHeader), allocator);
+	ObjectHeader* header = reinterpret_cast<ObjectHeader*>(allocator->heap->asWordPointer(src));
+	return RelocateToAddr(src, header->forward - sizeof(ObjectHeader), allocator);
 }
 
-// return actual address of destination
-inline Word CopyToNewHeap(Word src, std::shared_ptr<IAllocator> srcAllocator, std::shared_ptr<IAllocator> dstAllocator)
+inline Word CopyToNewHeap(Word src, const std::shared_ptr<IAllocator>& srcAllocator, const std::shared_ptr<IAllocator>& dstAllocator)
 {
-	auto header = (ObjectHeader*)srcAllocator->heap->asWordPointer(src);
-	Word* data = ((Word*)header) + 1;
-	auto find = srcAllocator->heapStats->usedLocations.find(src);
-	std::string name = "";
+	ObjectHeader* header = reinterpret_cast<ObjectHeader*>(srcAllocator->heap->asWordPointer(src));
+	Word* data = reinterpret_cast<Word*>(header + 1);
 
-	if (find != srcAllocator->heapStats->usedLocations.end())
-	{
+	std::string name;
+	auto find = srcAllocator->heapStats->usedLocations.find(src);
+	if (find != srcAllocator->heapStats->usedLocations.end()) {
 		name = find->second.name;
 	}
 
-	auto dstData = dstAllocator->allocateWithData(header->size, data, name);
-	return dstData;
+	return dstAllocator->allocateWithData(header->size, data, name);
 }
 
-
-inline void UpdateChildPtrToForwardAddr(Word src, std::shared_ptr<IAllocator> allocator)
+inline void UpdateChildPtrToForwardAddr(Word src, const std::shared_ptr<IAllocator>& allocator)
 {
-	for (const auto& p : allocator->getPointers(src))
-	{
-		ObjectHeader* childHeader = allocator->getHeader((Word)p->decode());
+	for (const auto& p : allocator->getPointers(src)) {
+		ObjectHeader* childHeader = allocator->getHeader(p->decode());
 		*p = childHeader->forward;
 	}
 }
 
-inline void UpdateForwardAddrToFree(std::shared_ptr<IAllocator> allocator, std::shared_ptr<GCStats> stats)
+inline void UpdateForwardAddrToFree(const std::shared_ptr<IAllocator>& allocator, const std::shared_ptr<GCStats>& stats)
 {
-	auto scan = 0 + sizeof(ObjectHeader);
-	auto free = scan;
+	uint32_t scan = sizeof(ObjectHeader);
+	uint32_t free = scan;
 
 	while (scan < allocator->heap->size()) {
-		auto header = allocator->getHeader(scan);
+		ObjectHeader* header = allocator->getHeader(scan);
 
-		// Alive object, reset the mark bit for future collection cycles.
 		if (header->mark == 1) {
-			//header->mark = 0;
 			header->forward = free;
 			free += header->size + sizeof(ObjectHeader);
 		}
@@ -87,22 +76,20 @@ inline void UpdateForwardAddrToFree(std::shared_ptr<IAllocator> allocator, std::
 			stats->reclaimed++;
 		}
 
-		// Move to the next block.
 		scan += header->size + sizeof(ObjectHeader);
 	}
 }
 
-inline void UpdateForwardAddr(Word src, Word forward, std::shared_ptr<IAllocator> allocator)
+inline void UpdateForwardAddr(Word src, Word forward, const std::shared_ptr<IAllocator>& allocator)
 {
-	auto header = allocator->getHeader(src);
-	header->forward = forward;
+	allocator->getHeader(src)->forward = forward;
 }
 
-inline void ReplaceHeaderWithRawPtr(Word src, std::shared_ptr<IAllocator> allocator, Word* forward)
+inline void ReplaceHeaderWithRawPtr(Word src, const std::shared_ptr<IAllocator>& allocator, Word* forward)
 {
-	Word* rawSrc = allocator->heap->asWordPointer(src);
-	memset(rawSrc + sizeof(ObjectHeader), 0x0, allocator->getHeader(src)->size);
-	*rawSrc = reinterpret_cast<Word>(forward);
+	Word* rawPtr = allocator->heap->asWordPointer(src);
+	ObjectHeader* header = allocator->getHeader(src);
+
+	memset(rawPtr + sizeof(ObjectHeader), 0x0, header->size);
+	*rawPtr = reinterpret_cast<Word>(forward);
 }
-
-
