@@ -2,7 +2,6 @@
 #include "Collectors/MarkCompactGC/MarkCompactGC.h"
 #include "MemoryManager/MemoryManager.h"
 #include "Allocators/FreeList/FreeList.h"
-#include "Utils/alloc-util.h"
 #include "gtest/gtest.h"
 
 namespace
@@ -16,7 +15,7 @@ namespace
 
 	TEST(API, TESTFN)
 	{
-		GSetActiveMemoryManager(mm);
+		GSetActiveMemoryManager_API(mm);
 		auto p1 = mm->allocate(4);
 		auto p2 = mm->allocate(4);
 

@@ -1,6 +1,11 @@
 
+#ifdef GCAPI_EXPORTS
+#define VIEW_INTERFACE __declspec(dllexport)
+#else
+#define VIEW_INTERFACE __declspec(dllimport)
+#endif
+
 #include <stdint.h>
-#include "Utils/common.h"
 // =============== Bindings ======================
 
 struct GCStats_API {
@@ -76,6 +81,10 @@ GCStats_API CreateGCStats(const GCStats stat);
 
 HeapStats_API h_state;
 GCStats_API gc_state;
+
+VIEW_INTERFACE std::shared_ptr<MemoryManager> GGetActiveMemoryManager_API();
+
+VIEW_INTERFACE bool GSetActiveMemoryManager_API(std::shared_ptr<MemoryManager> mm);
 
 extern "C"
 {

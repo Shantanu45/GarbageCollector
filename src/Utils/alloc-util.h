@@ -10,9 +10,9 @@
 
 extern std::shared_ptr<MemoryManager> GActiveMemoryManager;
 
-VIEW_INTERFACE std::shared_ptr<MemoryManager> GGetActiveMemoryManager();
+std::shared_ptr<MemoryManager> GGetActiveMemoryManager();
 
-VIEW_INTERFACE bool GSetActiveMemoryManager(std::shared_ptr<MemoryManager> mm);
+bool GSetActiveMemoryManager(std::shared_ptr<MemoryManager> mm);
 
 
 template <typename T, typename... Args>

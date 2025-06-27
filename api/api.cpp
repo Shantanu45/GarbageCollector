@@ -1,6 +1,8 @@
 
 #include "api.h"
 
+
+
 HeapStats_API ConvertToCCompatible_HeapStats(const HeapStats& original)
 {
     HeapStats_API result;
@@ -53,13 +55,23 @@ GCStats_API CreateGCStats(const GCStats stat)
     return stats;
 }
 
+std::shared_ptr<MemoryManager> GGetActiveMemoryManager_API()
+{
+    return GGetActiveMemoryManager();
+}
+
+bool GSetActiveMemoryManager_API(std::shared_ptr<MemoryManager> mm)
+{
+    return GSetActiveMemoryManager(mm);
+}
+
 extern "C" {
 
     bool UpdateStats()
     {
         std::shared_ptr<const HeapStats> tempHeapStat;
         std::shared_ptr<const GCStats> tempGCStat;
-        auto mm = GGetActiveMemoryManager();
+        auto mm = GGetActiveMemoryManager_API();
         if (mm == nullptr)
         {
             return false;
