@@ -30,4 +30,8 @@
     <Optimize>True</Optimize>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BUILD\api\API.vcxproj" />
+  </ItemGroup>
+
 </Project>
