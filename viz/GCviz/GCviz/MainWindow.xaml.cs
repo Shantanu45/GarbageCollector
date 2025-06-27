@@ -43,30 +43,12 @@ namespace GCviz
     public partial class MainWindow : Window
     {
 
-        public StatItem Total { get; set; } = new StatItem { Title = "Total:", Value = "256 MB" };
-        public StatItem Alive { get; set; } = new StatItem { Title = "Alive:", Value = "1024" };
-        public StatItem Reclaimed { get; set; } = new StatItem { Title = "Reclaimed:", Value = "1024" };
         public MainWindow()
         {
+            GCAPI.RunSample();
+
             InitializeComponent();
 
-            DataContext = this;
-
-            GCAPI.RunSample();
-            bool result = GCAPI.UpdateStats();
-            GCStats gCStats;
-            HeapStats heapStats;
-            if (result)
-            {
-                gCStats = GCAPIHelpers.GetManagedGCStats();
-                heapStats = GCAPIHelpers.GetManagedHeapStats();
-                HeapData[] data = GCAPIHelpers.GetHeapDataArray(heapStats);
-                string name = GCAPIHelpers.MarshalAnsiString(data[0].name);
-
-                Total.Value = gCStats.total.ToString();
-                Alive.Value = gCStats.alive.ToString();
-                Reclaimed.Value = gCStats.reclaimed.ToString();
-            }
         }
     }
 }

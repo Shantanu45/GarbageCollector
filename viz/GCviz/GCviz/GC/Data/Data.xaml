@@ -11,9 +11,9 @@
         
         <Label Content="Garbage Collector" />
 
-        <controls:InfoCard Title="Total:" Value="{Binding Total.Value}" />
-        <controls:InfoCard Title="Alive:" Value="{Binding Alive.Value}" />
-        <controls:InfoCard Title="Reclaimed:" Value="{Binding Reclaimed.Value}" />
+        <controls:InfoCard Title="Total:" Value="{Binding Total}" />
+        <controls:InfoCard Title="Alive:" Value="{Binding Alive}" />
+        <controls:InfoCard Title="Reclaimed:" Value="{Binding Reclaimed}" />
     </StackPanel>
 
 </UserControl>
