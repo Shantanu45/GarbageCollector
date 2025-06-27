@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "GCviz": {
+      "commandName": "Project",
+      "hotReloadEnabled": false,
+      "nativeDebugging": true
+    }
+  }
+}

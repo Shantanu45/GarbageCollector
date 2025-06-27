@@ -1,2 +1,2 @@
 @echo off
-call dotnet build .\viz\GCviz\GCviz.sln -c Release
+call dotnet build .\viz\GCviz\GCviz.sln -c Debug

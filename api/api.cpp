@@ -1,12 +1,12 @@
 
 #include "api.h"
+#include "../src/Sample/Samples.h"
+#include "../src/Collectors/CopyingGC/CopyingGC.h"
 
-
-
-HeapStats_API ConvertToCCompatible_HeapStats(const HeapStats& original)
+HeapStats_API* ConvertToCCompatible_HeapStats(const HeapStats& original)
 {
-    HeapStats_API result;
-    result.totalSize = original.totalSize;
+    HeapStats_API* result = new HeapStats_API;
+    result->totalSize = original.totalSize;
 
     // Allocate vector of HeapData to hold all usedLocations entries
     std::vector<HeapData_API> dataVector;
@@ -29,8 +29,8 @@ HeapStats_API ConvertToCCompatible_HeapStats(const HeapStats& original)
     HeapData_API* array = new HeapData_API[dataVector.size()];
     std::memcpy(array, dataVector.data(), sizeof(HeapData_API) * dataVector.size());
 
-    result.usedLocations = array;
-    result.usedLocationsCount = static_cast<uint32_t>(dataVector.size());
+    result->usedLocations = array;
+    result->usedLocationsCount = static_cast<uint32_t>(dataVector.size());
 
     return result;
 }
@@ -46,12 +46,12 @@ void FreeHeapStatsC(HeapStats_API& stats)
     stats.usedLocationsCount = 0;
 }
 
-GCStats_API CreateGCStats(const GCStats stat)
+GCStats_API* CreateGCStats(const GCStats stat)
 {
-    GCStats_API stats;
-    stats.total = stat.total;
-    stats.alive = stat.alive;
-    stats.reclaimed = stat.reclaimed;
+    GCStats_API* stats = new GCStats_API();
+    stats->total = stat.total;
+    stats->alive = stat.alive;
+    stats->reclaimed = stat.reclaimed;
     return stats;
 }
 
@@ -66,6 +66,11 @@ bool GSetActiveMemoryManager_API(std::shared_ptr<MemoryManager> mm)
 }
 
 extern "C" {
+    bool RunSample()
+    {
+        sample_2();
+        return true;
+    }
 
     bool UpdateStats()
     {
@@ -89,22 +94,25 @@ extern "C" {
         return true;
     }
 
-    HeapStats_API GetHeapStats()
+    HeapStats_API* GetHeapStats()
     {
         return h_state;
     }
     bool FreeHeapStats()
     {
-        FreeHeapStatsC(h_state);
+        FreeHeapStatsC(*h_state);
+        delete h_state;
+        h_state = nullptr;
         return true;
     }
-    GCStats_API GetGCStats()
+    GCStats_API* GetGCStats()
     {
         return gc_state;
     }
     bool FreeGCStats()
     {
-        gc_state = {};
+        delete gc_state;
+        gc_state = nullptr;
         return true;
     }
 }

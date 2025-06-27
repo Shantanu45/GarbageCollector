@@ -73,14 +73,14 @@ public struct HeapStats
 #include "Stats/GCStats.h"
 #include "Utils/alloc-util.h"
 
-HeapStats_API ConvertToCCompatible_HeapStats(const HeapStats& original);
+HeapStats_API* ConvertToCCompatible_HeapStats(const HeapStats& original);
 
 void FreeHeapStatsC(HeapStats_API& stats);
 
-GCStats_API CreateGCStats(const GCStats stat);
+GCStats_API* CreateGCStats(const GCStats stat);
 
-HeapStats_API h_state;
-GCStats_API gc_state;
+HeapStats_API* h_state;
+GCStats_API* gc_state;
 
 VIEW_INTERFACE std::shared_ptr<MemoryManager> GGetActiveMemoryManager_API();
 
@@ -88,13 +88,14 @@ VIEW_INTERFACE bool GSetActiveMemoryManager_API(std::shared_ptr<MemoryManager> m
 
 extern "C"
 {
+    VIEW_INTERFACE bool RunSample();
 
     VIEW_INTERFACE bool UpdateStats();
 
-    VIEW_INTERFACE HeapStats_API GetHeapStats();
+    VIEW_INTERFACE HeapStats_API* GetHeapStats();
     VIEW_INTERFACE bool FreeHeapStats();
 
-    VIEW_INTERFACE GCStats_API GetGCStats();
+    VIEW_INTERFACE GCStats_API* GetGCStats();
     VIEW_INTERFACE bool FreeGCStats();
 
 }

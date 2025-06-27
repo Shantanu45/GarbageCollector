@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using GCviz.DllWrappers;
+using GCviz.GCAPIStructs;
+using System.Data;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +22,18 @@ namespace GCviz
         public MainWindow()
         {
             InitializeComponent();
+
+            GCAPI.RunSample();
+            bool result = GCAPI.UpdateStats();
+            GCStats gCStats;
+            HeapStats heapStats;
+            if (result)
+            {
+                gCStats = GCAPIHelpers.GetManagedGCStats();
+                heapStats = GCAPIHelpers.GetManagedHeapStats();
+                HeapData[] data = GCAPIHelpers.GetHeapDataArray(heapStats);
+                string name = GCAPIHelpers.MarshalAnsiString(data[0].name);
+            }
         }
     }
 }

@@ -22,13 +22,13 @@ namespace
 		mm->collect();
 		UpdateStats();
 
-		EXPECT_EQ(GetHeapStats().totalSize, 64);
-		EXPECT_EQ(GetHeapStats().usedLocations->size, 8);
-		EXPECT_EQ(GetHeapStats().usedLocations->from, 0);
+		EXPECT_EQ(GetHeapStats()->totalSize, 64);
+		EXPECT_EQ(GetHeapStats()->usedLocations->size, 8);
+		EXPECT_EQ(GetHeapStats()->usedLocations->from, 0);
 
 
-		EXPECT_EQ(GetGCStats().alive, 1);
-		EXPECT_EQ(GetGCStats().reclaimed, 2);
-		EXPECT_EQ(GetGCStats().total, 2);
+		EXPECT_EQ(GetGCStats()->alive, 1);
+		EXPECT_EQ(GetGCStats()->reclaimed, 2);
+		EXPECT_EQ(GetGCStats()->total, 2);
 	}
 }
