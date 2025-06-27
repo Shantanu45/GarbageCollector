@@ -1,5 +1,11 @@
 set(PROJECT_NAME GarbageCollector)
 
+set(UNGROUPED_FILES
+	Examples.h
+)
+
+source_group("" FILES ${UNGROUPED_FILES})
+
 set(MemoryManager
 	"MemoryManager/Heap.h"
 	"MemoryManager/ObjectHeader.h"
@@ -66,6 +72,7 @@ set(Utils
 source_group("Utils" FILES ${Utils})
 
 set(ALL_FILES
+	${UNGROUPED_FILES}
 	${MemoryManager}
 	${Allocators}
 	${FreeList}

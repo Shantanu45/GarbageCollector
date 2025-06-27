@@ -2,7 +2,6 @@ set(SAMPLE_PROJECT_NAME SampleGC)
 
 set(UNGROUPED_FILES
 	main.cpp
-	Samples.h
 )
 source_group("" FILES ${UNGROUPED_FILES})
 

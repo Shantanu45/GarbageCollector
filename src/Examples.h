@@ -1,6 +1,6 @@
 #include "Utils/alloc-util.h"
 #include "Utils/log-util.h"
-#include "../Collectors/CopyingGC/CopyingGC.h"
+#include "Collectors/CopyingGC/CopyingGC.h"
 
 inline void sample_1()
 {

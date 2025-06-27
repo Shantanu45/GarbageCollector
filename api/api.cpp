@@ -1,6 +1,6 @@
 
 #include "api.h"
-#include "../src/Sample/Samples.h"
+#include "../src/Examples.h"
 #include "../src/Collectors/CopyingGC/CopyingGC.h"
 
 HeapStats_API* ConvertToCCompatible_HeapStats(const HeapStats& original)
