@@ -75,7 +75,7 @@ void sample_2()
 
 	//obj->obj2->ptr
 	spdlog::info("Initial Heap state...");
-	//printHeapStats(mm->allocator->heapStats);
+	printHeapStats(mm->allocator->heapStats);
 
 	spdlog::info("Deleting obj2...");
 	gc_delete(mm->toVirtualAddress(obj2));
@@ -84,17 +84,17 @@ void sample_2()
 
 	spdlog::info("Before GC:");
 
-	//mm->dump();
+	mm->dump();
 
-	//printHeapStats(mm->allocator->heapStats);
+	printHeapStats(mm->allocator->heapStats);
 
 	auto gcStats = mm->collect();
 	spdlog::info("After GC:");
 
-	//printGCStats(gcStats);
-	//printHeapStats(mm->allocator->heapStats);
+	printGCStats(gcStats);
+	printHeapStats(mm->allocator->heapStats);
 
-	//mm->dump();
+	mm->dump();
 }
 
 void sample_3() {
@@ -119,7 +119,7 @@ void sample_3() {
 
 	//obj->obj2->ptr
 	spdlog::info("Initial Heap state...");
-	//printHeapStats(mm->allocator->heapStats);
+	printHeapStats(mm->allocator->heapStats);
 
 	spdlog::info("Deleting obj2...");
 	gc_delete(mm->toVirtualAddress(obj2));
@@ -128,15 +128,15 @@ void sample_3() {
 
 	spdlog::info("Before GC:");
 
-	//mm->dump();
+	mm->dump();
 
-	//printHeapStats(mm->allocator->heapStats);
+	printHeapStats(mm->allocator->heapStats);
 
 	auto gcStats = mm->collect();
 	spdlog::info("After GC:");
 
-	//printGCStats(gcStats);
-	//printHeapStats(mm->getHeapStats());
+	printGCStats(gcStats);
+	printHeapStats(mm->getHeapStats());
 
-	//mm->dump();
+	mm->dump();
 }

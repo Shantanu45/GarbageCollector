@@ -12,6 +12,7 @@ Win32/Release/
 *.sdf
 *.opensdf
 ipch/
+obj/
 
 # CMake files
 out/

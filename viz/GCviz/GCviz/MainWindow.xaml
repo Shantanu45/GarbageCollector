@@ -4,9 +4,48 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GCviz"
+        xmlns:Heap="clr-namespace:GCviz.Heap"
+        xmlns:GC="clr-namespace:GCviz.GC"
+        xmlns:Menu="clr-namespace:GCviz.Menu"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <!-- Optional Menu -->
+        <!-- <Menu:Menu/> -->
 
+        <TabControl Margin="0,8,0,0" >
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Heap" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Heap:Data Grid.Row="0" Grid.Column="0"/>
+                    <Heap:VizData Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </TabItem>
+            <TabItem IsSelected="True">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Collector" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <GC:Data Grid.Row="0" Grid.Column="1"/>
+                    <GC:VizData Grid.Row="1" Grid.Column="1"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

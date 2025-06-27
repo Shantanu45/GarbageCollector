@@ -57,4 +57,6 @@ set(INCLUDES
 "${CMAKE_BINARY_DIR}/_deps/googletest-src/googletest/include"
 )
 
+target_compile_definitions(${SAMPLE_PROJECT_NAME} PRIVATE CPP_CONSOLE_CLIENT)
+
 target_include_directories(${SAMPLE_PROJECT_NAME} PRIVATE ${INCLUDES})

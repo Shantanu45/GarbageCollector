@@ -1,6 +1,7 @@
 
 #include "../Examples.h"
 
+
 int main()
 {
 	setupLogger();

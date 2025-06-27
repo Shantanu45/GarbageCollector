@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef CPP_CONSOLE_CLIENT
+#define ALLOW_SPDLOG
+#endif
+
 #include <iterator>
 #include "../Utils/number-util.h"
 #include "spdlog/spdlog.h"
@@ -13,21 +17,26 @@
 
 inline void setupLogger()
 {
+#ifdef ALLOW_SPDLOG
 	auto gc_logger = spdlog::stdout_color_mt("GC_STAT");			// stdout_color_st() for single threaded
 	gc_logger->set_pattern("[%H:%M:%S] [%^%n%$] %v");
 	auto heap_stat_logger = spdlog::stdout_color_mt("HEAP_STAT");
 	heap_stat_logger->set_pattern("[%H:%M:%S] [%^%n%$] %v");
 	auto heap_dump_looger = spdlog::stdout_color_mt("HEAP_DUMP");
 	heap_dump_looger->set_pattern("[%^%n%$] %v");
+#endif
 }
 
 inline void resetLogger()
 {
+#ifdef ALLOW_SPDLOG
 	spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%^%l%$] %v");
+#endif
 }
 
 inline void printGCStats(std::shared_ptr<GCStats> gcStats)
 {
+#ifdef ALLOW_SPDLOG
 	auto logger = spdlog::get("GC_STAT");
 
 	logger->info("    total:{}", gcStats->total);
@@ -36,10 +45,12 @@ inline void printGCStats(std::shared_ptr<GCStats> gcStats)
 	//spdlog::drop("GC");
 	//spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%^%l%$] %v");
 	//spdlog::set_level(spdlog::level::info);   // Set new global log level
+#endif
 }
 
 inline void printHeapStats(std::shared_ptr<HeapStats> heapStats)
 {
+#ifdef ALLOW_SPDLOG
     auto logger = spdlog::get("HEAP_STAT");
     std::ostringstream out;
     out << "\033[0m[";  // Reset color, start of heap line
@@ -88,10 +99,12 @@ inline void printHeapStats(std::shared_ptr<HeapStats> heapStats)
 
     out << "]\033[0m";  // Reset at the end
     logger->info("Heap usage: {}", out.str());
+#endif
 }
 
 inline void dumpHeapContents(Word* heapStart, uint32_t wordsCount)
 {
+#ifdef ALLOW_SPDLOG
 	auto logger = spdlog::get("HEAP_DUMP");
 	logger->info("\033[33;1m--START --\033[0m");
 	//spdlog::set_pattern("%^%v%$");
@@ -116,6 +129,7 @@ inline void dumpHeapContents(Word* heapStart, uint32_t wordsCount)
 	}
 
 	logger->info("\033[33;1m-- END --\033[0m");
+#endif
 
 	//logger->info("bin {}", spdlog::to_hex(heapStart, wordsCount * sizeof(Word)));
 }
