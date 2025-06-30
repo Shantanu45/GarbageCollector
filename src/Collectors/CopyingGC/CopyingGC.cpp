@@ -88,13 +88,9 @@ void CopyingGC::fixPointer(Value* ptr, Word src)
 void CopyingGC::swap()
 {
 	FromAllocator->setFreeTailRegion(0);
+	allocator = ToAllocator;
 
 	std::swap(FromAllocator, ToAllocator);
-
-	//allocator = FromAllocator;
-	//std::shared_ptr<IAllocator> tempAlloc = FromAllocator;
-	//FromAllocator = ToAllocator;
-	//ToAllocator = tempAlloc;
 }
 
 bool CopyingGC::isVirtualAddressInFromHeap(Word src) {

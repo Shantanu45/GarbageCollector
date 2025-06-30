@@ -121,4 +121,10 @@ public:
 
 private:
 
+	// usefull when copy collector is running.
+	void RefreshAllocatorReference()
+	{
+		allocator = collector->allocator;
+	}
+
 };

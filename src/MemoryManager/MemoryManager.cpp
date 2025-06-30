@@ -66,8 +66,9 @@ std::shared_ptr<GCStats> MemoryManager::collect() {
 	if (!collector) {
 		throw std::runtime_error("Collector is not specified.");
 	}
-
-	return collector->collect();
+	auto stats = collector->collect();
+	RefreshAllocatorReference();
+	return stats;
 }
 
 ObjectHeader* MemoryManager::getHeader(Word address) {

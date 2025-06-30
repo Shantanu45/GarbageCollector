@@ -129,7 +129,7 @@ namespace GCviz.Heap
 
             var seriesList = new List<ISeries>();
 
-            var colors = new[] { SKColors.Coral, SKColors.Cyan, SKColors.Aqua, SKColors.AliceBlue };
+            var colors = new[] { SKColors.Coral, SKColors.Cyan, SKColors.Aquamarine, SKColors.AliceBlue };
 
             SolidColorPaint fillColor = new SolidColorPaint();
 

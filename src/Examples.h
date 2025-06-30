@@ -78,7 +78,7 @@ void sample_2()
 	printHeapStats(mm->allocator->heapStats);
 
 	spdlog::info("Deleting obj2...");
-	gc_delete(mm->toVirtualAddress(obj2));
+	//gc_delete(mm->toVirtualAddress(obj2));
 
 	//log("MyObj Value", obj->val.decode());
 
@@ -122,7 +122,7 @@ void sample_3() {
 	printHeapStats(mm->allocator->heapStats);
 
 	spdlog::info("Deleting obj2...");
-	gc_delete(mm->toVirtualAddress(obj2));
+	//gc_delete(mm->toVirtualAddress(obj2));
 
 	//log("MyObj Value", obj->val.decode());
 
