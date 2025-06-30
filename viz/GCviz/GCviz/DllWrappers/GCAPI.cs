@@ -14,6 +14,10 @@ namespace GCviz.GCAPIStructs
         public uint total;
         public uint alive;
         public uint reclaimed;
+        // Pointer to null-terminated ANSI string
+        public IntPtr name;
+        // Pointer to null-terminated ANSI string
+        public IntPtr allocatorName;
     }
 
     [StructLayout(LayoutKind.Sequential)]

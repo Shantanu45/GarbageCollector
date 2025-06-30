@@ -34,6 +34,8 @@ class ICollector {
   {
       // TODO: impelement actual roots, use first block for now.
       _roots.push_back(0 + sizeof(ObjectHeader));
+      stats->allocatorName = allocator->GetAllocatorName();
+
   }
 
   virtual ~ICollector() {}
@@ -61,6 +63,8 @@ class ICollector {
   void init() {
     _resetStats();
   }
+
+  virtual std::string getCollectorName() = 0;
 
  protected:
   /**

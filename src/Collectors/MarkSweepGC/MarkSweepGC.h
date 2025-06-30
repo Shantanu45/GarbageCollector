@@ -28,6 +28,8 @@ public:
      */
     std::shared_ptr<GCStats> collect();
 
+    std::string getCollectorName() { return "Mark Sweep"; }
+
 private:
 
     /**

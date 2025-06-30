@@ -88,10 +88,10 @@ void sample_2()
 
 	printHeapStats(mm->allocator->heapStats);
 
-	//auto gcStats = mm->collect();
+	auto gcStats = mm->collect();
 	spdlog::info("After GC:");
 
-	//printGCStats(gcStats);
+	printGCStats(gcStats);
 	printHeapStats(mm->allocator->heapStats);
 
 	mm->dump();

@@ -52,6 +52,8 @@ GCStats_API* CreateGCStats(const GCStats stat)
     stats->total = stat.total;
     stats->alive = stat.alive;
     stats->reclaimed = stat.reclaimed;
+    stats->name = _strdup(stat.name.c_str());
+    stats->allocatorName = _strdup(stat.allocatorName.c_str());
     return stats;
 }
 

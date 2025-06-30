@@ -6,25 +6,22 @@
 #endif
 
 #include <stdint.h>
+
+#include <vector>
+#include <cstring> // for strdup
+#include "Stats/HeapStats.h"
+#include "Stats/GCStats.h"
+#include "Utils/alloc-util.h"
+
 // =============== Bindings ======================
 
 struct GCStats_API {
     uint32_t total;
     uint32_t alive;
     uint32_t reclaimed;
+    const char* name;
+    const char* allocatorName;
 };
-
-/*
-
-[StructLayout(LayoutKind.Sequential)]
-public struct GCStats
-{
-    public uint total;
-    public uint alive;
-    public uint reclaimed;
-}
-
-*/
 
 struct HeapData_API
 {
@@ -42,36 +39,6 @@ struct HeapStats_API {
     uint32_t usedLocationsCount;
 };
 
-/*
-
-[StructLayout(LayoutKind.Sequential)]
-public struct HeapData
-{
-    public uint size;
-
-    // Pointer to null-terminated ANSI string
-    public IntPtr name;
-
-    [MarshalAs(UnmanagedType.I1)] // bool is 1 byte in C++
-    public bool deleted;
-}
-
-[StructLayout(LayoutKind.Sequential)]
-public struct HeapStats
-{
-    public uint totalSize;
-
-    public IntPtr usedLocations; // pointer to HeapData array
-    public uint usedLocationsCount;
-}
-
-*/
-
-#include <vector>
-#include <cstring> // for strdup
-#include "Stats/HeapStats.h"
-#include "Stats/GCStats.h"
-#include "Utils/alloc-util.h"
 
 HeapStats_API* ConvertToCCompatible_HeapStats(const HeapStats& original);
 

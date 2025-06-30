@@ -14,6 +14,8 @@
         <controls:InfoCard Title="Total:" Value="{Binding Total}" />
         <controls:InfoCard Title="Alive:" Value="{Binding Alive}" />
         <controls:InfoCard Title="Reclaimed:" Value="{Binding Reclaimed}" />
+        <controls:InfoCard Title="Collector Active:" Value="{Binding Collector}" />
+        <controls:InfoCard Title="Allocator Active:" Value="{Binding Allocator}" />
     </StackPanel>
 
 </UserControl>

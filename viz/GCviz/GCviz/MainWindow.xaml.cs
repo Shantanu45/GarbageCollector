@@ -42,13 +42,18 @@ namespace GCviz
     /// </summary>
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             GCAPI.RunSample();
 
             InitializeComponent();
+        }
 
+        ~MainWindow()
+        {
+            // Cleanup code
+            GCAPI.FreeHeapStats();
+            GCAPI.FreeGCStats();
         }
     }
 }

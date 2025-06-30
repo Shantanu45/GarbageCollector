@@ -91,6 +91,8 @@ public:
         _setFreeRegion(startVirtualAddress, heap->size());
     }
 
+    std::string GetAllocatorName() override { return "Free List"; }
+
 private:
     void _resetFreeList();
     void _resetFirstBlock();

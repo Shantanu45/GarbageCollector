@@ -33,6 +33,7 @@ class MarkCompactGC : public ICollector {
 public:
 	MarkCompactGC(const std::shared_ptr<IAllocator>& allocator)
 		: ICollector(allocator) {
+		stats->name = getCollectorName();
 	};
 
 	/**
@@ -40,6 +41,9 @@ public:
 	 */
 	std::shared_ptr<GCStats> collect();
 
+	std::string getCollectorName() { 
+		return "Mark Compact"; 
+	}
 
 
 private:

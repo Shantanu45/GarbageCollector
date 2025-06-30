@@ -41,6 +41,8 @@ namespace GCviz.GC
                 Total = gCStats.total.ToString();
                 Alive = gCStats.alive.ToString();
                 Reclaimed = gCStats.reclaimed.ToString();
+                Collector = GCAPIHelpers.MarshalAnsiString(gCStats.name);
+                Allocator = GCAPIHelpers.MarshalAnsiString(gCStats.allocatorName);
             }
         }
 
@@ -87,6 +89,36 @@ namespace GCviz.GC
                 }
             }
         }
+
+        private string collector;
+
+        public string Collector
+        {
+            get { return collector; }
+            set {
+                if (collector != value)
+                {
+                    collector = value;
+                    OnPropertyChanged(nameof(Collector));
+                }
+            }
+        }
+
+        private string allocator;
+
+        public string Allocator
+        {
+            get { return allocator; }
+            set
+            {
+                if (allocator != value)
+                {
+                    allocator = value;
+                    OnPropertyChanged(nameof(Allocator));
+                }
+            }
+        }
+
 
         protected void OnPropertyChanged(string prop) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

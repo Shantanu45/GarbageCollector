@@ -78,4 +78,6 @@ struct IAllocator {
   virtual std::vector<Value*> getPointers(Word address) = 0;
 
   virtual void setFreeTailRegion(Word startVirtualAddress) = 0;
+
+  virtual std::string GetAllocatorName() = 0;
 };

@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <memory>
 #include <set>
+#include <string>
 
 /**
  * Stats for the collection cycle.
@@ -22,4 +23,7 @@ struct GCStats {
 	 * Number of reclaimed objects.
 	 */
 	uint32_t reclaimed;
+
+	std::string name;
+	std::string allocatorName;
 };      
