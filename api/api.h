@@ -33,6 +33,7 @@ struct HeapData_API
 
 struct HeapStats_API {
     uint32_t totalSize;
+    uint32_t freeSpace;
 
     // Pointer to array of HeapData
     HeapData_API* usedLocations;

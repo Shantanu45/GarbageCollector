@@ -97,6 +97,7 @@ private:
     void _resetFreeList();
     void _resetFirstBlock();
     void _setFreeRegion(Word from, Word to);
+    void _updateFreeStat();
 
     // keeping track of space that was never allocated. 
     Word _unTouchedSpace = 0;

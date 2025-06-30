@@ -8,10 +8,28 @@
         xmlns:GC="clr-namespace:GCviz.GC"
         xmlns:Menu="clr-namespace:GCviz.Menu"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="GCviz" Height="450" Width="800">
+    <Grid Margin="15">
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <!-- For separator -->
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Heap:Data Margin="15 0" Grid.Row="0" Grid.Column="0"/>
+            <Border Grid.Column="1" Width="1" Background="Gray" />
+            <GC:Data Margin="15 0" Grid.Row="0" Grid.Column="2"/>
+        </Grid>
+            <Heap:VizData Grid.Row="1"/>
+
         <!-- Optional Menu -->
-        <!-- <Menu:Menu/> -->
+        <!-- <Menu:Menu/> 
 
         <TabControl Margin="0,8,0,0" >
             <TabItem  IsSelected="True">
@@ -46,6 +64,7 @@
                     <GC:VizData Grid.Row="1" Grid.Column="1"/>
                 </Grid>
             </TabItem>
-        </TabControl>
+        </TabControl> 
+        -->
     </Grid>
 </Window>

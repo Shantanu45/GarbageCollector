@@ -121,6 +121,7 @@ void FreeListAllocator::free(Word address) {
     {
         _objectCount--;
     }
+    _updateFreeStat();
 }
 
 void FreeListAllocator::relocate(Word to, Word from, uint32_t size)
@@ -185,6 +186,7 @@ void FreeListAllocator::_setFreeRegion(Word from, Word to)
     // TODO: add test for this. if freeList is represeted correctly when Marked Used/Unused
     freeList.clear();
     freeList.push_back(from);
+    //auto header = getHeader(from + sizeof(ObjectHeader));
     for (auto used: heapStats->usedLocations)
     {
         if (used.first >= from && used.first < to)
@@ -192,5 +194,16 @@ void FreeListAllocator::_setFreeRegion(Word from, Word to)
             heapStats->MarkUnUsed(used.first);
         }
     }
+    _updateFreeStat();
 
+}
+
+void FreeListAllocator::_updateFreeStat()
+{
+    heapStats->freeSpace = 0;
+    for (auto f: freeList)
+    {
+        auto header = getHeader(f + sizeof(ObjectHeader));
+        heapStats->freeSpace += header->size + sizeof(ObjectHeader);
+    }
 }

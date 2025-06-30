@@ -20,6 +20,8 @@ struct HeapStats
 
     uint32_t totalSize;
 
+    uint32_t freeSpace;
+
     // from -> data (used block)
     std::unordered_map<uint32_t, data> usedLocations;
 

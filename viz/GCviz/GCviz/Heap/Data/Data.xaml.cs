@@ -38,6 +38,7 @@ namespace GCviz.Heap
 
                 Total = stats.totalSize.ToString();
                 Alive = stats.usedLocationsCount.ToString();
+                FreeBytes = stats.freeSpace.ToString();
             }
         }
 
@@ -73,5 +74,20 @@ namespace GCviz.Heap
                 }
             }
         }
+
+        private string freeBytes;
+
+        public string FreeBytes
+        {
+            get { return freeBytes; }
+            set {
+                if (freeBytes != value)
+                {
+                    freeBytes = value;
+                    OnPropertyChanged(nameof(FreeBytes));
+                }
+            }
+        }
+
     }
 }

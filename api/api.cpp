@@ -7,6 +7,7 @@ HeapStats_API* ConvertToCCompatible_HeapStats(const HeapStats& original)
 {
     HeapStats_API* result = new HeapStats_API;
     result->totalSize = original.totalSize;
+    result->freeSpace = original.freeSpace;
 
     // Allocate vector of HeapData to hold all usedLocations entries
     std::vector<HeapData_API> dataVector;
@@ -70,7 +71,7 @@ bool GSetActiveMemoryManager_API(std::shared_ptr<MemoryManager> mm)
 extern "C" {
     bool RunSample()
     {
-        sample_3();
+        sample_2();
         return true;
     }
 

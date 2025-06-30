@@ -38,7 +38,7 @@ namespace GCviz.GCAPIStructs
     public struct HeapStats
     {
         public uint totalSize;
-
+        public uint freeSpace;
         public IntPtr usedLocations; // pointer to HeapData array
         public uint usedLocationsCount;
     }
