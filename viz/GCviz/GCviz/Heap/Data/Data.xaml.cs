@@ -35,11 +35,9 @@ namespace GCviz.Heap
             if (result)
             {
                 stats = GCAPIHelpers.GetManagedHeapStats();
-                HeapData[] data = GCAPIHelpers.GetHeapDataArray(stats);
 
                 Total = stats.totalSize.ToString();
                 Alive = stats.usedLocationsCount.ToString();
-                //string name = GCAPIHelpers.MarshalAnsiString(data[0].name);
             }
         }
 

@@ -19,6 +19,8 @@ namespace GCviz.GCAPIStructs
     [StructLayout(LayoutKind.Sequential)]
     public struct HeapData
     {
+        public uint from;
+
         public uint size;
 
         // Pointer to null-terminated ANSI string

@@ -14,7 +14,7 @@
         <!-- <Menu:Menu/> -->
 
         <TabControl Margin="0,8,0,0" >
-            <TabItem>
+            <TabItem  IsSelected="True">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Heap" />
@@ -30,7 +30,7 @@
                     <Heap:VizData Grid.Row="1" Grid.Column="0"/>
                 </Grid>
             </TabItem>
-            <TabItem IsSelected="True">
+            <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Collector" />
