@@ -19,6 +19,21 @@
         <controls:InfoCard Title="Total(B):" Value="{Binding Total}" />
         <controls:InfoCard Title="Alive:" Value="{Binding Alive}" />
         <controls:InfoCard Title="Reclaimed:" Value="{Binding Reclaimed}" />
+
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding TimingData}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <controls:InfoCard Title="{Binding Key}" Value="{Binding Value}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </StackPanel>
 
 </UserControl>

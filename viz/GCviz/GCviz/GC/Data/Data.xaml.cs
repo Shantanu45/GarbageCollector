@@ -2,6 +2,7 @@
 using GCviz.GCAPIStructs;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -44,7 +45,11 @@ namespace GCviz.GC
                 Collector = GCAPIHelpers.MarshalAnsiString(gCStats.name);
                 Allocator = GCAPIHelpers.MarshalAnsiString(gCStats.allocatorName);
 
-                double[] timingData = GCAPIHelpers.GetManagedGCTimingData(gCStats);
+                double[] data = GCAPIHelpers.GetManagedGCTimingData(gCStats);
+                for (int i = 0; i < data.Length; i++)
+                {
+                    TimingData.Add(new KeyValuePair<string, double>(((GCTimerID)i).ToString(), data[i]));
+                }
             }
         }
 
@@ -92,7 +97,7 @@ namespace GCviz.GC
             }
         }
 
-        private string collector;
+        private string collector = string.Empty;
 
         public string Collector
         {
@@ -106,7 +111,7 @@ namespace GCviz.GC
             }
         }
 
-        private string allocator;
+        private string allocator = string.Empty;
 
         public string Allocator
         {
@@ -121,6 +126,20 @@ namespace GCviz.GC
             }
         }
 
+        public ObservableCollection<KeyValuePair<string, double>> timingData = new ObservableCollection<KeyValuePair<string, double>>();
+
+        public ObservableCollection<KeyValuePair<string, double>> TimingData
+        {
+            get { return timingData; }
+            set
+            {
+                if (timingData != value)
+                {
+                    timingData = value;
+                    OnPropertyChanged(nameof(TimingData));
+                }
+            }
+        }
 
         protected void OnPropertyChanged(string prop) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
