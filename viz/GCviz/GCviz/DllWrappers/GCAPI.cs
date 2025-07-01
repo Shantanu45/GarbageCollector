@@ -1,5 +1,6 @@
 ﻿using GCviz.GCAPIStructs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -8,6 +9,23 @@ using System.Threading.Tasks;
 
 namespace GCviz.GCAPIStructs
 {
+    enum GCTimerID
+    {
+        Pause,
+        Mark,
+        Sweep,
+        Compact,
+        Copy,
+        Count // Always last!
+    };
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct GCTimingStats
+    {
+        public IntPtr data;
+        public uint size;
+    }
+
     [StructLayout(LayoutKind.Sequential)]
     public struct GCStats
     {
@@ -18,6 +36,8 @@ namespace GCviz.GCAPIStructs
         public IntPtr name;
         // Pointer to null-terminated ANSI string
         public IntPtr allocatorName;
+
+        public IntPtr benchmarkData;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -114,6 +134,23 @@ namespace GCviz.DllWrappers
             //GCAPI.FreeGCStats();
 
             return stats;
+        }
+
+        public static double[] GetManagedGCTimingData(GCStats stats)
+        {
+            if (stats.benchmarkData == IntPtr.Zero)
+                return Array.Empty<double>();
+
+            GCTimingStats data = Marshal.PtrToStructure<GCTimingStats>(stats.benchmarkData);
+
+            double[] managedTimingArray = new double[data.size];
+            if (data.data != IntPtr.Zero && data.size > 0)
+            {
+                Marshal.Copy(data.data, managedTimingArray, 0, (int)data.size);
+            }
+
+            return managedTimingArray;
+
         }
 
         public static string MarshalAnsiString(IntPtr ptr)

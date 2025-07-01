@@ -67,6 +67,7 @@ std::shared_ptr<GCStats> MemoryManager::collect() {
 		throw std::runtime_error("Collector is not specified.");
 	}
 	auto stats = collector->collect();
+	stats->durations = collector->profiler.getDurations();
 	RefreshAllocatorReference();
 	return stats;
 }

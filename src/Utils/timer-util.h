@@ -23,10 +23,7 @@ enum class GCTimerID {
 
 class GCTimerManager {
 public:
-    GCTimerManager() {
-        auto timer_logger = spdlog::stdout_color_mt("GC_TIMER");			// stdout_color_st() for single threaded
-        timer_logger->set_pattern("[%^%n%$] %v");
-    }
+    GCTimerManager() {}
 
     void start(GCTimerID id) {
         starts[static_cast<size_t>(id)] = clock::now();
@@ -47,26 +44,42 @@ public:
     }
 
     void report() const {
-        auto logger = spdlog::get("GC_TIMER");
-        const char* names[] = { "Pause", "Mark", "Sweep", "Compact", "Copy"};
+        static constexpr const char* names[] = { "Pause", "Mark", "Sweep", "Compact", "Copy"};
         for (size_t i = 0; i < static_cast<size_t>(GCTimerID::Count); ++i) {
             auto dur = std::chrono::duration<double, std::milli>(durations[i]).count();
             if (dur > 0)
             {
-                logger->info("{}: {}ms", names[i], dur );
+                getLogger()->info("{}: {}ms", names[i], dur );
             }
         }
     }
 
-    std::array<std::chrono::steady_clock::duration, static_cast<size_t>(GCTimerID::Count)>* GetDurations() { return &durations; }
+    std::array<double, static_cast<size_t>(GCTimerID::Count)>* getDurations() { 
+        for (size_t i = 0; i < (int)GCTimerID::Count; ++i) {
+            // or for milliseconds:
+            durations_double[i] = std::chrono::duration<double, std::milli>(durations[i]).count();
+        }
+        return &durations_double;
+    }
 
 private:
+
+    static std::shared_ptr<spdlog::logger> getLogger() {
+        static auto logger = [] {
+            auto l = spdlog::stdout_color_mt("GC_TIMER");
+            l->set_pattern("[%^%n%$] %v");
+            return l;
+            }();
+        return logger;
+    }
+
     using clock = std::chrono::steady_clock;
     using time_point = std::chrono::time_point<clock>;
     using duration_t = std::chrono::steady_clock::duration;
 
     std::array<time_point, static_cast<size_t>(GCTimerID::Count)> starts;
     std::array<duration_t, static_cast<size_t>(GCTimerID::Count)> durations{};
+    std::array<double, static_cast<size_t>(GCTimerID::Count)> durations_double;
 };
 
 class ScopedGCTimer {

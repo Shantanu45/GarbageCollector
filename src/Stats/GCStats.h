@@ -4,6 +4,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include "../Utils/timer-util.h"
 
 /**
  * Stats for the collection cycle.
@@ -26,4 +27,6 @@ struct GCStats {
 
 	std::string name;
 	std::string allocatorName;
+
+	std::array<double, static_cast<size_t>(GCTimerID::Count)>* durations;
 };      

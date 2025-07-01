@@ -43,6 +43,8 @@ namespace GCviz.GC
                 Reclaimed = gCStats.reclaimed.ToString();
                 Collector = GCAPIHelpers.MarshalAnsiString(gCStats.name);
                 Allocator = GCAPIHelpers.MarshalAnsiString(gCStats.allocatorName);
+
+                double[] timingData = GCAPIHelpers.GetManagedGCTimingData(gCStats);
             }
         }
 

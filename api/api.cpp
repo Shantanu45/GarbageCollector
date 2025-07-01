@@ -55,6 +55,12 @@ GCStats_API* CreateGCStats(const GCStats stat)
     stats->reclaimed = stat.reclaimed;
     stats->name = _strdup(stat.name.c_str());
     stats->allocatorName = _strdup(stat.allocatorName.c_str());
+
+    GCTiming_API* time = new GCTiming_API();
+    time->timing_array = stat.durations->data();
+    time->size = stat.durations->size();
+    stats->benchmark = time;
+
     return stats;
 }
 

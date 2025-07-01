@@ -15,12 +15,24 @@
 
 // =============== Bindings ======================
 
+struct GCTiming_API {
+    const double* timing_array;
+    uint32_t size;
+
+    GCTiming_API() : timing_array(nullptr), size(0) {}
+
+};
+
 struct GCStats_API {
     uint32_t total;
     uint32_t alive;
     uint32_t reclaimed;
     const char* name;
     const char* allocatorName;
+    GCTiming_API* benchmark;
+
+    GCStats_API() : name(nullptr), allocatorName(nullptr), total(0), alive(0), reclaimed(0) {}
+
 };
 
 struct HeapData_API
