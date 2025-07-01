@@ -54,7 +54,6 @@ namespace GCviz
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            // Your cleanup code here
             Cleanup();
         }
 
@@ -62,7 +61,6 @@ namespace GCviz
         {
             GCAPI.FreeHeapStats();
             GCAPI.FreeGCStats();
-            // Code to run when window is destroyed
         }
     }
 }
