@@ -15,28 +15,6 @@ using System.Windows.Shapes;
 
 namespace GCviz
 {
-    public class StatItem : INotifyPropertyChanged
-    {
-        private string? _value;
-        public string? Title { get; set; }
-
-        public string? Value
-        {
-            get => _value;
-            set
-            {
-                if (_value != value)
-                {
-                    _value = value;
-                    OnPropertyChanged(nameof(Value));
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string prop) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
