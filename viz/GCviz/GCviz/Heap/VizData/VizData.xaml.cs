@@ -40,9 +40,6 @@ namespace GCviz.Heap
         public bool deleted;
     }
 
-        /// <summary>
-        /// Interaction logic for VizData.xaml
-        /// </summary>
     public partial class VizData : UserControl
     {
 

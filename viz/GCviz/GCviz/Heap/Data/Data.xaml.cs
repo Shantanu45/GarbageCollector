@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace GCviz.Heap
 {
-    /// <summary>
-    /// Interaction logic for Data.xaml
-    /// </summary>
     public partial class Data : UserControl, INotifyPropertyChanged
     {
         public Data()
