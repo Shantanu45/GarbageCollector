@@ -77,7 +77,7 @@ bool GSetActiveMemoryManager_API(std::shared_ptr<MemoryManager> mm)
 extern "C" {
     bool RunSample()
     {
-        sample_3();
+        sample_2();
         return true;
     }
 

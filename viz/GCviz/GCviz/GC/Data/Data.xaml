@@ -34,7 +34,7 @@
 
             <Border Grid.Column="1"  Background="DarkSlateGray" CornerRadius="10">
                 <StackPanel>
-                    <Label  Content="Timing" HorizontalAlignment="Center" FontWeight="Bold"
+                    <Label  Content="Timing(ms)" HorizontalAlignment="Center" FontWeight="Bold"
                            FontSize="16" Margin="0 5"/>
                     <Separator Margin="0 0 0 5"/>
                     <ScrollViewer >
