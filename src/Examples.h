@@ -95,6 +95,8 @@ void sample_2()
 	printHeapStats(mm->allocator->heapStats);
 
 	mm->dump();
+
+	mm->collector->profiler.report();
 }
 
 void sample_3() {
@@ -137,6 +139,8 @@ void sample_3() {
 
 	printGCStats(gcStats);
 	printHeapStats(mm->getHeapStats());
+
+	mm->collector->profiler.report();
 
 	mm->dump();
 }

@@ -7,6 +7,7 @@
 #include "../Stats/GCStats.h"
 #include "../MemoryManager/Heap.h"
 #include "GCHelpers.h"
+#include "../Utils/timer-util.h"
 
 
 /**
@@ -66,6 +67,7 @@ class ICollector {
 
   virtual std::string getCollectorName() = 0;
 
+  GCTimerManager profiler;
  protected:
   /**
    * Resets the GC stats.
@@ -77,4 +79,5 @@ class ICollector {
   }
 
   std::vector<Word> _roots;
+
 };

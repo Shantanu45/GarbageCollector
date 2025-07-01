@@ -11,6 +11,7 @@ std::shared_ptr<GCStats> CopyingGC::collect() {
 
 void CopyingGC::copy()
 {
+	ScopedGCTimer t(profiler, GCTimerID::Copy);
 	std::vector<Word> worklist = _roots;
 
 	Word newLoc;

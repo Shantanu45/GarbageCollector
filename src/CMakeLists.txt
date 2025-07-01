@@ -68,6 +68,7 @@ set(Utils
 	"Utils/stat-util.h"
 	"Utils/log-util.h"
 	"Utils/common.h"
+	"Utils/timer-util.h"
 )
 source_group("Utils" FILES ${Utils})
 

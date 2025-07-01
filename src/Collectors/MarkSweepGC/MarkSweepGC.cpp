@@ -11,11 +11,14 @@ std::shared_ptr<GCStats> MarkSweepGC::collect() {
 }
 
 void MarkSweepGC::mark() {
+	ScopedGCTimer t(profiler, GCTimerID::Mark);
 	MarkAllAlive(getRoots(), allocator, stats);
 }
 
 void MarkSweepGC::sweep()
 {
+	ScopedGCTimer t(profiler, GCTimerID::Sweep);
+
 	Word scan = 0 + sizeof(ObjectHeader);
 
 	while (scan < allocator->heap->size()) {

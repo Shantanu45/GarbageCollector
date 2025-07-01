@@ -11,10 +11,12 @@ std::shared_ptr<GCStats> MarkCompactGC::collect() {
 }
 
 void MarkCompactGC::mark() {
+	ScopedGCTimer t(profiler, GCTimerID::Mark);
 	MarkAllAlive(getRoots(), allocator, stats);
 }
 
 void MarkCompactGC::compact() {
+	ScopedGCTimer t(profiler, GCTimerID::Compact);
 	_computeLocations();
 	_updateReferences();
 	_relocate();
