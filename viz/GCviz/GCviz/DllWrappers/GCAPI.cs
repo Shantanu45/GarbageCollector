@@ -153,7 +153,7 @@ namespace GCviz.DllWrappers
 
         }
 
-        public static string MarshalAnsiString(IntPtr ptr)
+        public static string? MarshalAnsiString(IntPtr ptr)
         {
             return ptr == IntPtr.Zero ? null : Marshal.PtrToStringAnsi(ptr);
         }

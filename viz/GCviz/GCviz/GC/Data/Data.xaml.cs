@@ -100,9 +100,9 @@ namespace GCviz.GC
             }
         }
 
-        private string collector = string.Empty;
+        private string? collector = string.Empty;
 
-        public string Collector
+        public string? Collector
         {
             get { return collector; }
             set {
@@ -114,9 +114,9 @@ namespace GCviz.GC
             }
         }
 
-        private string allocator = string.Empty;
+        private string? allocator = string.Empty;
 
-        public string Allocator
+        public string? Allocator
         {
             get { return allocator; }
             set

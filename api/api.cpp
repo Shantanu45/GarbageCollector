@@ -120,6 +120,8 @@ extern "C" {
     }
     bool FreeGCStats()
     {
+        delete gc_state->benchmark->timing_array;
+        gc_state->benchmark->timing_array = nullptr;
         delete gc_state;
         gc_state = nullptr;
         return true;

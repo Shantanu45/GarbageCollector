@@ -17,10 +17,10 @@ namespace GCviz
 {
     public class StatItem : INotifyPropertyChanged
     {
-        private string _value;
-        public string Title { get; set; }
+        private string? _value;
+        public string? Title { get; set; }
 
-        public string Value
+        public string? Value
         {
             get => _value;
             set
@@ -47,13 +47,22 @@ namespace GCviz
             GCAPI.RunSample();
 
             InitializeComponent();
+
+            this.Closed += MainWindow_Closed;
         }
 
-        ~MainWindow()
+
+        private void MainWindow_Closed(object sender, EventArgs e)
         {
-            // Cleanup code
+            // Your cleanup code here
+            Cleanup();
+        }
+
+        private void Cleanup()
+        {
             GCAPI.FreeHeapStats();
             GCAPI.FreeGCStats();
+            // Code to run when window is destroyed
         }
     }
 }
