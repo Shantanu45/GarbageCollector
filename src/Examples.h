@@ -117,8 +117,6 @@ void sample_3() {
 	obj->ptr = Value::Pointer(mm->toVirtualAddress(obj2));
 	obj->ptr2 = Value::Pointer(obj3);
 
-	//mm->writeValue(obj->ptr, Value::Number(45));
-
 	//obj->obj2->ptr
 	spdlog::info("Initial Heap state...");
 	printHeapStats(mm->allocator->heapStats);
