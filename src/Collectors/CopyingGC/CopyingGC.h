@@ -43,6 +43,7 @@ public:
         ToAllocator = allocatorTwo;
 
         totalAllocSize = ToHeap->size() + ToHeap->size();
+        stats->name = getCollectorName();
     };
 
     /**

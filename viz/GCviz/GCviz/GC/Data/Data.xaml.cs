@@ -48,7 +48,10 @@ namespace GCviz.GC
                 double[] data = GCAPIHelpers.GetManagedGCTimingData(gCStats);
                 for (int i = 0; i < data.Length; i++)
                 {
-                    TimingData.Add(new KeyValuePair<string, double>(((GCTimerID)i).ToString(), data[i]));
+                    if (data[i] > 0)
+                    {
+                        TimingData.Add(new KeyValuePair<string, double>(((GCTimerID)i).ToString() + ":", data[i]));
+                    }
                 }
             }
         }

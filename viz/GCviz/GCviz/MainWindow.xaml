@@ -9,7 +9,7 @@
         xmlns:Menu="clr-namespace:GCviz.Menu"
         mc:Ignorable="d"
         Title="GCviz" Height="450" Width="800">
-    <Grid Margin="15">
+    <Grid Margin="10">
 
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -17,14 +17,14 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto" />
                 <!-- For separator -->
-                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <Heap:Data Margin="15 0" Grid.Row="0" Grid.Column="0"/>
+            <Heap:Data Margin="10 0" Grid.Row="0" Grid.Column="0"/>
             <Border Grid.Column="1" Width="1" Background="Gray" />
-            <GC:Data Margin="15 0" Grid.Row="0" Grid.Column="2"/>
+            <GC:Data Margin="10 0" Grid.Row="0" Grid.Column="2"/>
         </Grid>
             <Heap:VizData Grid.Row="1"/>
 

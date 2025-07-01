@@ -7,14 +7,24 @@
              xmlns:controls="clr-namespace:GCviz.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Orientation="Vertical">
-        <Label Content="Heap" HorizontalAlignment="Center" FontWeight="Bold"
-               FontSize="20" Margin="0 0"/>
+    <Grid>
 
-        <Separator Margin="0 10"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Label Content="Heap" HorizontalAlignment="Center" FontWeight="Bold"
+            FontSize="20" Margin="0 0"/>
 
-        <controls:InfoCard Title="Total size(B):" Value="{Binding Total}" />
-        <controls:InfoCard Title="Free(B):" Value="{Binding FreeBytes}" />
-        <controls:InfoCard Title="Alive objects:" Value="{Binding Alive}" />
-    </StackPanel>
+            <Separator Margin="0 5"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+
+            <controls:InfoCard Title="Total size(B):" Value="{Binding Total}" />
+            <controls:InfoCard Title="Free(B):" Value="{Binding FreeBytes}" />
+            <controls:InfoCard Title="Alive objects:" Value="{Binding Alive}" />
+        </StackPanel>
+    </Grid>
+    
 </UserControl>
