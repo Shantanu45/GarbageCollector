@@ -15,7 +15,7 @@ void CopyingGC::copy()
 	std::vector<Word> worklist = _roots;
 
 	Word newLoc;
-	dstAlloc = 0 + sizeof(ObjectHeader);
+	dstAlloc = 0;
 
 	while (!worklist.empty()) {
 		Word v = worklist.back();
@@ -88,6 +88,7 @@ void CopyingGC::fixPointer(Value* ptr, Word src)
 
 void CopyingGC::swap()
 {
+	ToAllocator->setFreeTailRegion(dstAlloc);
 	FromAllocator->setFreeTailRegion(0);
 	allocator = ToAllocator;
 

@@ -127,4 +127,10 @@ private:
 		allocator = collector->allocator;
 	}
 
+	// usefull when copy collector is running.
+	void RefreshHeapReference()
+	{
+		heap = allocator->heap;
+	}
+
 };

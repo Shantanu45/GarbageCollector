@@ -99,12 +99,14 @@ inline void printHeapStats(std::shared_ptr<HeapStats> heapStats)
 
     out << "]\033[0m";  // Reset at the end
     logger->info("Heap usage: {}", out.str());
+
+	logger->info("TotalSize:{} FreeSpace:{}", heapStats->totalSize, heapStats->freeSpace);
 #endif
 }
 
 inline void dumpHeapContents(Word* heapStart, uint32_t wordsCount)
 {
-#ifdef ALLOW_SPDLOG
+
 	auto logger = spdlog::get("HEAP_DUMP");
 	logger->info("\033[33;1m--START --\033[0m");
 	//spdlog::set_pattern("%^%v%$");
@@ -129,7 +131,7 @@ inline void dumpHeapContents(Word* heapStart, uint32_t wordsCount)
 	}
 
 	logger->info("\033[33;1m-- END --\033[0m");
-#endif
+
 
 	//logger->info("bin {}", spdlog::to_hex(heapStart, wordsCount * sizeof(Word)));
 }

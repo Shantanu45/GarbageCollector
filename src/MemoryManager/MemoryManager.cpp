@@ -69,6 +69,7 @@ std::shared_ptr<GCStats> MemoryManager::collect() {
 	auto stats = collector->collect();
 	stats->durations = collector->profiler.getDurations();
 	RefreshAllocatorReference();
+	RefreshHeapReference();
 	return stats;
 }
 
