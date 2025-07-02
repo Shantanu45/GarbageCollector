@@ -25,11 +25,26 @@ endif()
 ################################################################################
 # Global configuration types
 ################################################################################
-set(CMAKE_CONFIGURATION_TYPES
-    "Debug"
-    "Release"
-    CACHE STRING "" FORCE
+
+# Only modify for multi-config generators like Visual Studio
+if(CMAKE_GENERATOR MATCHES "Visual Studio" OR CMAKE_GENERATOR MATCHES "Xcode")
+  
+  # Override the configurations Visual Studio will generate
+  set(CMAKE_CONFIGURATION_TYPES 
+  "Debug"
+  "DebugHeadless"
+  "Release"
+  "ReleaseHeadless" 
+  CACHE STRING "" FORCE)
+
+  add_compile_definitions(
+  $<$<CONFIG:Debug>:DEBUG>
+  $<$<CONFIG:DebugHeadless>:DEBUG_HEADLESS>
+  $<$<CONFIG:Release>:NDEBUG>
+  $<$<CONFIG:ReleaseHeadless>:NDEBUG_HEADLESS>
 )
+
+endif()
 
 ################################################################################
 # Global compiler options
@@ -59,6 +74,10 @@ if(MSVC)
     set(CMAKE_MODULE_LINKER_FLAGS_RELEASE "${CMAKE_MODULE_LINKER_FLAGS}")
     set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS}")
     set(CMAKE_STATIC_LINKER_FLAGS_RELEASE "${CMAKE_STATIC_LINKER_FLAGS}")
+
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$(Configuration)/lib)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$(Configuration)/bin)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$(Configuration)/obj)
 endif()
 
 ################################################################################

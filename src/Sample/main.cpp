@@ -5,5 +5,5 @@
 int main()
 {
 	setupLogger();
-	sample_2();
+	sample_3();
 } 

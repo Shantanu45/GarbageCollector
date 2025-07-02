@@ -31,6 +31,8 @@ CMakeSettings.json
 [Bb]in/
 [Dd]ebug/
 [Rr]elease/
+[Dd]ebug[Hh]eadless/
+[Rr]elease[Hh]eadless/
 *.aps
 *.ncb
 *.ilk

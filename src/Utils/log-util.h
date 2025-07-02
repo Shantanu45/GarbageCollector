@@ -1,19 +1,19 @@
 #pragma once
 
-#ifdef CPP_CONSOLE_CLIENT
+#ifdef DEBUG_HEADLESS
 #define ALLOW_SPDLOG
 #endif
 
 #include <iterator>
 #include "../Utils/number-util.h"
-#include "spdlog/spdlog.h"
-#include <spdlog/fmt/fmt.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-#include "spdlog/fmt/bin_to_hex.h"
 #include "../Stats/GCStats.h"
 #include "../Stats/HeapStats.h"
 #include "common.h"
 
+#include "spdlog/spdlog.h"
+#include <spdlog/fmt/fmt.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include "spdlog/fmt/bin_to_hex.h"
 
 inline void setupLogger()
 {
@@ -106,7 +106,7 @@ inline void printHeapStats(std::shared_ptr<HeapStats> heapStats)
 
 inline void dumpHeapContents(Word* heapStart, uint32_t wordsCount)
 {
-
+#ifdef ALLOW_SPDLOG
 	auto logger = spdlog::get("HEAP_DUMP");
 	logger->info("\033[33;1m--START --\033[0m");
 	//spdlog::set_pattern("%^%v%$");
@@ -131,7 +131,7 @@ inline void dumpHeapContents(Word* heapStart, uint32_t wordsCount)
 	}
 
 	logger->info("\033[33;1m-- END --\033[0m");
-
+#endif
 
 	//logger->info("bin {}", spdlog::to_hex(heapStart, wordsCount * sizeof(Word)));
 }

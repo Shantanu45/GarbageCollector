@@ -18,10 +18,10 @@ use_props(${SAMPLE_PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_P
 if(MSVC)
 	if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
 		target_compile_options(${SAMPLE_PROJECT_NAME} PRIVATE
-			$<$<CONFIG:Debug>:
+			$<$<OR:$<CONFIG:Debug>,$<CONFIG:DebugHeadless>>:
 				/Od
 			>
-			$<$<CONFIG:Release>:
+			$<$<OR:$<CONFIG:Release>,$<CONFIG:ReleaseHeadless>>:
 				/Oi;
 				/Gy
 			>
@@ -34,7 +34,7 @@ if(MSVC)
 	endif()
 	if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
 		target_link_options(${SAMPLE_PROJECT_NAME} PRIVATE
-			$<$<CONFIG:Release>:
+			$<$<OR:$<CONFIG:Release>,$<CONFIG:ReleaseHeadless>>:
 				/OPT:REF;
 				/OPT:ICF
 			>
@@ -56,7 +56,5 @@ set(INCLUDES
 "${PROJECT_SOURCE_DIR}/src"
 "${CMAKE_BINARY_DIR}/_deps/googletest-src/googletest/include"
 )
-
-target_compile_definitions(${SAMPLE_PROJECT_NAME} PRIVATE CPP_CONSOLE_CLIENT)
 
 target_include_directories(${SAMPLE_PROJECT_NAME} PRIVATE ${INCLUDES})

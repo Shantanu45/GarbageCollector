@@ -129,7 +129,7 @@ void sample_3() {
 	printHeapStats(mm->allocator->heapStats);
 
 	spdlog::info("Deleting obj2...");
-	gc_delete(obj3);
+	//gc_delete(obj3);
 
 	//log("MyObj Value", obj->val.decode());
 

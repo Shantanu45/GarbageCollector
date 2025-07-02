@@ -32,10 +32,10 @@ use_props(${GCAPI_PROJECT} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}"
 if(MSVC)
 	if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
 		target_compile_options(${GCAPI_PROJECT} PRIVATE
-			$<$<CONFIG:Debug>:
+			$<$<OR:$<CONFIG:Debug>,$<CONFIG:DebugHeadless>>:
 				/Od
 			>
-			$<$<CONFIG:Release>:
+			$<$<OR:$<CONFIG:Release>,$<CONFIG:ReleaseHeadless>>:
 				/Oi;
 				/Gy
 			>
@@ -48,7 +48,7 @@ if(MSVC)
 	endif()
 	if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
 		target_link_options(${GCAPI_PROJECT} PRIVATE
-			$<$<CONFIG:Release>:
+			$<$<OR:$<CONFIG:Release>,$<CONFIG:ReleaseHeadless>>:
 				/OPT:REF;
 				/OPT:ICF
 			>
