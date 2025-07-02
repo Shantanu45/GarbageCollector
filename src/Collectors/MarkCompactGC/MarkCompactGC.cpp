@@ -4,6 +4,10 @@
 #include <iostream>
 
 std::shared_ptr<GCStats> MarkCompactGC::collect() {
+	if (_roots.empty())
+	{
+		_roots.push_back(0 + sizeof(ObjectHeader));
+	}
 	_resetStats();
 	mark();
 	compact();
@@ -12,6 +16,7 @@ std::shared_ptr<GCStats> MarkCompactGC::collect() {
 
 void MarkCompactGC::mark() {
 	ScopedGCTimer t(profiler, GCTimerID::Mark);
+	//auto& roots = getRoots();
 	MarkAllAlive(getRoots(), allocator, stats);
 }
 

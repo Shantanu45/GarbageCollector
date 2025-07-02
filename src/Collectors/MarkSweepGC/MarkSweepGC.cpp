@@ -4,6 +4,10 @@
 #include <iostream>
 
 std::shared_ptr<GCStats> MarkSweepGC::collect() {
+	if (_roots.empty())
+	{
+		_roots.push_back(0 + sizeof(ObjectHeader));
+	}
 	_resetStats();
 	mark();
 	sweep();

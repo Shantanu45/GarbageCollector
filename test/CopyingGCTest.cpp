@@ -17,6 +17,8 @@ namespace GC_TEST
 		heapTwo->reset();
 		allocator->reset();
 		allocatorTwo->reset();
+		cgc.getRoots().clear();
+
 	}
 
 	TEST(CopyingGCTest, API) {
@@ -31,7 +33,7 @@ namespace GC_TEST
 		reset();
 
 		auto p1 = cgc.FromAllocator->allocate(4);
-
+		cgc.makeRoot(p1);
 		auto p2 = cgc.FromAllocator->allocate(8);
 
 		*cgc.FromAllocator->heap->asWordPointer(p1) = p2;
@@ -65,6 +67,7 @@ namespace GC_TEST
 		reset();
 
 		auto p1 = cgc.allocator->allocate(4);
+		cgc.makeRoot(p1);
 
 		auto p2 = cgc.allocator->allocate(8);
 

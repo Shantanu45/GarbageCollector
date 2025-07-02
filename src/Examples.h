@@ -47,7 +47,7 @@ struct MyObject
 
 void sample_2()
 {
-	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkSweepGC, 64>();
+	std::shared_ptr<MemoryManager> mm = MemoryManager::create<FreeListAllocator, MarkCompactGC, 64>();
 
 	GSetActiveMemoryManager(mm);
 
@@ -57,11 +57,12 @@ void sample_2()
 		return;
 	}
 
+	MyObject2* obj2 = gc_new<MyObject2>("Obj2");
+	mm->makeRoot(mm->toVirtualAddress(obj2));
 	MyObject* obj = gc_new <MyObject>("Obj1");
+	mm->makeRoot(mm->toVirtualAddress(obj));
 
 	obj->val = Value::Number(42);
-
-	MyObject2* obj2 = gc_new<MyObject2>("Obj2");
 
 	auto ptr = mm->allocate(4, "Obj3");
 
@@ -79,6 +80,7 @@ void sample_2()
 
 	spdlog::info("Deleting obj2...");
 	gc_delete(mm->toVirtualAddress(obj2));
+	gc_delete(mm->toVirtualAddress(obj));
 
 	//log("MyObj Value", obj->val.decode());
 
@@ -97,11 +99,6 @@ void sample_2()
 	mm->dump();
 
 	mm->collector->profiler.report();
-	gc_delete(ptr);
-
-	gcStats = mm->collect();
-	printGCStats(gcStats);
-	printHeapStats(mm->getHeapStats());
 
 	mm->dump();
 
@@ -112,9 +109,11 @@ void sample_3() {
 
 	GSetActiveMemoryManager(mm);
 
-	MyObject* obj = gc_new <MyObject>("Obj1");
-
 	MyObject2* obj2 = gc_new<MyObject2>("Obj2");
+	mm->makeRoot(mm->toVirtualAddress(obj2));
+	MyObject* obj = gc_new <MyObject>("Obj1");
+	mm->makeRoot(mm->toVirtualAddress(obj));
+
 	obj2->val = Value::Number(24);
 
 	auto obj3 = mm->allocate(4, "Obj3");
@@ -130,7 +129,7 @@ void sample_3() {
 	printHeapStats(mm->allocator->heapStats);
 
 	spdlog::info("Deleting obj2...");
-	gc_delete(mm->toVirtualAddress(obj2));
+	gc_delete(obj3);
 
 	//log("MyObj Value", obj->val.decode());
 

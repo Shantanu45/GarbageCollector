@@ -34,7 +34,6 @@ class ICollector {
       : allocator(allocator), stats(std::make_shared<GCStats>()) 
   {
       // TODO: impelement actual roots, use first block for now.
-      _roots.push_back(0 + sizeof(ObjectHeader));
       stats->allocatorName = allocator->GetAllocatorName();
 
   }
@@ -49,7 +48,7 @@ class ICollector {
   /**
    * Returns GC roots.
    */
-  std::vector<Word> getRoots() {  
+  std::vector<Word>& getRoots() {  
     return _roots;
   }
 
@@ -66,6 +65,10 @@ class ICollector {
   }
 
   virtual std::string getCollectorName() = 0;
+
+  void makeRoot(Word r) {
+      _roots.push_back(r);
+  }
 
   GCTimerManager profiler;
  protected:

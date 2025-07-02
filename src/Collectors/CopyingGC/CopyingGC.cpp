@@ -2,6 +2,11 @@
 #include "../../Allocators/FreeList/FreeList.h"
 
 std::shared_ptr<GCStats> CopyingGC::collect() {
+
+	if (_roots.empty())
+	{
+		_roots.push_back(0 + sizeof(ObjectHeader));
+	}
 	_resetStats();
 	copy();
 	swap();
@@ -30,6 +35,12 @@ Word CopyingGC::copyBlock(Word src)
 
 	// Get header and calculate new location in ToHeap
 	ObjectHeader* header = FromAllocator->getHeader(src);
+
+	//avoid recoping if its already been moved.
+	if (isForwardPointingToSwapHeap(src))
+	{
+		return src;
+	}
 	Word newLoc = virtualAddressRelativeToFromHeap(
 		CopyToNewHeap(src - sizeof(ObjectHeader), FromAllocator, ToAllocator)
 	);
@@ -73,7 +84,6 @@ Word CopyingGC::copyBlock(Word src)
 	}
 
 	return newLoc;
-
 }
 
 void CopyingGC::forward(Word src, Word dst)

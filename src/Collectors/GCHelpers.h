@@ -3,7 +3,7 @@
 #include "../MemoryManager/ObjectHeader.h"
 #include "../Allocators/IAllocator.h"
 
-inline void MarkAllAlive(const std::vector<Word>& roots, const std::shared_ptr<IAllocator>& allocator, const std::shared_ptr<GCStats>& stats)
+inline void MarkAllAlive(std::vector<Word>& roots, const std::shared_ptr<IAllocator>& allocator, const std::shared_ptr<GCStats>& stats)
 {
 	std::vector<Word> worklist = roots;
 
@@ -17,6 +17,13 @@ inline void MarkAllAlive(const std::vector<Word>& roots, const std::shared_ptr<I
 			stats->alive++;
 
 			for (const auto& p : allocator->getPointers(current)) {
+				// remove entry from roots if it can already be accessed from another 
+				auto val = std::find(roots.begin(), roots.end(), p->decode());
+				if (val != roots.end())
+				{
+					roots.erase(val);
+				}
+				roots.push_back(p->decode());
 				worklist.push_back(p->decode());
 			}
 		}

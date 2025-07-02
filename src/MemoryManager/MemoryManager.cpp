@@ -54,7 +54,11 @@ Value* MemoryManager::readValue(uint32_t address) {
 	return (Value*)asWordPointer(address);
 }
 
-Value MemoryManager::allocate(uint32_t n, std::string name) { return allocator->allocate(n, name); }
+Value MemoryManager::allocate(uint32_t n, std::string name) { 
+	auto mem = allocator->allocate(n, name);
+	//collector->makeRoot(mem);
+	return mem; 
+}
 
 void MemoryManager::free(Word address) { 
 	//auto header = getHeader(address);

@@ -12,6 +12,7 @@ namespace GC_TEST
 	static void reset() {
 		heap->reset();
 		allocator->reset();
+		mcgc.getRoots().clear();
 	}
 
 	TEST(MarkCompactGCTest, API) {
@@ -22,6 +23,7 @@ namespace GC_TEST
 		reset();
 
 		auto p1 = mcgc.allocator->allocate(4);
+		mcgc.makeRoot(p1);
 		auto p2 = mcgc.allocator->allocate(4);
 
 		*mcgc.allocator->heap->asWordPointer(p1) = p2;
@@ -41,7 +43,7 @@ namespace GC_TEST
 		reset();
 
 		auto p1 = mcgc.allocator->allocate(4);
-
+		mcgc.makeRoot(p1);
 		auto p2 = mcgc.allocator->allocate(4);
 
 		auto p3 = mcgc.allocator->allocate(4);
@@ -74,7 +76,7 @@ namespace GC_TEST
 		reset();
 
 		auto p1 = mcgc.allocator->allocate(4);
-
+		mcgc.makeRoot(p1);
 		auto p2 = mcgc.allocator->allocate(4);
 
 		auto p3 = mcgc.allocator->allocate(4);
@@ -123,12 +125,9 @@ namespace GC_TEST
 
 		mcgc.allocator->allocate(4);
 
-		mcgc.mark();
-		mcgc._computeLocations();
-		mcgc._updateReferences();
-		mcgc._relocate();
+		mcgc.collect();
 
-		auto headerP2 = mcgc.allocator->getHeader(p2);
+		auto headerP2 = mcgc.allocator->getHeader(p2);		// now p3 is here
 
 		EXPECT_EQ(headerP2->mark, 1);
 

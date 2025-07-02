@@ -119,6 +119,9 @@ public:
 
 	std::shared_ptr<HeapStats> getHeapStats();
 
+	void makeRoot(Word w) {
+		collector->makeRoot(w);
+	}
 private:
 
 	// usefull when copy collector is running.
