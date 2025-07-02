@@ -95,10 +95,15 @@ include(CMake/GlobalSettingsInclude.cmake OPTIONAL)
 ################################################################################
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+################################################################################
 # Enable FetchContent
+################################################################################
 include(FetchContent)
 
+################################################################################
 # Declare and fetch spdlog
+################################################################################
+
 FetchContent_Declare(
   spdlog
   GIT_REPOSITORY https://github.com/gabime/spdlog.git
@@ -107,7 +112,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(spdlog)
 
 if(MSVC)
-  set_target_properties(spdlog         PROPERTIES FOLDER "ThirdParty/spdlog")
+  set_target_properties(spdlog PROPERTIES FOLDER "ThirdParty/spdlog")
 endif()
 
 ################################################################################
@@ -118,6 +123,12 @@ add_subdirectory(src/Sample)
 add_subdirectory(test)
 add_subdirectory(api)
 
+################################################################################
+# Set startup project
+################################################################################
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "SampleGC")
 
+################################################################################
+# Enable Testing
+################################################################################
 enable_testing()
