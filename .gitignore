@@ -1,5 +1,10 @@
 /BUILD/
 /BUILD_VS/
+/viz/BUILD_VS/
+/viz/x64/
+/viz/GCviz/Backup/
+/viz/GCviz/UpgradeLog.htm
+
 # Visual Studio files
 .vs/
 *.suo
