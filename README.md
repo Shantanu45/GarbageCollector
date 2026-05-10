@@ -7,6 +7,9 @@ headers and pointer values, and runs different garbage collectors over the
 allocated graph. It also includes unit tests and a WPF visualizer that reads GC
 and heap statistics through a small C API DLL.
 
+### WPF GC vizualization screenshot
+<img width="1576" height="897" alt="image" src="https://github.com/user-attachments/assets/b4dbc02a-a8b5-4b47-b05b-6fbb426395dc" />
+
 ## Implemented Components
 
 - Virtual byte-addressed heap
