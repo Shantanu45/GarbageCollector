@@ -1,1 +1,67 @@
-Study and implementation of different garbage collection techniques.
+# GarbageCollector
+
+Study project implementing several garbage collection techniques in C++.
+
+The project models a small virtual heap, allocates objects into it, tracks object
+headers and pointer values, and runs different garbage collectors over the
+allocated graph. It also includes unit tests and a WPF visualizer that reads GC
+and heap statistics through a small C API DLL.
+
+## Implemented Components
+
+- Virtual byte-addressed heap
+- Tagged values for numbers, booleans, and heap pointers
+- Object headers with size, mark/reference metadata, and forwarding addresses
+- Free-list allocator
+- Mark-sweep collector
+- Mark-compact collector
+- Copying collector
+- GC and heap statistics
+- GoogleTest test suite
+- WPF visualization project
+
+## Build
+
+Generate and build with Visual Studio 2022:
+
+```bat
+GenerateAndBuild.bat
+```
+
+Or run CMake manually:
+
+```bat
+cmake -S . -B BUILD_VS -G "Visual Studio 17 2022" -A x64
+cmake --build BUILD_VS --config Debug
+```
+
+The Visual Studio solution is generated at:
+
+```text
+BUILD_VS\GarbageCollector.sln
+```
+
+Main build outputs are written to:
+
+```text
+x64\Debug\
+```
+
+## Tests
+
+After building, run:
+
+```bat
+ctest --test-dir BUILD_VS -C Debug --output-on-failure
+```
+
+## Sample
+
+The console sample is in:
+
+```text
+src\Sample\main.cpp
+```
+
+It currently runs one of the examples from `src\Examples.h`, allocates a small
+object graph, performs collection, and prints heap/GC statistics.
