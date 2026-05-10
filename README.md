@@ -23,6 +23,14 @@ and heap statistics through a small C API DLL.
 - GoogleTest test suite
 - WPF visualization project
 
+## Requirements
+
+- Windows
+- Visual Studio 2022 with the Desktop development with C++ workload
+- CMake
+- .NET SDK with Windows/WPF support
+- Git, for fetching CMake dependencies such as spdlog
+
 ## Build
 
 Generate and build with Visual Studio 2022:
