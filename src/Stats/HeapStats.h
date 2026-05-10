@@ -32,7 +32,11 @@ struct HeapStats
 
     void MarkUnUsed(uint32_t from)
     {
-        usedLocations.find(from)->second.deleted = true;
+        auto location = usedLocations.find(from);
+        if (location == usedLocations.end()) {
+            return;
+        }
+        location->second.deleted = true;
         usedLocations.erase(from);
     }
 

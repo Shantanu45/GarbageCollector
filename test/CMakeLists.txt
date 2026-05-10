@@ -105,6 +105,12 @@ target_link_libraries(${TEST_PROJECT_NAME} PUBLIC ${ADDITIONAL_LIBRARY_DEPENDENC
 
 target_include_directories(${TEST_PROJECT_NAME} PRIVATE ${TEST_INCLUDE})
 
+add_custom_command(TARGET ${TEST_PROJECT_NAME} POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		$<TARGET_FILE:API>
+		$<TARGET_FILE_DIR:${TEST_PROJECT_NAME}>
+)
+
 # Add test to CTest
 include(GoogleTest)
 gtest_discover_tests(${TEST_PROJECT_NAME})

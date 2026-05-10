@@ -37,14 +37,18 @@ def insert_projects(lines, sln_dir, projects):
                        if lines[i].strip().startswith("EndGlobalSection")), -1) if config_start != -1 else -1
 
     project_configs = []
+    added_count = 0
+    had_error = False
     for proj_path in projects:
         ext = os.path.splitext(proj_path)[1]
         if ext not in PROJECT_TYPE_GUIDS:
             print(f"Unsupported project type: {ext} ({proj_path})")
+            had_error = True
             continue
 
         if not os.path.exists(proj_path):
             print(f"Project not found: {proj_path}")
+            had_error = True
             continue
 
         proj_name = os.path.splitext(os.path.basename(proj_path))[0]
@@ -63,6 +67,7 @@ def insert_projects(lines, sln_dir, projects):
         )
         lines.insert(insert_index, project_block)
         insert_index += 2  # adjust for inserted lines
+        added_count += 1
 
         # Generate configuration entries
         if config_start != -1 and config_end != -1:
@@ -75,26 +80,30 @@ def insert_projects(lines, sln_dir, projects):
     if project_configs and config_start != -1 and config_end != -1:
         lines[config_end:config_end] = project_configs
 
-    return lines
+    return lines, added_count, had_error
 
 def main():
     if len(sys.argv) < 3:
         print("Usage: python add_projects_to_sln.py <solution.sln> <project1.vcxproj> [<project2.csproj> ...]")
-        return
+        return 1
 
     sln_path = sys.argv[1]
     project_paths = sys.argv[2:]
 
     if not os.path.exists(sln_path):
         print(f"Solution not found: {sln_path}")
-        return
+        return 1
 
     lines = read_solution(sln_path)
     sln_dir = os.path.dirname(sln_path)
 
-    updated_lines = insert_projects(lines, sln_dir, project_paths)
+    updated_lines, added_count, had_error = insert_projects(lines, sln_dir, project_paths)
     write_solution(sln_path, updated_lines)
-    print("Projects added to solution.")
+    if added_count:
+        print(f"Projects added to solution: {added_count}")
+    else:
+        print("No projects added to solution.")
+    return 1 if had_error else 0
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

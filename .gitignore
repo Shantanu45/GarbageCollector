@@ -1,4 +1,5 @@
-BUILD/
+/BUILD/
+/BUILD_VS/
 # Visual Studio files
 .vs/
 *.suo
